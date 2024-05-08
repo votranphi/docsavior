@@ -13,6 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "22521116_TH_Lab2_Bai5"
+rootProject.name = "UI"
 include(":app")
- 
