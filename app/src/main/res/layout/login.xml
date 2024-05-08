@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/light_blue">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvAppname"
+        android:text="Docsavior"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="3"
+        android:id="@+id/tvDescription"
+        android:text="Place to find \nsaviors for \nyour studies"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:layout_below="@+id/tvAppname"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logo"
+        android:text="Logo here"
+        android:textStyle="bold"
+        android:layout_below="@+id/tvDescription"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textSize="30dp"/>
+
+    <EditText
+        android:id="@+id/edUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/edittext"
+        android:hint="Username"
+        android:padding="15dp" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edPassword"
+        android:layout_below="@id/edUsername"
+        android:background="@drawable/edittext"
+        android:hint="Password"
+        android:layout_margin="15dp"
+        android:padding="15dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvRecoveryPassword"
+        android:text="Forgot password?"
+        android:clickable="true"
+        android:layout_below="@+id/edPassword"
+        android:textStyle="italic"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="200dp"
+        android:id="@+id/btnLogin"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/tvRecoveryPassword"
+        android:layout_centerHorizontal="true"
+        android:text="Login"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:padding="20dp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/blue"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvCreateAccount"
+        android:text="Create new account"
+        android:clickable="true"
+        android:layout_below="@+id/btnLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textStyle="italic"
+        android:layout_marginRight="15dp"/>
+</RelativeLayout>
