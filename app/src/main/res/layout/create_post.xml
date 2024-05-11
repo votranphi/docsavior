@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:backgroundTint="@color/light_blue"
+    android:background="@drawable/screenBounding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rltTitleBar">
+            <ImageButton
+                android:id="@+id/btnClose"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/blue"
+                android:scaleType="centerInside"
+                android:src="@drawable/closeIcon"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/tvCreatePost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/btnClose"
+                android:text="Create a post"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/btnPost"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/blue"
+                android:scaleType="centerInside"
+                android:src="@drawable/postIcon"
+                android:padding="10dp"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/horizontal_line"
+            android:layout_below="@+id/rltTitleBar"
+            android:background="@color/grey"
+            android:height="1dp"
+            android:layout_marginTop="20dp"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/rltworkSpace"
+            android:layout_below="@+id/horizontal_line">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/btnUser"
+                android:src="@drawable/userIcon_black"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/white"
+                android:scaleType="centerCrop"
+                android:padding="15dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvUsername"
+                android:text="Username"
+                android:layout_toRightOf="@+id/btnUser"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPostDesciption"
+                android:layout_below="@+id/tvUsername"
+                android:text="post description"
+                android:layout_toRightOf="@+id/btnUser"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:id="@+id/edPostContent"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/tvPostDesciption"
+                android:background="@drawable/edittext"
+                android:hint="Type in your post desciption"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rltworkSpace"
+            android:layout_marginTop="10dp"
+            android:id="@+id/rlt_btnPictureVideo">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/btnPictureVideo"
+                android:hint="Picture/Video"
+                android:textSize="20dp" />
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circlebtn"
+                android:scaleType="fitXY"
+                android:src="@drawable/pictureIcon"
+                android:padding="5dp"
+                android:layout_marginLeft="5dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlt_btnPictureVideo"
+            android:layout_marginTop="10dp"
+            android:id="@+id/rlt_btnFile">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/btnFile"
+                android:hint="File"
+                android:textSize="20dp" />
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circlebtn"
+                android:scaleType="fitXY"
+                android:src="@drawable/fileIcon"
+                android:padding="5dp"
+                android:layout_marginLeft="5dp"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>
