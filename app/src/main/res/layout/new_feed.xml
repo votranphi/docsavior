@@ -17,16 +17,19 @@
         android:textStyle="bold"
         android:layout_centerVertical="true"
         android:layout_marginLeft="15dp"/>
+
         <ImageButton
-        android:id="@+id/btnCreatePost"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="120dp"
-        android:layout_toRightOf="@id/tvAppname"
-        android:src="@drawable/createPostIcon"
-        android:scaleType="centerInside"
-        android:background="@drawable/circlebtn"
-        android:backgroundTint="@color/light_blue"/>
+            android:id="@+id/btnCreatePost"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="120dp"
+            android:layout_toRightOf="@id/tvAppname"
+            android:background="@drawable/circlebtn"
+            android:backgroundTint="@color/light_blue"
+            android:scaleType="centerInside"
+            android:src="@drawable/createPostIcon"
+            android:padding="10dp"/>
+
         <ImageButton
             android:id="@+id/btnLookup"
             android:layout_width="50dp"
@@ -36,17 +39,19 @@
             android:scaleType="centerCrop"
             android:layout_toRightOf="@id/btnCreatePost"
             android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/light_blue"/>
+            android:backgroundTint="@color/light_blue"
+            android:padding="10dp"/>
         <ImageButton
             android:id="@+id/btnProfile"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/btnLookup"
-            android:src="@drawable/profileIcon"
-            android:scaleType="center"
+            android:src="@drawable/userIcon_black"
+            android:scaleType="centerInside"
             android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/light_blue"/>
+            android:backgroundTint="@color/light_blue"
+            android:padding="10dp"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -81,7 +86,9 @@
             android:background="@drawable/circlebtn"
             android:src="@drawable/homeIcon"
             android:backgroundTint="@color/blue"
-            android:id="@+id/btnHome" />
+            android:id="@+id/btnHome"
+            android:scaleType="centerInside"
+            android:padding="10dp"/>
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -90,7 +97,9 @@
             android:src="@drawable/chatIcon"
             android:background="@drawable/circlebtn"
             android:layout_toLeftOf="@id/btnFriend"
-            android:backgroundTint="@color/blue"/>
+            android:backgroundTint="@color/blue"
+            android:scaleType="centerInside"
+            android:padding="10dp"/>
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -98,7 +107,9 @@
             android:src="@drawable/userIcon_white"
             android:layout_centerHorizontal="true"
             android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/blue"/>
+            android:backgroundTint="@color/blue"
+            android:scaleType="centerInside"
+            android:padding="10dp"/>
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -107,7 +118,9 @@
             android:layout_marginLeft="30dp"
             android:src="@drawable/notificationIcon"
             android:layout_toRightOf="@id/btnFriend"
-            android:backgroundTint="@color/blue"/>
+            android:backgroundTint="@color/blue"
+            android:scaleType="centerInside"
+            android:padding="10dp"/>
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -116,7 +129,16 @@
             android:layout_toRightOf="@id/btnNotification"
             android:src="@drawable/settingIcon"
             android:layout_marginLeft="30dp"
-            android:backgroundTint="@color/blue"/>
+            android:backgroundTint="@color/blue"
+            android:scaleType="centerInside"
+            android:padding="10dp"/>
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="5dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/screenBounding"
+            android:layout_below="@+id/btnFriend"
+            android:layout_marginLeft="20dp"/>
     </RelativeLayout>
 
 </RelativeLayout>
