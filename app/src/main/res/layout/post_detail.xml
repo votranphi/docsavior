@@ -28,25 +28,15 @@
                 android:src="@drawable/closeIcon"
                 android:padding="8dp"/>
             <TextView
-                android:id="@+id/tvCreatePost"
+                android:id="@+id/tvPostDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/btnClose"
-                android:text="Create a post"
+                android:text="Post detail"
                 android:textSize="20dp"
                 android:textStyle="bold" />
-            <ImageButton
-                android:id="@+id/btnPost"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/circlebtn"
-                android:backgroundTint="@color/blue"
-                android:scaleType="centerInside"
-                android:src="@drawable/postIcon"
-                android:padding="10dp"/>
         </RelativeLayout>
 
         <TextView
@@ -62,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:id="@+id/rltworkSpace"
+            android:id="@+id/rltPostInfo"
             android:layout_below="@+id/horizontal_line">
 
             <ImageButton
@@ -99,58 +89,43 @@
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/tvPostDesciption"
                 android:background="@drawable/edittext"
-                android:hint="Type in your post desciption"/>
+                android:hint="Post content"/>
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rltworkSpace"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@+id/rltPostInfo"
             android:layout_marginTop="10dp"
-            android:id="@+id/rlt_btnPictureVideo">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/btnPictureVideo"
-                android:text="Picture/Video"
-                android:textColor="@color/black"
-                android:textSize="20dp"/>
-            <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:id="@+id/imgPicture"
-                android:background="@drawable/circlebtn"
-                android:scaleType="fitXY"
-                android:src="@drawable/pictureIcon"
-                android:padding="5dp"
-                android:layout_marginLeft="5dp"/>
+            android:id="@+id/lvComment">
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </RelativeLayout>
 
+
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rlt_btnPictureVideo"
-            android:layout_marginTop="10dp"
-            android:id="@+id/rlt_btnFile">
-            <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rltComment"
+            android:layout_below="@+id/lvComment">
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/btnFile"
-                android:text="File"
-                android:textSize="20dp"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/black"/>
+                android:layout_height="match_parent"
+                android:id="@+id/edComment"
+                android:background="@drawable/screenBounding"
+                android:padding="10dp"
+                android:hint="Write a comment"/>
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
+                android:id="@+id/btnPost"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
                 android:background="@drawable/circlebtn"
-                android:scaleType="fitXY"
-                android:src="@drawable/fileIcon"
-                android:padding="5dp"
-                android:layout_marginLeft="5dp"/>
+                android:backgroundTint="@color/blue"
+                android:scaleType="centerInside"
+                android:src="@drawable/postIcon"
+                android:padding="10dp"/>
         </RelativeLayout>
 
     </RelativeLayout>
