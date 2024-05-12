@@ -124,7 +124,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/white"
-                android:src="@drawable/downloadIcon"
+                android:src="@drawable/saveIcon"
                 android:padding="10dp"
                 android:scaleType="centerInside"/>
         </RelativeLayout>
