@@ -8,27 +8,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvAppname"
-        android:text="Docsavior"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="15dp"/>
-
-        <ImageButton
-            android:id="@+id/btnCreatePost"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_toLeftOf="@id/btnLookup"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/light_blue"
-            android:scaleType="centerInside"
-            android:src="@drawable/createPostIcon"
-            android:padding="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAppname"
+            android:text="Docsavior"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"/>
         <ImageButton
             android:id="@+id/btnLookup"
             android:layout_width="50dp"
@@ -62,8 +50,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/lvPost"/>
-
-
     </RelativeLayout>
 
     <RelativeLayout
