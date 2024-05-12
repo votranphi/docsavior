@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:backgroundTint="@color/light_blue"
+    android:background="@drawable/screenBounding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rltTitleBar">
+            <ImageButton
+                android:id="@+id/btnClose"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/blue"
+                android:scaleType="centerInside"
+                android:src="@drawable/closeIcon"
+                android:padding="8dp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/edLookup"
+                android:background="@drawable/edittext"
+                android:layout_toRightOf="@+id/btnClose"
+                android:layout_marginLeft="5dp"
+                android:hint="Type to look up" />
+            <ImageButton
+                android:id="@+id/btnPost"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/blue"
+                android:scaleType="centerInside"
+                android:src="@drawable/lookupIcon_white"
+                android:padding="10dp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/rltTitleBar">
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+
+
+
+    </RelativeLayout>
+</RelativeLayout>
