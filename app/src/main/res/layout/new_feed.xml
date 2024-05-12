@@ -59,14 +59,11 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/rltTitleBar"
         android:layout_above="@+id/rltToolBar">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lvPost"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="There is nothing to show"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:textSize="20dp"/>
 
 
     </RelativeLayout>
