@@ -104,12 +104,11 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/btnFriend"
-            android:src="@drawable/userIcon_white"
+            android:src="@drawable/friendIcon"
             android:layout_centerHorizontal="true"
             android:background="@drawable/circlebtn"
             android:backgroundTint="@color/blue"
-            android:scaleType="centerInside"
-            android:padding="10dp"/>
+            android:scaleType="centerInside"/>
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"

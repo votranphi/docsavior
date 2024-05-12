@@ -90,13 +90,50 @@
                 android:layout_below="@+id/tvPostDesciption"
                 android:background="@drawable/edittext"
                 android:hint="Post content"/>
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/btnLike"
+                android:layout_below="@+id/edPostContent"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/likeIcon"
+                android:padding="10dp"
+                android:scaleType="centerInside"/>
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/btnDislike"
+                android:layout_below="@+id/edPostContent"
+                android:layout_toRightOf="@+id/btnLike"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/dislikeIcon"
+                android:padding="10dp"
+                android:scaleType="centerInside"/>
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/btnDownload"
+                android:layout_below="@+id/edPostContent"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/downloadIcon"
+                android:padding="10dp"
+                android:scaleType="centerInside"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             android:layout_below="@+id/rltPostInfo"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:id="@+id/lvComment">
             <ListView
                 android:layout_width="wrap_content"
