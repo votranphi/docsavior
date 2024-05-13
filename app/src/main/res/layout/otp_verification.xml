@@ -14,18 +14,18 @@
         android:textSize="30dp"/>
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/title"
-        android:text="OTP Vertification"
         android:layout_below="@id/logo"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="30dp"
+        android:text="OTP Verification"
         android:textSize="30dp"
-        android:textStyle="bold"
-        android:layout_marginLeft="15dp"/>
+        android:textStyle="bold" />
 
-  <TextView
+    <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/tvOtpDescription"
@@ -116,7 +116,7 @@
         android:layout_below="@+id/tvResendOTP"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Send new password"
+        android:text="Vertify"
         android:textSize="20dp"
         android:padding="20dp"
         android:textColor="@color/black"
