@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:backgroundTint="@color/light_blue"
+    android:background="@drawable/screen_bounding">
+
+    <RelativeLayout
+
+        android:background="@color/light_blue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:id="@+id/rltUsernameMessage">
+
+            <ImageButton
+                android:id="@+id/btnClose"
+                android:layout_width="48dp"
+                android:layout_height="49dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/blue"
+                android:importantForAccessibility="no"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/close_icon" />
+
+            <ImageButton
+                android:id="@+id/btnVideoCall"
+                android:layout_width="48dp"
+                android:layout_height="49dp"
+                android:layout_toStartOf="@id/btnClose"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/blue"
+                android:importantForAccessibility="no"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/save_icon" />
+
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/btnUser"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/user_icon_black"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/white"
+                android:scaleType="centerCrop"
+                android:padding="15dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvUsername"
+                android:text="Username"
+                android:layout_toEndOf="@+id/btnUser"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                tools:ignore="HardcodedText" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvLastSeen"
+                android:layout_below="@+id/tvUsername"
+                android:text="@string/last_seen_11_44am"
+                android:layout_toEndOf="@+id/btnUser"
+                android:textSize="15sp"
+                android:layout_marginStart="10dp"/>
+
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvMessage"
+            android:layout_width="match_parent"
+            android:layout_below="@id/rltUsernameMessage"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:layout_above="@id/rltMessage"
+            />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/rltMessage"
+            android:layout_alignParentBottom="true">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/edMessageBody"
+                android:background="@drawable/screen_bounding"
+                android:importantForAutofill="no"
+                android:padding="10dp"
+                android:hint="@string/write_a_message"/>
+
+            <ImageButton
+                android:id="@+id/btnSendMessage"
+                android:layout_width="48dp"
+                android:layout_height="49dp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/blue"
+                android:importantForAccessibility="no"
+                android:padding="10dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/post_icon" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

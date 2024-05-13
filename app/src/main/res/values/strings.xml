@@ -8,4 +8,8 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="phone_number">Phone number</string>
+    <string name="close" />
+    <string name="todo">TODO</string>
+    <string name="last_seen_11_44am">Last seen 11:44AM</string>
+    <string name="write_a_message">Write a message</string>
 </resources>

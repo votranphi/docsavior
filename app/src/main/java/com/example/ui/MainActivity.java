@@ -8,6 +8,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import com.example.finalproject.R;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
