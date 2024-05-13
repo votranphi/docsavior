@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    android:background="@drawable/edittext"
+    android:backgroundTint="@color/light_blue"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/profileImg"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/user_icon_black"
+        android:background="@drawable/circlebtn"
+        android:backgroundTint="@color/white"
+        android:layout_marginLeft="5dp"
+        android:scaleType="fitCenter"
+        android:padding="8dp"
+        android:clickable="false"
+        android:layout_gravity="center_vertical"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="vertical"
+        android:weightSum="2"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/notiTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notification"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/notiDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notificaton description"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+</LinearLayout>

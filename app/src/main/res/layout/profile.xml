@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:backgroundTint="@color/light_blue"
-    android:background="@drawable/screenBounding">
+    android:background="@drawable/screen_bounding">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rltUserInfo"
-        android:background="@drawable/screenBounding"
+        android:background="@drawable/screen_bounding"
         android:backgroundTint="@color/light_blue"
         android:layout_below="@+id/rltBackground">
 
@@ -120,7 +120,7 @@
             android:layout_width="30dp"
             android:layout_height="3dp"
             android:backgroundTint="@color/grey"
-            android:background="@drawable/screenBounding"
+            android:background="@drawable/screen_bounding"
             android:layout_below="@+id/btnTypeAll"
             android:layout_marginLeft="15dp"/>
     </RelativeLayout>
@@ -130,7 +130,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/imgUserAvatar"
-        android:src="@drawable/userIcon_black"
+        android:src="@drawable/user_icon_black"
         android:background="@drawable/circlebtn"
         android:backgroundTint="@color/white"
         android:scaleType="fitCenter"

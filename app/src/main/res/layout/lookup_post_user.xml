@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:backgroundTint="@color/light_blue"
-    android:background="@drawable/screenBounding">
+    android:background="@drawable/screen_bounding">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/blue"
                 android:scaleType="centerInside"
-                android:src="@drawable/closeIcon"
+                android:src="@drawable/close_icon"
                 android:padding="8dp"/>
             <EditText
                 android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/blue"
                 android:scaleType="centerInside"
-                android:src="@drawable/lookupIcon_white"
+                android:src="@drawable/lookup_icon_white"
                 android:padding="10dp"/>
         </RelativeLayout>
 

@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:backgroundTint="@color/light_blue"
-    android:background="@drawable/screenBounding">
+    android:background="@drawable/screen_bounding">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/blue"
                 android:scaleType="centerInside"
-                android:src="@drawable/closeIcon"
+                android:src="@drawable/close_icon"
                 android:padding="8dp"/>
             <TextView
                 android:id="@+id/tvCreatePost"
@@ -45,7 +45,7 @@
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/blue"
                 android:scaleType="centerInside"
-                android:src="@drawable/postIcon"
+                android:src="@drawable/post_icon"
                 android:padding="10dp"/>
         </RelativeLayout>
 
@@ -69,7 +69,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/btnUser"
-                android:src="@drawable/userIcon_black"
+                android:src="@drawable/user_icon_black"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/white"
                 android:scaleType="centerCrop"
@@ -123,7 +123,7 @@
                 android:id="@+id/imgPicture"
                 android:background="@drawable/circlebtn"
                 android:scaleType="fitXY"
-                android:src="@drawable/pictureIcon"
+                android:src="@drawable/picture_icon"
                 android:padding="5dp"
                 android:layout_marginLeft="5dp"/>
         </RelativeLayout>
@@ -148,7 +148,7 @@
                 android:layout_centerVertical="true"
                 android:background="@drawable/circlebtn"
                 android:scaleType="fitXY"
-                android:src="@drawable/fileIcon"
+                android:src="@drawable/file_icon"
                 android:padding="5dp"
                 android:layout_marginLeft="5dp"/>
         </RelativeLayout>

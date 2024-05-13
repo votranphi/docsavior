@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:backgroundTint="@color/light_blue"
-    android:background="@drawable/screenBounding">
+    android:background="@drawable/screen_bounding">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/blue"
                 android:scaleType="centerInside"
-                android:src="@drawable/closeIcon"
+                android:src="@drawable/close_icon"
                 android:padding="8dp"/>
             <TextView
                 android:id="@+id/tvPostDetail"
@@ -59,7 +59,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/btnUser"
-                android:src="@drawable/userIcon_black"
+                android:src="@drawable/user_icon_black"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/white"
                 android:scaleType="centerCrop"
@@ -98,7 +98,7 @@
                 android:layout_below="@+id/edPostContent"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/white"
-                android:src="@drawable/likeIcon"
+                android:src="@drawable/like_icon"
                 android:padding="10dp"
                 android:scaleType="centerInside"/>
             <ImageButton
@@ -111,7 +111,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/white"
-                android:src="@drawable/dislikeIcon"
+                android:src="@drawable/dislike_icon"
                 android:padding="10dp"
                 android:scaleType="centerInside"/>
             <ImageButton
@@ -124,14 +124,14 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/white"
-                android:src="@drawable/saveIcon"
+                android:src="@drawable/save_icon"
                 android:padding="10dp"
                 android:scaleType="centerInside"/>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="320dp"
             android:layout_below="@+id/rltPostInfo"
             android:layout_marginTop="5dp"
             android:id="@+id/lvComment">
@@ -143,14 +143,14 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:id="@+id/rltComment"
-            android:layout_below="@+id/lvComment">
+            android:layout_alignParentBottom="true">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/edComment"
-                android:background="@drawable/screenBounding"
+                android:background="@drawable/screen_bounding"
                 android:padding="10dp"
                 android:hint="Write a comment"/>
             <ImageButton
@@ -161,7 +161,7 @@
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/blue"
                 android:scaleType="centerInside"
-                android:src="@drawable/postIcon"
+                android:src="@drawable/post_icon"
                 android:padding="10dp"/>
         </RelativeLayout>
 
