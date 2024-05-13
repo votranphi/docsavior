@@ -102,6 +102,7 @@
                 android:id="@+id/edMessageBody"
                 android:background="@drawable/screen_bounding"
                 android:importantForAutofill="no"
+                android:inputType="text"
                 android:padding="10dp"
                 android:hint="@string/write_a_message"/>
 
