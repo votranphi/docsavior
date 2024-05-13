@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:backgroundTint="@color/light_blue"
+    android:background="@drawable/screenBounding">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:id="@+id/rltBackground"
+        android:background="@color/grey">
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/rltBackground"
+        android:background="@color/grey"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rltUserInfo"
+        android:background="@drawable/screenBounding"
+        android:backgroundTint="@color/light_blue"
+        android:layout_below="@+id/rltBackground">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvUsername"
+            android:text="Username"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvUserDescription"
+            android:text="User description"
+            android:layout_below="@+id/tvUsername"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnAddfriend"
+            android:layout_below="@+id/tvUserDescription"
+            android:layout_marginLeft="80dp"
+            android:text="Add friend"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/blue"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnMessage"
+            android:layout_below="@+id/tvUserDescription"
+            android:layout_marginRight="80dp"
+            android:layout_alignParentRight="true"
+            android:text="Message"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rltType"
+        android:layout_below="@id/rltUserInfo"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="10dp">
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:id="@+id/btnTypeAll"
+            android:text="All"
+            android:textSize="12dp"
+            android:padding="0dp"
+            android:backgroundTint="@color/light_blue"
+            android:textColor="@color/black"/>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/btnTypePicture"
+            android:layout_toRightOf="@+id/btnTypeAll"
+            android:padding="0dp"
+            android:textSize="12dp"
+            android:text="Picture"
+            android:backgroundTint="@color/light_blue"
+            android:textColor="@color/black"/>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/btnTypeVideo"
+            android:layout_toRightOf="@+id/btnTypePicture"
+            android:padding="0dp"
+            android:textSize="12dp"
+            android:text="Video"
+            android:backgroundTint="@color/light_blue"
+            android:textColor="@color/black"/>
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/btnTypeFile"
+            android:layout_toRightOf="@+id/btnTypeVideo"
+            android:textSize="12dp"
+            android:padding="0dp"
+            android:text="File"
+            android:backgroundTint="@color/light_blue"
+            android:textColor="@color/black"/>
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="3dp"
+            android:backgroundTint="@color/grey"
+            android:background="@drawable/screenBounding"
+            android:layout_below="@+id/btnTypeAll"
+            android:layout_marginLeft="15dp"/>
+    </RelativeLayout>
+
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imgUserAvatar"
+        android:src="@drawable/userIcon_black"
+        android:background="@drawable/circlebtn"
+        android:backgroundTint="@color/white"
+        android:scaleType="fitCenter"
+        android:padding="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp"/>
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="2"
+        android:id="@+id/lvPost"
+        android:layout_below="@id/rltType"/>
+
+</RelativeLayout>

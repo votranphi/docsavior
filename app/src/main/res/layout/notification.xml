@@ -112,13 +112,14 @@
             android:backgroundTint="@color/blue"
             android:scaleType="centerInside"
             android:padding="10dp"/>
+
         <TextView
             android:layout_width="30dp"
             android:layout_height="5dp"
-            android:backgroundTint="@color/white"
-            android:background="@drawable/screenBounding"
             android:layout_below="@+id/btnFriend"
-            android:layout_marginLeft="20dp"/>
+            android:layout_marginLeft="260dp"
+            android:background="@drawable/screenBounding"
+            android:backgroundTint="@color/white" />
     </RelativeLayout>
 
 </RelativeLayout>
