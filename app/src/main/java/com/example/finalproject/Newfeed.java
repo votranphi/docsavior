@@ -1,4 +1,4 @@
-package com.example.ui;
+package com.example.finalproject;
 
 public class Newfeed {
     private String username;

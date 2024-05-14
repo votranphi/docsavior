@@ -1,4 +1,4 @@
-package com.example.ui;
+package com.example.finalproject;
 
 import org.junit.Test;
 

@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.ui"
+    namespace = "com.example.finalproject"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.ui"
+        applicationId = "com.example.finalproject"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
