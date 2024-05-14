@@ -19,4 +19,7 @@
     <string name="forgot_password">Forgot password?</string>
     <string name="login">Login</string>
     <string name="place_to_find_nsaviors_for_nyour_studies">Place to find \nsaviors for \nyour studies</string>
+    <string name="nickname">Nickname</string>
+    <string name="delete_messager">Delete Messager</string>
+    <string name="block_user">Block user</string>
 </resources>

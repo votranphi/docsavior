@@ -73,7 +73,7 @@
             android:contentDescription="@string/todo"
             android:padding="15dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/micro" />
+            android:src="@drawable/microphone" />
 
         <ImageButton
             android:id="@+id/btnVolumn"
@@ -84,7 +84,7 @@
             android:contentDescription="@string/todo"
             android:padding="15dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/micro" />
+            android:src="@drawable/volumn" />
 
         <ImageButton
             android:id="@+id/btnDenyCall"
@@ -96,7 +96,7 @@
             android:contentDescription="@string/todo"
             android:padding="15dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/micro" />
+            android:src="@drawable/deny_call" />
 
     </RelativeLayout>
 </RelativeLayout>

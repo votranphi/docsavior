@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rltVideoCall"
+        android:layout_above="@+id/rltNickname"
+        android:layout_marginBottom="0dp"
+        android:background="@color/light_blue"
+        android:layout_marginTop="50dp">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/circlebtn"
+            android:backgroundTint="@color/blue"
+            android:scaleType="centerInside"
+            android:src="@drawable/close_icon"
+            android:padding="8dp"
+            android:id="@+id/btnClose"
+            android:contentDescription="@string/todo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="2dp"/>
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="200dp"
+            android:id="@+id/imgUserCalling"
+            android:layout_below="@+id/btnClose"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/user_icon_black"
+            android:background="@drawable/bg_video_call_username"
+            android:backgroundTint="@color/white"
+            android:scaleType="centerCrop"
+            android:padding="30dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvUserCalling"
+            android:text="@string/username"
+            android:layout_below="@+id/imgUserCalling"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:textSize="30sp"
+            android:layout_marginEnd="15dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rltNickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/rltDeleteMessage"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bg_message_corner"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/imgNickname"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/circlebtn"
+            android:contentDescription="@string/todo"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/nickname" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvNickname"
+            android:text="@string/nickname"
+            android:layout_toEndOf="@id/imgNickname"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="15dp"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rltDeleteMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/rltBlockUser"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bg_message_corner"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/imgDeleteMessage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/circlebtn"
+            android:contentDescription="@string/todo"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/delete_message" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDeleteMessage"
+            android:text="@string/delete_messager"
+            android:layout_toEndOf="@id/imgDeleteMessage"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="15dp"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rltBlockUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bg_message_corner"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/imgBlockUser"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/circlebtn"
+            android:contentDescription="@string/todo"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/block_user" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvBlockUser"
+            android:text="@string/block_user"
+            android:layout_toEndOf="@id/imgBlockUser"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:textSize="30sp"
+            android:textColor="@color/black"
+            android:layout_marginEnd="15dp"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
