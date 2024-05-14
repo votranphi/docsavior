@@ -12,14 +12,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.lookup_post_user);
+        setContentView(R.layout.new_feed);
 
-        ListView lv = (ListView) findViewById(R.id.lvLookupHistory);
-        ArrayList<LookupHistory> names = new ArrayList<LookupHistory>();
-         names.add(new LookupHistory("tai lieu xac chet thong ke"));
-         names.add(new LookupHistory("bi kiep tu tien"));
+        ListView lv = (ListView) findViewById(R.id.lvPost);
+        ArrayList<Newfeed> names = new ArrayList<Newfeed>();
+         names.add(new Newfeed("MinhPhuc", "Tuyen tap tu tien", "www.uit.edu.vn", 12,1,15));
+        names.add(new Newfeed("MinhPhuc", "Tuyen tap tu tien", "www.uit.edu.vn", 2,19,1231));
+        names.add(new Newfeed("MinhPhuc", "Tuyen tap tu tien", "www.uit.edu.vn", 0,500,0));
 
-         LookupHistoryAdapter adapter = new LookupHistoryAdapter(this, R.layout.lookup_post_user_item, names);
+         NewfeedAdapter adapter = new NewfeedAdapter(this, R.layout.lookup_post_user_item, names);
          lv.setAdapter(adapter);
 
 

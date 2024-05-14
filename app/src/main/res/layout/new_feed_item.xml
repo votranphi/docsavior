@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:weightSum="3"
+        android:background="@drawable/edittext"
+        android:backgroundTint="@color/light_blue"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp">
+            <ImageView
+                android:id="@+id/profileImg"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/user_icon_black"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/white"
+                android:scaleType="fitCenter"
+                android:padding="8dp"
+                android:clickable="false"
+                android:layout_gravity="center_vertical"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvPostDesciption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Post description" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_weight="2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:id="@+id/imgPostcontent"
+                android:text="document URL"
+                android:textAlignment="center"
+                />
+        </LinearLayout>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:backgroundTint="@color/grey"
+           android:background="@drawable/edittext1">
+           <ImageButton
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:layout_marginLeft="15dp"
+               android:id="@+id/btnLike"
+               android:src="@drawable/like_icon_white"
+               android:background="@drawable/circlebtn"
+               android:backgroundTint="@color/grey"
+               android:scaleType="fitCenter"
+               android:padding="5dp"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/white"
+               android:id="@+id/tvLikeNumber"/>
+           <ImageButton
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:layout_marginLeft="15dp"
+               android:id="@+id/btnDislike"
+               android:src="@drawable/dislike_icon_white"
+               android:background="@drawable/circlebtn"
+               android:backgroundTint="@color/grey"
+               android:scaleType="fitCenter"
+               android:padding="5dp"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/white"
+               android:id="@+id/tvDislikeNumber"/>
+           <ImageButton
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:layout_marginLeft="15dp"
+               android:id="@+id/btnComment"
+               android:src="@drawable/comment_icon_white"
+               android:background="@drawable/circlebtn"
+               android:backgroundTint="@color/grey"
+               android:scaleType="fitCenter"
+               android:padding="5dp"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textColor="@color/white"
+               android:id="@+id/tvCommentNumber"/>
+           <ImageButton
+               android:layout_width="40dp"
+               android:layout_height="40dp"
+               android:layout_marginLeft="170dp"
+               android:id="@+id/btnSave"
+               android:src="@drawable/save_icon_white"
+               android:background="@drawable/circlebtn"
+               android:backgroundTint="@color/grey"
+               android:scaleType="fitCenter"
+               android:padding="5dp"/>
+
+
+       </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
