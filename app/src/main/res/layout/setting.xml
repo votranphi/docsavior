@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    tools:ignore="ExtraText">
+    <RelativeLayout
+        android:id="@+id/rltTitleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAppname"
+            android:text="@string/docsavior"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            tools:ignore="RelativeOverlap" />
+
+        <ImageButton
+            android:id="@+id/btnCreatePost"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_toStartOf="@id/btnLookup"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/circlebtn"
+            android:backgroundTint="@color/light_blue"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerInside"
+            android:src="@drawable/create_post_icon"
+            android:padding="10dp"/>
+        <ImageButton
+            android:id="@+id/btnLookup"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/lookup_icon_black"
+            android:scaleType="centerCrop"
+            android:layout_toStartOf="@id/btnProfile"
+            android:background="@drawable/circlebtn"
+            android:backgroundTint="@color/light_blue"
+            android:padding="10dp"/>
+        <ImageButton
+            android:id="@+id/btnProfile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/user_icon_black"
+            android:scaleType="centerInside"
+            android:background="@drawable/circlebtn"
+            android:backgroundTint="@color/light_blue"
+            android:padding="10dp"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rltNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/rltTitleBar"
+        android:background="@drawable/bg_message_white_blue_corner"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/imgNotification"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/notification"
+            android:background="@drawable/circlebtn"
+            android:backgroundTint="@color/white"
+            android:scaleType="centerCrop"
+            android:padding="10dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tvNotification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/notification"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/imgNotification"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rltChangePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/rltNotification"
+        android:background="@drawable/bg_message_white_blue_corner"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/imgChangePassword"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/change_password"
+            android:background="@drawable/circlebtn"
+            android:backgroundTint="@color/white"
+            android:scaleType="centerCrop"
+            android:padding="10dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tvChangePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/change_password"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/imgChangePassword"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rltLogOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/rltChangePassword"
+        android:background="@drawable/bg_message_white_blue_corner"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/imgLogOut"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/log_out"
+            android:background="@drawable/circlebtn"
+            android:backgroundTint="@color/white"
+            android:scaleType="centerCrop"
+            android:padding="10dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tvLogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/log_out"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/imgLogOut"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp" />
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/rltToolBar"
+        android:padding="10dp"
+        android:background="@color/blue"
+        tools:ignore="ExtraText">
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="30dp"
+            android:layout_toStartOf="@id/btnChat"
+            android:background="@drawable/circlebtn"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/home_icon"
+            android:backgroundTint="@color/blue"
+            android:id="@+id/btnHome"
+            android:scaleType="centerInside"
+            android:padding="10dp"/>
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/btnChat"
+            android:layout_marginEnd="30dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/chat_icon"
+            android:background="@drawable/circlebtn"
+            android:layout_toStartOf="@id/btnFriend"
+            android:backgroundTint="@color/blue"
+            android:scaleType="centerInside"
+            android:padding="10dp"/>
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/btnFriend"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/friend_icon"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/circlebtn"
+            android:backgroundTint="@color/blue"
+            android:scaleType="centerInside"/>
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/btnNotification"
+            android:background="@drawable/circlebtn"
+            android:layout_marginStart="30dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/notification_icon"
+            android:layout_toEndOf="@id/btnFriend"
+            android:backgroundTint="@color/blue"
+            android:scaleType="centerInside"
+            android:padding="10dp"/>
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/circlebtn"
+            android:id="@+id/btnSetting"
+            android:layout_toEndOf="@id/btnNotification"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/setting_icon"
+            android:layout_marginStart="30dp"
+            android:backgroundTint="@color/blue"
+            android:scaleType="centerInside"
+            android:padding="10dp"/>
+        <TextView
+            android:id="@+id/white_bouding"
+            android:layout_width="30dp"
+            android:layout_height="5dp"
+            android:layout_below="@+id/btnSetting"
+            android:layout_marginStart="340dp"
+            android:background="@drawable/screen_bounding"
+            android:backgroundTint="@color/white" />
+    </RelativeLayout>
+
+</RelativeLayout>
