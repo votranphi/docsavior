@@ -120,7 +120,8 @@
         android:layout_alignParentBottom="true"
         android:id="@+id/rltToolBar"
         android:padding="10dp"
-        android:background="@color/blue">
+        android:background="@color/blue"
+        tools:ignore="ExtraText">
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"

@@ -22,4 +22,7 @@
     <string name="nickname">Nickname</string>
     <string name="delete_messager">Delete Messager</string>
     <string name="block_user">Block user</string>
+    <string name="notification">Notification</string>
+    <string name="change_password">Change Password</string>
+    <string name="log_out">Log out</string>
 </resources>
