@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import com.example.finalproject.R;
+import com.example.UI.R;
 
 public class MainActivity extends AppCompatActivity {
 
