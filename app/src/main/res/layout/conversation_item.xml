@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/light_blue"
+    android:background="@drawable/bg_message_white_blue_corner"
     android:layout_marginTop="5dp"
     android:id="@+id/rltUsernameConversation">
 
@@ -14,6 +14,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/btnFriendProfile"
+        android:layout_marginStart="3dp"
         android:contentDescription="@string/todo"
         android:src="@drawable/user_icon_black"
         android:background="@drawable/circlebtn"

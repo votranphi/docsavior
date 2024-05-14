@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white">
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rltVideoCall"
+    android:layout_above="@+id/rltVideoCallBar"
+    android:background="@color/light_blue"
+    android:layout_marginTop="50dp">
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/circlebtn"
+        android:backgroundTint="@color/blue"
+        android:scaleType="centerInside"
+        android:src="@drawable/close_icon"
+        android:padding="8dp"
+        android:id="@+id/btnClose"
+        android:contentDescription="@string/todo"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="2dp"/>
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="200dp"
+        android:id="@+id/imgUserCalling"
+        android:layout_below="@+id/btnClose"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/user_icon_black"
+        android:background="@drawable/bg_video_call_username"
+        android:backgroundTint="@color/white"
+        android:scaleType="centerCrop"
+        android:padding="30dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvUserCalling"
+        android:text="@string/username"
+        android:layout_below="@+id/imgUserCalling"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="330dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp"
+        android:layout_marginEnd="15dp"/>
+</RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rltVideoCallBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:background="@drawable/bg_message_corner"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/btnMicro"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="15dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/circlebtn"
+            android:contentDescription="@string/todo"
+            android:padding="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/micro" />
+
+        <ImageButton
+            android:id="@+id/btnVolumn"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/circlebtn"
+            android:contentDescription="@string/todo"
+            android:padding="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/micro" />
+
+        <ImageButton
+            android:id="@+id/btnDenyCall"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/circlebtn"
+            android:contentDescription="@string/todo"
+            android:padding="15dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/micro" />
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -12,7 +12,8 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="15dp"
+        tools:ignore="UselessParent">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -24,6 +25,7 @@
                 android:layout_height="50dp"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/blue"
+                android:contentDescription="@string/todo"
                 android:scaleType="centerInside"
                 android:src="@drawable/close_icon"
                 android:padding="8dp"/>
@@ -32,18 +34,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/btnClose"
-                android:text="Create a post"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/btnClose"
+                android:text="@string/create_a_post"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap" />
             <ImageButton
                 android:id="@+id/btnPost"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/blue"
+                android:contentDescription="@string/todo"
                 android:scaleType="centerInside"
                 android:src="@drawable/post_icon"
                 android:padding="10dp"/>
@@ -69,6 +73,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/btnUser"
+                android:contentDescription="@string/todo"
                 android:src="@drawable/user_icon_black"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/white"
@@ -117,11 +122,12 @@
                 android:textColor="@color/black"
                 android:textSize="20dp"/>
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_centerVertical="true"
                 android:id="@+id/imgPicture"
                 android:background="@drawable/circlebtn"
+                android:contentDescription="@string/todo"
                 android:scaleType="fitXY"
                 android:src="@drawable/picture_icon"
                 android:padding="5dp"
@@ -143,10 +149,11 @@
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/black"/>
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_centerVertical="true"
                 android:background="@drawable/circlebtn"
+                android:contentDescription="@string/todo"
                 android:scaleType="fitXY"
                 android:src="@drawable/file_icon"
                 android:padding="5dp"

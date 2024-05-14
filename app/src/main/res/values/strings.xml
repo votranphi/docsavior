@@ -14,4 +14,9 @@
     <string name="write_a_message">Write a message</string>
     <string name="this_is_a_message">This is a message</string>
     <string name="docsavior">Docsavior</string>
+    <string name="type_to_look_up">Type to look up</string>
+    <string name="create_a_post">Create a post</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="login">Login</string>
+    <string name="place_to_find_nsaviors_for_nyour_studies">Place to find \nsaviors for \nyour studies</string>
 </resources>
