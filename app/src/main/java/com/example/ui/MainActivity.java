@@ -12,16 +12,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_feed);
+        setContentView(R.layout.post_detail);
 
-        ListView lv = (ListView) findViewById(R.id.lvPost);
-        ArrayList<Newfeed> names = new ArrayList<Newfeed>();
-         names.add(new Newfeed("MinhPhuc", "Tuyen tap tu tien", "www.uit.edu.vn", 12,1,15));
-        names.add(new Newfeed("MinhPhuc", "Tuyen tap tu tien", "www.uit.edu.vn", 2,19,1231));
-        names.add(new Newfeed("MinhPhuc", "Tuyen tap tu tien", "www.uit.edu.vn", 0,500,0));
+        ListView lv = (ListView) findViewById(R.id.lvComment);
+        ArrayList<PostDetail> names = new ArrayList<PostDetail>();
+        names.add(new PostDetail("MinhPhuc", "Tai lieu hay vc", "www.uit.edu.vn"));
+        names.add(new PostDetail("MinhPhuc1", "?????", "www.uit.edu.vn"));
+        names.add(new PostDetail("MinhPhuc2", "tai lieu nhu qq", "www.uit.edu.vn"));
+        names.add(new PostDetail("MinhPhuc3", "xin ban dung dang tai lieu nua", "www.uit.edu.vn"));
+        names.add(new PostDetail("MinhPhuc4", ":')", "www.uit.edu.vn"));
+        names.add(new PostDetail("MinhPhuc5", "thoi chiu roi", "www.uit.edu.vn"));
+        names.add(new PostDetail("MinhPhuc6", "Thiet nghi ban nen giu tai lieu nay cho rieng minh ban thoi", "www.uit.edu.vn"));
+        names.add(new PostDetail("MinhPhuc7", "nice", "www.uit.edu.vn"));
+        names.add(new PostDetail("MinhPhuc8", "Hay qua ban oi", "www.uit.edu.vn"));
+        names.add(new PostDetail("MinhPhuc9", "cmj v", "www.uit.edu.vn"));
+        names.add(new PostDetail("MinhPhuc10", "wtf", "www.uit.edu.vn"));
 
-         NewfeedAdapter adapter = new NewfeedAdapter(this, R.layout.lookup_post_user_item, names);
-         lv.setAdapter(adapter);
+
+
+        PostDetailAdapter adapter = new PostDetailAdapter(this, R.layout.post_detail_item, names);
+        lv.setAdapter(adapter);
 
 
     }
