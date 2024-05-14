@@ -7,29 +7,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-
-import com.example.UI.R;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.notification);
+        setContentView(R.layout.lookup_post_user);
+
+        ListView lv = (ListView) findViewById(R.id.lvLookupHistory);
+        ArrayList<LookupHistory> names = new ArrayList<LookupHistory>();
+         names.add(new LookupHistory("tai lieu xac chet thong ke"));
+         names.add(new LookupHistory("bi kiep tu tien"));
+
+         LookupHistoryAdapter adapter = new LookupHistoryAdapter(this, R.layout.lookup_post_user_item, names);
+         lv.setAdapter(adapter);
 
 
-        ListView lvPost = (ListView) findViewById(R.id.lvPost);
-        ArrayList<Notification> names = new ArrayList<Notification>();
-
-        names.add(new Notification("xzczxc", "121212", "2323"));
-        names.add(new Notification("xzczxc", "121212", "2323"));
-        names.add(new Notification("xzczxc", "121212", "2323"));
-        names.add(new Notification("xzczxc", "121212", "2323"));
-        names.add(new Notification("xzczxc", "121212", "2323"));
-        names.add(new Notification("xzczxc", "121212", "2323"));
-        names.add(new Notification("xzczxc", "121212", "2323"));
-
-        NotificationAdapter adapter = new NotificationAdapter(this, R.layout.notification_item, names);
-        lvPost.setAdapter(adapter);
     }
 }
