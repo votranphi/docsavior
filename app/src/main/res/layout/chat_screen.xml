@@ -37,21 +37,19 @@
 
             <ImageButton
                 android:id="@+id/btnVideoCall"
-                android:layout_width="48dp"
-                android:layout_height="49dp"
+                android:layout_width="51dp"
+                android:layout_height="50dp"
                 android:layout_toStartOf="@id/btnClose"
-                android:background="@drawable/circlebtn"
-                android:backgroundTint="@color/blue"
+                android:background="@drawable/videocall"
                 android:importantForAccessibility="no"
                 android:padding="10dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/save_icon" />
+                android:scaleType="centerInside"/>
 
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/btnUser"
+                android:id="@+id/btnFriendProfile"
                 android:contentDescription="@string/todo"
                 android:src="@drawable/user_icon_black"
                 android:background="@drawable/circlebtn"
@@ -61,9 +59,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvUsername"
+                android:id="@+id/tvFriendUsername"
                 android:text="Username"
-                android:layout_toEndOf="@+id/btnUser"
+                android:layout_toEndOf="@+id/btnFriendProfile"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginStart="10dp"
@@ -72,9 +70,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvLastSeen"
-                android:layout_below="@+id/tvUsername"
+                android:layout_below="@+id/tvFriendUsername"
                 android:text="@string/last_seen_11_44am"
-                android:layout_toEndOf="@+id/btnUser"
+                android:layout_toEndOf="@+id/btnFriendProfile"
                 android:textSize="15sp"
                 android:layout_marginStart="10dp"/>
 

@@ -5,35 +5,24 @@
     android:layout_height="fill_parent"
     android:background="@color/white">
     <RelativeLayout
-        android:id="@+id/rltTitleBar"
+        android:id="@+id/rltTitleBarConversation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvAppname"
-        android:text="@string/docsavior"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="15dp"
-        tools:ignore="RelativeOverlap" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAppname"
+            android:text="@string/docsavior"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            tools:ignore="RelativeOverlap" />
+
 
         <ImageButton
-            android:id="@+id/btnCreatePost"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_toStartOf="@id/btnLookup"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/light_blue"
-            android:contentDescription="@string/todo"
-            android:scaleType="centerInside"
-            android:src="@drawable/create_post_icon"
-            android:padding="10dp"/>
-        <ImageButton
-            android:id="@+id/btnLookup"
+            android:id="@+id/btnLookupConversation"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginEnd="10dp"
@@ -61,12 +50,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rltTitleBar"
+        android:layout_below="@+id/rltTitleBarConversation"
         android:layout_above="@+id/rltToolBar">
-        <ListView
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvConversationList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/lvPost"/>
+            android:layout_marginTop="0dp" />
 
 
     </RelativeLayout>
@@ -141,8 +132,8 @@
             android:layout_height="5dp"
             android:backgroundTint="@color/white"
             android:background="@drawable/screen_bounding"
-            android:layout_below="@+id/btnFriend"
-            android:layout_marginStart="20dp"/>
+            android:layout_below="@+id/btnChat"
+            android:layout_marginStart="100dp"/>
     </RelativeLayout>
 
 </RelativeLayout>
