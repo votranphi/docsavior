@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,7 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void postSignUpInfo(String username, String email, String phoneNumber, String password) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.117.86:8080/")
+                .baseUrl("http://192.168.3.131:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -62,11 +64,15 @@ public class SignUpActivity extends AppCompatActivity {
             public void onResponse(Call<Detail> call, Response<Detail> response) {
                 if (response.isSuccessful()) {
                     Intent myIntent = new Intent(SignUpActivity.this, MainActivity.class);
-                    Toast.makeText(SignUpActivity.this, "Sign up successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
                     SignUpActivity.this.startActivity(myIntent);
                 } else {
-                    // the code line below will bug if response.body().getDetail() is called
-                    Toast.makeText(SignUpActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        Toast.makeText(SignUpActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
+                    } catch (Exception ex) {
+
+                    }
                 }
             }
 

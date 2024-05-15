@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -73,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void postLoginInfo(String username, String password) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.117.86:8080/")
+                .baseUrl("http://192.168.3.131:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -86,11 +92,15 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Detail> call, Response<Detail> response) {
                 if (response.isSuccessful()) {
                     Intent myIntent = new Intent(MainActivity.this, NewFeedActivity.class);
-                    Toast.makeText(MainActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
                     MainActivity.this.startActivity(myIntent);
                 } else {
-                    // the code line below will bug if response.body().getDetail() is called
-                    Toast.makeText(MainActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        Toast.makeText(MainActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
+                    } catch (Exception ex) {
+
+                    }
                 }
             }
 
