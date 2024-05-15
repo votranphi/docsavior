@@ -1,16 +1,17 @@
 package com.example.finalproject;
 
 public class Newfeed {
+    private int id;
     private String username;
     private String postDescription;
     private String postContent;
     private int likeNumber;
-
     private int dislikeNumber;
     private int commentNumber;
 
-    public Newfeed(String username, String postDescription, String postContent, int likeNumber, int dislikeNumber, int commentNumber)
+    public Newfeed(int id, String username, String postDescription, String postContent, int likeNumber, int dislikeNumber, int commentNumber)
     {
+        this.id = id;
         this.username = username;
         this.postDescription = postDescription;
         this.postContent = postContent;
@@ -25,10 +26,14 @@ public class Newfeed {
     }
 
     //get and set
+    public int getId() {
+        return id;
+    }
 
     public String getUsername() {
         return username;
     }
+
     public String getPostDescription()
     {
         return postDescription;
