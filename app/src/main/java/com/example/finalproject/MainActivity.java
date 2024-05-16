@@ -1,10 +1,14 @@
 package com.example.finalproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +21,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,6 +33,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     EditText edUsername;
     EditText edPassword;
+
+/*    private EditText edMessageBody;
+    private Button btnSend;
+
+    private RecyclerView rcvMessage;
+
+    private MyMessageAdapter myMessageAdapter;
+    private List<MyMessage> mListMessage;*/
+
+
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,5 +126,43 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
     }
+
+    /*
+     This is main activity for Chat Screen
+
+     edMessageBody = findViewById(R.id.edMessageBody);
+        btnSend = findViewById(R.id.btnSendMessage);
+        rcvMessage = findViewById(R.id.rcvMessage);
+
+        mListMessage = new ArrayList<>();
+        myMessageAdapter = new MyMessageAdapter();
+        myMessageAdapter.setData(mListMessage);
+
+        rcvMessage.setAdapter(myMessageAdapter);
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMessage();
+            }
+        });
+
+
+
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void sendMessage() {
+        String strMessage = edMessageBody.getText().toString().trim();
+        if (TextUtils.isEmpty(strMessage)) {
+            return;
+        }
+
+        mListMessage.add(new MyMessage(strMessage));
+        myMessageAdapter.notifyDataSetChanged();
+        rcvMessage.scrollToPosition(mListMessage.size()-1);
+        edMessageBody.setText("");
+
+    }*/
 }
