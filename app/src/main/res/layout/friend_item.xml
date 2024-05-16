@@ -31,7 +31,7 @@
             android:layout_marginLeft="10dp">
 
             <TextView
-                android:id="@+id/notiTitle"
+                android:id="@+id/tvUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Username"
@@ -44,16 +44,16 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:id="@+id/lnBtn"
-            android:orientation="horizontal">
+            android:layout_centerVertical="true">
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/btnAccept"
                 android:backgroundTint="@color/blue"
                 android:background="@drawable/circlebtn"
@@ -62,8 +62,8 @@
                 android:padding="15dp"
                 android:layout_marginRight="10dp"/>
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:id="@+id/btnDecline"
                 android:backgroundTint="@color/blue"
                 android:background="@drawable/circlebtn"
