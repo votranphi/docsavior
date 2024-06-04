@@ -28,4 +28,17 @@
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
+    <string name="user_information">User infomation</string>
+    <string name="account_name">Account name</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="finish">Finish</string>
+    <string name="account_name_note">Fill in some information for us to know who you are</string>
+    <string name="sign_up_note">* This name will show on your profile</string>
+
+
+
+
 </resources>
