@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.docsavior;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

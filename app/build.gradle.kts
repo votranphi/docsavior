@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.finalproject"
+    namespace = "com.example.docsavior"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.finalproject"
+        applicationId = "com.example.docsavior"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

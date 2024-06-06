@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.docsavior;
 
 public class MyMessage {
     private String message;

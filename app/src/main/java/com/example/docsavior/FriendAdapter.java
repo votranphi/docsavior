@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.docsavior;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class NotificationAdapter extends ArrayAdapter<Notification> {
+public class FriendAdapter extends ArrayAdapter<Friend> {
     private final Activity context;
-    public NotificationAdapter(Activity context, int layoutID, List<Notification> objects) {
+    public FriendAdapter(Activity context, int layoutID, List<Friend> objects) {
         super(context, layoutID, objects);
         this.context = context;
     }
@@ -20,19 +20,16 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.notification_item, null, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.friend_item, null, false);
         }
         // Get item
-        Notification noti = getItem(position);
+        Friend fr = getItem(position);
         // Get view
         ImageView profileImg = (ImageView) convertView.findViewById(R.id.profileImg);
-        TextView notiTitle = (TextView) convertView.findViewById(R.id.notiTitle);
-        TextView notiDes = (TextView) convertView.findViewById(R.id.notiDes);
+        TextView username = (TextView) convertView.findViewById(R.id.tvUsername);
 
         // image
-        notiTitle.setText(noti.getNotiTitle());
-        notiDes.setText(noti.getNotiDes());
-
+        username.setText(fr.getUsername());
         return convertView;
     }
 }

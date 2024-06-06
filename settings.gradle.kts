@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "FinalProject"
+rootProject.name = "Docsavior"
 include(":app")

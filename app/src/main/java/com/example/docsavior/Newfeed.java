@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.docsavior;
 
 public class Newfeed {
     private int id;

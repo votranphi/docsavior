@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.docsavior;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;

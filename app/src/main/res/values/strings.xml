@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FinalProject</string>
+    <string name="app_name">Docsavior</string>
     <string name="send_new_password">Send new password</string>
     <string name="sign_up">Sign up</string>
     <string name="create_new_account">Create new account</string>

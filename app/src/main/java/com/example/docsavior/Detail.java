@@ -1,4 +1,4 @@
-package com.example.finalproject;
+package com.example.docsavior;
 
 public class Detail {
     private String detail;
