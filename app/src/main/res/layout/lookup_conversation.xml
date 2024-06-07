@@ -102,8 +102,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rltLookupConversation"
-        android:layout_above="@+id/rltToolBar">
+        android:layout_below="@+id/rltLookupConversation">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvLookupConversation"
@@ -114,80 +113,6 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/rltToolBar"
-        android:padding="10dp"
-        android:background="@color/blue"
-        tools:ignore="ExtraText">
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="30dp"
-            android:layout_toStartOf="@id/btnChat"
-            android:background="@drawable/circlebtn"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/home_icon"
-            android:backgroundTint="@color/blue"
-            android:id="@+id/btnHome"
-            android:scaleType="centerInside"
-            android:padding="10dp"/>
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/btnChat"
-            android:layout_marginEnd="30dp"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/chat_icon"
-            android:background="@drawable/circlebtn"
-            android:layout_toStartOf="@id/btnFriend"
-            android:backgroundTint="@color/blue"
-            android:scaleType="centerInside"
-            android:padding="10dp"/>
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/btnFriend"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/friend_icon"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/blue"
-            android:scaleType="centerInside"/>
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/btnNotification"
-            android:background="@drawable/circlebtn"
-            android:layout_marginStart="30dp"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/notification_icon"
-            android:layout_toEndOf="@id/btnFriend"
-            android:backgroundTint="@color/blue"
-            android:scaleType="centerInside"
-            android:padding="10dp"/>
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/circlebtn"
-            android:id="@+id/btnSetting"
-            android:layout_toEndOf="@id/btnNotification"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/setting_icon"
-            android:layout_marginStart="30dp"
-            android:backgroundTint="@color/blue"
-            android:scaleType="centerInside"
-            android:padding="10dp"/>
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="5dp"
-            android:background="@drawable/screen_bounding"
-            android:backgroundTint="@color/white"
-            android:layout_marginEnd="40dp"
-            android:layout_below="@id/btnChat"
-            android:layout_toStartOf="@id/btnFriend"/>/>
-    </RelativeLayout>
+
 
 </RelativeLayout>
