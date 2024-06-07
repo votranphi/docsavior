@@ -14,19 +14,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvAppname"
-            android:text="Docsavior"
-            android:textSize="20dp"
+            android:text="@string/docsavior"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginStart="15dp"/>
         <ImageButton
             android:id="@+id/btnLookup"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:importantForAccessibility="no"
             android:src="@drawable/lookup_icon_black"
             android:scaleType="centerCrop"
-            android:layout_toLeftOf="@id/btnProfile"
+            android:layout_toStartOf="@id/btnProfile"
             android:background="@drawable/circlebtn"
             android:backgroundTint="@color/light_blue"
             android:padding="10dp"/>
@@ -34,8 +35,9 @@
             android:id="@+id/btnProfile"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:importantForAccessibility="no"
             android:src="@drawable/user_icon_black"
             android:scaleType="centerInside"
             android:background="@drawable/circlebtn"
@@ -46,86 +48,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/rltTitleBar"
-        android:layout_above="@+id/rltToolBar">
+        android:layout_below="@+id/rltTitleBar">
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/lvPost" />
     </RelativeLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/rltToolBar"
-        android:padding="10dp"
-        android:background="@color/blue">
-        <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/circlebtn"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/home_icon"
-            android:backgroundTint="@color/blue"
-            android:id="@+id/btnHome"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginStart="10dp"
-            android:scaleType="centerInside"
-            android:padding="10dp"
-            tools:ignore="MissingConstraints" />
-        <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:id="@+id/btnChat"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/chat_icon"
-            android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/blue"
-            app:layout_constraintLeft_toLeftOf="@+id/btnHome"
-            app:layout_constraintRight_toRightOf="@+id/btnFriend"
-            android:scaleType="centerInside"
-            android:padding="10dp"
-            tools:ignore="MissingConstraints" />
-        <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:id="@+id/btnFriend"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/friend_icon"
-            android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/blue"
-            android:scaleType="centerInside"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            tools:ignore="MissingConstraints" />
-        <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:id="@+id/btnNotification"
-            android:background="@drawable/circlebtn"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/notification_icon"
-            android:backgroundTint="@color/blue"
-            app:layout_constraintRight_toRightOf="@+id/btnSetting"
-            app:layout_constraintLeft_toLeftOf="@+id/btnFriend"
-            android:scaleType="centerInside"
-            android:padding="10dp"
-            tools:ignore="MissingConstraints" />
-        <ImageButton
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@drawable/circlebtn"
-            android:id="@+id/btnSetting"
-            android:layout_toEndOf="@id/btnNotification"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/setting_icon"
-            android:backgroundTint="@color/blue"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="10dp"
-            android:scaleType="centerInside"
-            android:padding="10dp"
-            tools:ignore="MissingConstraints" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>

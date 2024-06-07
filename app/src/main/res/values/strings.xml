@@ -37,8 +37,11 @@
     <string name="finish">Finish</string>
     <string name="account_name_note">Fill in some information for us to know who you are</string>
     <string name="sign_up_note">* This name will show on your profile</string>
-
-
+    <string name="home">Home</string>
+    <string name="chat">Chat</string>
+    <string name="friend">Friend</string>
+    <string name="conversation">Conversation</string>
+    <string name="setting">Setting</string>
 
 
 </resources>
