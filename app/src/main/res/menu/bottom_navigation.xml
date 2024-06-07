@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/btnHome"
+        android:icon="@drawable/home_icon"
+        android:title="@string/home"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/btnChat"
+        android:icon="@drawable/chat_icon"
+        android:title="@string/chat"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/btnFriend"
+        android:icon="@drawable/friend_icon"
+        android:title="@string/friend"
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/btnNotification"
+        android:icon="@drawable/notification_icon"
+        android:title="@string/conversation"
+        android:enabled="true"/>
+    <item
+        android:id="@+id/btnSetting"
+        android:icon="@drawable/setting_icon"
+        android:title="@string/setting"
+        android:enabled="true" />
+</menu>
