@@ -142,7 +142,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="2"
-        android:id="@+id/lvPost"
+        android:id="@+id/gvPosts"
         android:layout_below="@id/rltType"/>
 
 </RelativeLayout>
