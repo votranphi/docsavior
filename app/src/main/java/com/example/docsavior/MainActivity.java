@@ -3,19 +3,23 @@ package com.example.docsavior;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -38,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     @SuppressLint("WrongViewCast")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-
 
 
 
@@ -127,39 +131,67 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     This is main activity for Chat Screen
+//     This is main activity for Chat Screen
+//
+//     edMessageBody = findViewById(R.id.edMessageBody);
+//        btnSend = findViewById(R.id.btnSendMessage);
+//        rcvMessage = findViewById(R.id.rcvMessage);
+//
+//        mListMessage = new ArrayList<>();
+//        myMessageAdapter = new MyMessageAdapter();
+//        myMessageAdapter.setData(mListMessage);
+//
+//        rcvMessage.setAdapter(myMessageAdapter);
+//        btnSend.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                sendMessage();
+//            }
+//        });
+//
+//
+//
+//    }
+//
+//    @SuppressLint("NotifyDataSetChanged")
+//    private void sendMessage() {
+//        String strMessage = edMessageBody.getText().toString().trim();
+//        if (TextUtils.isEmpty(strMessage)) {
+//            return;
+//        }
+//
+//        mListMessage.add(new MyMessage(strMessage));
+//        myMessageAdapter.notifyDataSetChanged();
+//        rcvMessage.scrollToPosition(mListMessage.size()-1);
+//        edMessageBody.setText("");
+//
+//    }*/
 
-     edMessageBody = findViewById(R.id.edMessageBody);
-        btnSend = findViewById(R.id.btnSendMessage);
-        rcvMessage = findViewById(R.id.rcvMessage);
 
-        mListMessage = new ArrayList<>();
-        myMessageAdapter = new MyMessageAdapter();
-        myMessageAdapter.setData(mListMessage);
+        //This is for the datePicker
+//        edDateOfBirth = findViewById(R.id.edDateOfBirth);
+//        edDateOfBirth.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openDatePickerDialog();
+//            }
+//        });
 
-        rcvMessage.setAdapter(myMessageAdapter);
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendMessage();
-            }
-        });
-
-
-
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private void sendMessage() {
-        String strMessage = edMessageBody.getText().toString().trim();
-        if (TextUtils.isEmpty(strMessage)) {
-            return;
-        }
-
-        mListMessage.add(new MyMessage(strMessage));
-        myMessageAdapter.notifyDataSetChanged();
-        rcvMessage.scrollToPosition(mListMessage.size()-1);
-        edMessageBody.setText("");
-
-    }*/
+//    }
+//    private void openDatePickerDialog()
+//    {
+//
+//        Calendar calendar = Calendar.getInstance();
+//        int year = calendar.get(Calendar.YEAR);
+//        int month = calendar.get(Calendar.MONTH);
+//        int day = calendar.get(Calendar.DAY_OF_MONTH);
+//
+//        DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                edDateOfBirth.setText(String.valueOf(dayOfMonth)+ " - " + String.valueOf(month+1) + " - " + String.valueOf(year) );
+//            }
+//        }, year, month, day);
+//        dialog.show();
+//    }
 }

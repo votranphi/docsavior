@@ -70,26 +70,16 @@
         android:textSize="20sp"
         android:layout_below="@id/tvAccountNameNote"
         android:layout_marginLeft="20dp"/>
-    <Spinner
-        android:id="@+id/spDay"
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvDateOfBirth"
-        android:layout_marginLeft="15dp" />
-    <Spinner
-        android:id="@+id/spMonth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvDateOfBirth"
-        android:layout_toRightOf="@+id/spDay"
-        android:layout_marginLeft="15dp" />
-    <Spinner
-        android:id="@+id/spyear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/spMonth"
-        android:layout_below="@id/tvDateOfBirth"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/tvDateOfBirth"
+        android:id="@+id/edDateOfBirth"
+        android:background="@drawable/edittext"
+        android:padding="15dp"
+        android:layout_centerHorizontal="true"
+        android:hint="@string/choose_your_date_of_birth"/>
 
 
     <TextView
@@ -97,7 +87,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvGender"
         android:text="@string/gender"
-        android:layout_below="@+id/spDay"
+        android:layout_below="@+id/edDateOfBirth"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:textSize="20sp"/>
