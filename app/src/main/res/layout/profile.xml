@@ -45,25 +45,29 @@
             android:layout_below="@+id/tvUsername"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="10dp"/>
-        <Button
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnAddfriend"
             android:layout_below="@+id/tvUserDescription"
-            android:layout_marginLeft="80dp"
-            android:text="Add friend"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/blue"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnMessage"
-            android:layout_below="@+id/tvUserDescription"
-            android:layout_marginRight="80dp"
-            android:layout_alignParentRight="true"
-            android:text="Message"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/white"/>
+            android:layout_centerHorizontal="true">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnAddfriend"
+                android:text="Add friend"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/blue"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnMessage"
+                android:text="Message"
+                android:layout_toRightOf="@id/btnAddfriend"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/white"/>
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -138,7 +142,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"/>
 
-    <GridView
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="2"
