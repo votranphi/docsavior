@@ -46,89 +46,88 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.new_feed);
 
 
-
-        // get components
-        edUsername = findViewById(R.id.edUsername);
-        edPassword = findViewById(R.id.edPassword);
-
-        // start new activity if user press tvRecoveryPassword
-        TextView tvRecoveryPassword = findViewById(R.id.tvRecoveryPassword);
-        tvRecoveryPassword.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent myIntent = new Intent(MainActivity.this, RecoveryPasswordActivity.class);
-                        MainActivity.this.startActivity(myIntent);
-                    }
-                }
-        );
-
-        // start new activity if user press tvCreateAccount
-        TextView tvCreateAccount = findViewById(R.id.tvCreateAccount);
-        tvCreateAccount.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent myIntent = new Intent(MainActivity.this, SignUpActivity.class);
-                        MainActivity.this.startActivity(myIntent);
-                    }
-                }
-        );
-
-        // things to do if user pressed login button
-        Button btnLogin = findViewById(R.id.btnLogin);
-        btnLogin.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (edUsername.getText().toString().isEmpty() || edPassword.getText().toString().isEmpty()) {
-                            Toast.makeText(MainActivity.this, "Please enter username and password!", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        postLoginInfo(edUsername.getText().toString(), edPassword.getText().toString());
-                    }
-                }
-        );
-    }
-
-    private void postLoginInfo(String username, String password) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.3.131:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiService retrofitAPI = retrofit.create(ApiService.class);
-
-        Call<Detail> call = retrofitAPI.postLoginInfo(username, password);
-
-        call.enqueue(new Callback<Detail>() {
-            @Override
-            public void onResponse(Call<Detail> call, Response<Detail> response) {
-                if (response.isSuccessful()) {
-                    Intent myIntent = new Intent(MainActivity.this, NewFeedActivity.class);
-                    Toast.makeText(MainActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
-                    MainActivity.this.startActivity(myIntent);
-                } else {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        Toast.makeText(MainActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
-                    } catch (Exception ex) {
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Detail> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
+//        // get components
+//        edUsername = findViewById(R.id.edUsername);
+//        edPassword = findViewById(R.id.edPassword);
+//
+//        // start new activity if user press tvRecoveryPassword
+//        TextView tvRecoveryPassword = findViewById(R.id.tvRecoveryPassword);
+//        tvRecoveryPassword.setOnClickListener(
+//                new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent myIntent = new Intent(MainActivity.this, RecoveryPasswordActivity.class);
+//                        MainActivity.this.startActivity(myIntent);
+//                    }
+//                }
+//        );
+//
+//        // start new activity if user press tvCreateAccount
+//        TextView tvCreateAccount = findViewById(R.id.tvCreateAccount);
+//        tvCreateAccount.setOnClickListener(
+//                new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent myIntent = new Intent(MainActivity.this, SignUpActivity.class);
+//                        MainActivity.this.startActivity(myIntent);
+//                    }
+//                }
+//        );
+//
+//        // things to do if user pressed login button
+//        Button btnLogin = findViewById(R.id.btnLogin);
+//        btnLogin.setOnClickListener(
+//                new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if (edUsername.getText().toString().isEmpty() || edPassword.getText().toString().isEmpty()) {
+//                            Toast.makeText(MainActivity.this, "Please enter username and password!", Toast.LENGTH_SHORT).show();
+//                            return;
+//                        }
+//
+//                        postLoginInfo(edUsername.getText().toString(), edPassword.getText().toString());
+//                    }
+//                }
+//        );
+//    }
+//
+//    private void postLoginInfo(String username, String password) {
+//        Retrofit retrofit = new Retrofit.Builder()
+//                .baseUrl("http://192.168.3.131:8080/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build();
+//
+//        ApiService retrofitAPI = retrofit.create(ApiService.class);
+//
+//        Call<Detail> call = retrofitAPI.postLoginInfo(username, password);
+//
+//        call.enqueue(new Callback<Detail>() {
+//            @Override
+//            public void onResponse(Call<Detail> call, Response<Detail> response) {
+//                if (response.isSuccessful()) {
+//                    Intent myIntent = new Intent(MainActivity.this, NewFeedActivity.class);
+//                    Toast.makeText(MainActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
+//                    MainActivity.this.startActivity(myIntent);
+//                } else {
+//                    try {
+//                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+//                        Toast.makeText(MainActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
+//                    } catch (Exception ex) {
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Detail> call, Throwable t) {
+//                Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//    }
 
     /*
 //     This is main activity for Chat Screen
@@ -194,4 +193,5 @@ public class MainActivity extends AppCompatActivity {
 //        }, year, month, day);
 //        dialog.show();
 //    }
+    }
 }

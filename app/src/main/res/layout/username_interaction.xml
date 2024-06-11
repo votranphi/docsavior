@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white">
 
 
@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rltVideoCall"
-        android:layout_above="@id/rltNotification"
         android:layout_marginBottom="0dp"
-        android:background="@color/light_blue"
-        android:layout_marginTop="50dp">
+        android:background="@drawable/screen_bounding"
+        android:backgroundTint="@color/light_blue"
+        android:layout_marginTop="30dp">
 
         <ImageButton
             android:layout_width="50dp"
@@ -25,7 +25,8 @@
             android:id="@+id/btnClose"
             android:contentDescription="@string/todo"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="2dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"/>
         <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
@@ -39,8 +40,7 @@
             android:background="@drawable/bg_video_call_username"
             android:backgroundTint="@color/white"
             android:scaleType="centerCrop"
-            android:padding="30dp"
-            />
+            android:padding="30dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,100 +50,81 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:textSize="30sp"
+            android:textStyle="bold"
             android:layout_marginEnd="15dp"/>
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/rltDeleteMessage"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/bg_message_corner"
-        android:id="@+id/rltNotification"
-        android:padding="10dp"
-        >
-
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imgNickname"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/nickname"
-            android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/white"
-            android:scaleType="centerCrop"
-            android:padding="10dp"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:id="@+id/tvNotification"
-            android:text="@string/username"
-            android:layout_toEndOf="@+id/imgNickname"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginStart="10dp"
-            />
-
-
-
-    </RelativeLayout>
-
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/rltBlockUser"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/bg_message_corner"
-        android:id="@+id/rltDeleteMessage"
-        android:padding="10dp"
-        >
-
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imgDeleteMessage"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/delete_message"
-            android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/white"
-            android:scaleType="centerCrop"
-            android:padding="10dp"/>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:id="@+id/tvDeleteMessage"
-            android:text="@string/delete_messager"
-            android:layout_toEndOf="@+id/imgDeleteMessage"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_marginStart="10dp"
-            />
-    </RelativeLayout>
-
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
+            android:layout_below="@id/tvUserCalling"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_message_corner"
+            android:id="@+id/rltNotification"
+            android:padding="10dp">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imgNickname"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/nickname"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/white"
+                android:scaleType="centerCrop"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvNotification"
+                android:text="@string/nickname"
+                android:layout_toEndOf="@+id/imgNickname"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rltNotification"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_message_corner"
+            android:id="@+id/rltDeleteMessage"
+            android:padding="10dp">
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imgDeleteMessage"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/delete_message"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/white"
+                android:scaleType="centerCrop"
+                android:padding="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tvDeleteMessage"
+                android:text="@string/delete_message"
+                android:layout_toEndOf="@+id/imgDeleteMessage"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rltDeleteMessage"
+            android:layout_marginTop="10dp"
             android:background="@drawable/bg_message_corner"
             android:id="@+id/rltBlockUser"
-            android:padding="10dp"
-            >
-
-
+            android:padding="10dp">
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -154,8 +135,6 @@
                 android:backgroundTint="@color/white"
                 android:scaleType="centerCrop"
                 android:padding="10dp"/>
-
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -165,13 +144,22 @@
                 android:layout_toEndOf="@+id/imgBlockUser"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_marginStart="10dp"
-                />
-
-
-
-
+                android:layout_marginStart="10dp" />
         </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
 
 
 

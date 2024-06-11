@@ -36,6 +36,7 @@
       android:lines="2"
       android:textAlignment="center"/>
 
+
     <RelativeLayout
         android:id="@+id/rltOtp"
         android:layout_width="match_parent"

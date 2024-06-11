@@ -82,6 +82,7 @@
             android:id="@+id/edLookup"
             android:background="@drawable/edittext"
             android:layout_toEndOf="@+id/btnClose"
+            android:backgroundTint="@color/light_blue"
             android:layout_marginStart="5dp"
             android:hint="@string/type_to_look_up"
             android:importantForAutofill="no"
