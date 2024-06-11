@@ -5,63 +5,9 @@
     android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
-    <RelativeLayout
-        android:id="@+id/rltTitleBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvAppname"
-            android:text="@string/docsavior"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="15dp"
-            tools:ignore="RelativeOverlap" />
-
-        <ImageButton
-            android:id="@+id/btnCreatePost"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_toStartOf="@id/btnLookup"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/light_blue"
-            android:contentDescription="@string/todo"
-            android:scaleType="centerInside"
-            android:src="@drawable/create_post_icon"
-            android:padding="10dp"/>
-        <ImageButton
-            android:id="@+id/btnLookup"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/lookup_icon_black"
-            android:scaleType="centerCrop"
-            android:layout_toStartOf="@id/btnProfile"
-            android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/light_blue"
-            android:padding="10dp"/>
-        <ImageButton
-            android:id="@+id/btnProfile"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/user_icon_black"
-            android:scaleType="centerInside"
-            android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/light_blue"
-            android:padding="10dp"/>
-    </RelativeLayout>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
-        android:layout_below="@id/rltTitleBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomNavigation"/>
