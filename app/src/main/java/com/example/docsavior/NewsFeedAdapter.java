@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class NewfeedAdapter extends ArrayAdapter<Newfeed> {
+public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
     private final Activity context;
-    public NewfeedAdapter(Activity context, int layoutID, List<Newfeed> objects) {
+    public NewsFeedAdapter(Activity context, int layoutID, List<NewsFeed> objects) {
         super(context, layoutID, objects);
         this.context = context;
     }
@@ -23,7 +23,7 @@ public class NewfeedAdapter extends ArrayAdapter<Newfeed> {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_newsfeed, null, false);
         }
         // Get item
-        Newfeed nf = getItem(position);
+        NewsFeed nf = getItem(position);
         // Get view
         TextView username = (TextView) convertView.findViewById(R.id.tvUsername);
         TextView postDescription = (TextView) convertView.findViewById(R.id.tvPostDesciption);

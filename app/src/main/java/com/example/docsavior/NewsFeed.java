@@ -1,6 +1,6 @@
 package com.example.docsavior;
 
-public class Newfeed {
+public class NewsFeed {
     private int id;
     private String username;
     private String postDescription;
@@ -9,7 +9,7 @@ public class Newfeed {
     private int dislikeNumber;
     private int commentNumber;
 
-    public Newfeed(int id, String username, String postDescription, String postContent, int likeNumber, int dislikeNumber, int commentNumber)
+    public NewsFeed(int id, String username, String postDescription, String postContent, int likeNumber, int dislikeNumber, int commentNumber)
     {
         this.id = id;
         this.username = username;
@@ -19,7 +19,7 @@ public class Newfeed {
         this.dislikeNumber = dislikeNumber;
         this.commentNumber = commentNumber;
     }
-    public Newfeed()
+    public NewsFeed()
     {
         username=postContent=postDescription="";
         dislikeNumber=likeNumber=commentNumber=0;

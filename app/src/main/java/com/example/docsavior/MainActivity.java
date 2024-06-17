@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.actitity_newsfeed);
-        Intent intent = new Intent(MainActivity.this, NewFeedActivity.class);
+        Intent intent = new Intent(MainActivity.this, NewsFeedActivity.class);
         startActivity(intent);
 
 //        // get components

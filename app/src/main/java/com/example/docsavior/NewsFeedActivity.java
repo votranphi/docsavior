@@ -23,7 +23,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NewFeedActivity extends AppCompatActivity {
+public class NewsFeedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,26 +100,26 @@ public class NewFeedActivity extends AppCompatActivity {
 
         ApiService retrofitAPI = retrofit.create(ApiService.class);
 
-        Call<List<Newfeed>> call = retrofitAPI.getAllPosts();
+        Call<List<NewsFeed>> call = retrofitAPI.getAllPosts();
 
-        call.enqueue(new Callback<List<Newfeed>>() {
+        call.enqueue(new Callback<List<NewsFeed>>() {
             @Override
-            public void onResponse(Call<List<Newfeed>> call, Response<List<Newfeed>> response) {
+            public void onResponse(Call<List<NewsFeed>> call, Response<List<NewsFeed>> response) {
                 if (response.isSuccessful()) {
                     ListView lvPost = findViewById(R.id.lvPost);
-                    ArrayList<Newfeed> posts = new ArrayList<>();
+                    ArrayList<NewsFeed> posts = new ArrayList<>();
 
-                    for (Newfeed i : response.body()) {
-                        posts.add(new Newfeed(i.getId(), i.getUsername(), i.getPostDescription(), i.getPostContent(), i.getLikeNumber(), i.getDislikeNumber(), i.getCommentNumber()));
+                    for (NewsFeed i : response.body()) {
+                        posts.add(new NewsFeed(i.getId(), i.getUsername(), i.getPostDescription(), i.getPostContent(), i.getLikeNumber(), i.getDislikeNumber(), i.getCommentNumber()));
                     }
 
-                    NewfeedAdapter newfeedAdapter = new NewfeedAdapter(NewFeedActivity.this, R.layout.item_newsfeed, posts);
+                    NewsFeedAdapter newfeedAdapter = new NewsFeedAdapter(NewsFeedActivity.this, R.layout.item_newsfeed, posts);
 
                     lvPost.setAdapter(newfeedAdapter);
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        Toast.makeText(NewFeedActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewsFeedActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
                     } catch (Exception ex) {
 
                     }
@@ -127,8 +127,8 @@ public class NewFeedActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Newfeed>> call, Throwable t) {
-                Toast.makeText(NewFeedActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<List<NewsFeed>> call, Throwable t) {
+                Toast.makeText(NewsFeedActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

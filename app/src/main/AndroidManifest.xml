@@ -28,7 +28,7 @@
         </activity>
         <activity android:name=".SignUpActivity"/>
         <activity android:name=".RecoveryPasswordActivity"/>
-        <activity android:name=".NewFeedActivity"/>
+        <activity android:name=".NewsFeedActivity"/>
     </application>
 
 </manifest>
