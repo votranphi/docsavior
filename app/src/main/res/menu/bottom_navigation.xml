@@ -22,7 +22,7 @@
     <item
         android:id="@+id/btnNotification"
         android:icon="@drawable/notification_icon"
-        android:title="@string/conversation"
+        android:title="@string/notification"
         android:enabled="true"/>
     <item
         android:id="@+id/btnSetting"

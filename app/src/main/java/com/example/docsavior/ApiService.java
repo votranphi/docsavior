@@ -17,6 +17,6 @@ public interface ApiService {
     @POST("/user/password_recovery")
     Call<Detail> postRecoverPasswordInfo(@Query("username") String username, @Query("email") String email, @Query("phoneNumber") String phoneNumber);
 
-    @GET("/newfeed/all")
+    @GET("/newsfeed/all")
     Call<List<NewsFeed>> getAllPosts();
 }
