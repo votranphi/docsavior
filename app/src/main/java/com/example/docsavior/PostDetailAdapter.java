@@ -19,7 +19,7 @@ public class PostDetailAdapter extends ArrayAdapter<PostDetail> {
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.post_detail_item, null, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_post_detail, null, false);
         }
         // Get item
         PostDetail pd = getItem(position);

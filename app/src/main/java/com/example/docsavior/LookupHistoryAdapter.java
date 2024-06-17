@@ -21,7 +21,7 @@ public class LookupHistoryAdapter extends ArrayAdapter<LookupHistory>
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.lookup_post_user_item, null, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_lookup_post_user, null, false);
         }
         // Get item
         LookupHistory lkHistory = getItem(position);

@@ -27,7 +27,7 @@ public class NewFeedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_feed_navigation);
+        setContentView(R.layout.navigation_newsfeed);
 
         // Khởi tạo ViewPager2 cho 5 fragment, khởi tạo thanh điều hướng bottomNavigation
         ViewPager2 viewPager2 = findViewById(R.id.viewPager);
@@ -113,7 +113,7 @@ public class NewFeedActivity extends AppCompatActivity {
                         posts.add(new Newfeed(i.getId(), i.getUsername(), i.getPostDescription(), i.getPostContent(), i.getLikeNumber(), i.getDislikeNumber(), i.getCommentNumber()));
                     }
 
-                    NewfeedAdapter newfeedAdapter = new NewfeedAdapter(NewFeedActivity.this, R.layout.new_feed_item, posts);
+                    NewfeedAdapter newfeedAdapter = new NewfeedAdapter(NewFeedActivity.this, R.layout.item_newsfeed, posts);
 
                     lvPost.setAdapter(newfeedAdapter);
                 } else {

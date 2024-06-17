@@ -24,7 +24,7 @@ public class RecoveryPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recovery_password);
+        setContentView(R.layout.activity_recovery_password);
 
         edUsername = findViewById(R.id.edUsername);
         edEmail = findViewById(R.id.edEmail);

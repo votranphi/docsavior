@@ -21,7 +21,7 @@ public class ProfileAdapter extends ArrayAdapter<String> {
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.profile_item, null, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_profile, null, false);
         }
         // Get item
         String posts = getItem(position);

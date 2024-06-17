@@ -20,7 +20,7 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.friend_item, null, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_friend, null, false);
         }
         // Get item
         Friend fr = getItem(position);

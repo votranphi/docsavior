@@ -20,7 +20,7 @@ public class NewfeedAdapter extends ArrayAdapter<Newfeed> {
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.new_feed_item, null, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_newsfeed, null, false);
         }
         // Get item
         Newfeed nf = getItem(position);

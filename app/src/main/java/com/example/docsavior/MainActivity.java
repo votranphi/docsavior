@@ -3,30 +3,9 @@ package com.example.docsavior;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     EditText edUsername;
@@ -46,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_feed);
-
+        //setContentView(R.layout.actitity_newsfeed);
+        Intent intent = new Intent(MainActivity.this, NewFeedActivity.class);
+        startActivity(intent);
 
 //        // get components
 //        edUsername = findViewById(R.id.edUsername);
