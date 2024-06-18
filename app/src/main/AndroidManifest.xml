@@ -17,6 +17,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".CreatePostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignUpUserInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RecoveryPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NewsFeedActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -25,12 +40,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- other activities -->
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".SignUpUserInfoActivity" />
-        <activity android:name=".RecoveryPasswordActivity" />
-        <activity android:name=".NewsFeedActivity" />
     </application>
 
 </manifest>

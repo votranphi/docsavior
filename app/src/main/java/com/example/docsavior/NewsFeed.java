@@ -8,8 +8,10 @@ public class NewsFeed {
     private int likeNumber;
     private int dislikeNumber;
     private int commentNumber;
+    private String fileData;
+    private String fileExtension;
 
-    public NewsFeed(int id, String username, String postDescription, String postContent, int likeNumber, int dislikeNumber, int commentNumber)
+    public NewsFeed(int id, String username, String postDescription, String postContent, int likeNumber, int dislikeNumber, int commentNumber, String fileData, String fileExtension)
     {
         this.id = id;
         this.username = username;
@@ -18,6 +20,8 @@ public class NewsFeed {
         this.likeNumber = likeNumber;
         this.dislikeNumber = dislikeNumber;
         this.commentNumber = commentNumber;
+        this.fileData = fileData;
+        this.fileExtension = fileExtension;
     }
     public NewsFeed()
     {
@@ -37,6 +41,14 @@ public class NewsFeed {
     public String getPostDescription()
     {
         return postDescription;
+    }
+
+    public String getFileData() {
+        return fileData;
+    }
+
+    public String getFileExtension() {
+        return fileExtension;
     }
 
     public int getDislikeNumber() {

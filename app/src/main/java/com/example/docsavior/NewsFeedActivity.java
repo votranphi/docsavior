@@ -1,8 +1,12 @@
 package com.example.docsavior;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,10 +33,14 @@ public class NewsFeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_newsfeed);
 
+        initViewPager2();
+    }
+
+    // move all the code lines that deal with ViewPager2 in onCreate() to this function
+    private void initViewPager2() {
         // Khởi tạo ViewPager2 cho 5 fragment, khởi tạo thanh điều hướng bottomNavigation
         ViewPager2 viewPager2 = findViewById(R.id.viewPager);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
-
 
         //Gắn adapter cho ViewPager2
         ViewPager2Adapter viewPager2Adapter = new ViewPager2Adapter(this);
@@ -82,53 +90,6 @@ public class NewsFeedActivity extends AppCompatActivity {
                     viewPager2.setCurrentItem(4);
                 }
                 return true;
-            }
-        });
-
-
-
-
-
-
-
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.3.131:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiService retrofitAPI = retrofit.create(ApiService.class);
-
-        Call<List<NewsFeed>> call = retrofitAPI.getAllPosts();
-
-        call.enqueue(new Callback<List<NewsFeed>>() {
-            @Override
-            public void onResponse(Call<List<NewsFeed>> call, Response<List<NewsFeed>> response) {
-                if (response.isSuccessful()) {
-                    ListView lvPost = findViewById(R.id.lvPost);
-                    ArrayList<NewsFeed> posts = new ArrayList<>();
-
-                    for (NewsFeed i : response.body()) {
-                        posts.add(new NewsFeed(i.getId(), i.getUsername(), i.getPostDescription(), i.getPostContent(), i.getLikeNumber(), i.getDislikeNumber(), i.getCommentNumber()));
-                    }
-
-                    NewsFeedAdapter newfeedAdapter = new NewsFeedAdapter(NewsFeedActivity.this, R.layout.item_newsfeed, posts);
-
-                    lvPost.setAdapter(newfeedAdapter);
-                } else {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        Toast.makeText(NewsFeedActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
-                    } catch (Exception ex) {
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<NewsFeed>> call, Throwable t) {
-                Toast.makeText(NewsFeedActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

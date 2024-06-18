@@ -1,11 +1,27 @@
 package com.example.docsavior;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,5 +75,95 @@ public class NewsFeedFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_newsfeed, container, false);
+    }
+
+    // MAIN THINGS FROM HERE
+    private ImageButton btnCreatePost;
+    private ImageButton btnLookup;
+    private ImageButton btnProfile;
+    private ListView lvPost;
+    private NewsFeedAdapter newsFeedAdapter;
+    private ArrayList<NewsFeed> newsFeedArrayList;
+
+    // this function is the same as onCreate() in Activity
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        findViewByIds();
+
+        setOnClickListeners();
+    }
+
+    private void findViewByIds() {
+        btnCreatePost = getView().findViewById(R.id.btnCreatePost);
+        btnLookup = getView().findViewById(R.id.btnLookup);
+        btnProfile = getView().findViewById(R.id.btnProfile);
+        lvPost = getView().findViewById(R.id.lvPost);
+    }
+
+    private void setOnClickListeners() {
+        btnCreatePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // open the CreatePostActivity when user click the button
+                Intent myIntent = new Intent(getActivity(), CreatePostActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        btnLookup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: start the look up activity then do the things
+            }
+        });
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: start the profile activity then do the things
+            }
+        });
+    }
+
+    // let's complete it later
+    private void getAllPost() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService retrofitAPI = retrofit.create(ApiService.class);
+
+        Call<List<NewsFeed>> call = retrofitAPI.getAllPosts();
+
+        call.enqueue(new Callback<List<NewsFeed>>() {
+            @Override
+            public void onResponse(Call<List<NewsFeed>> call, Response<List<NewsFeed>> response) {
+                if (response.isSuccessful()) {
+                    ListView lvPost = getView().findViewById(R.id.lvPost);
+                    ArrayList<NewsFeed> posts = new ArrayList<>();
+
+                    for (NewsFeed i : response.body()) {
+                        // posts.add(new NewsFeed(i.getId(), i.getUsername(), i.getPostDescription(), i.getPostContent(), i.getLikeNumber(), i.getDislikeNumber(), i.getCommentNumber()));
+                    }
+
+                    NewsFeedAdapter newfeedAdapter = new NewsFeedAdapter(getActivity(), R.layout.item_newsfeed, posts);
+
+                    lvPost.setAdapter(newfeedAdapter);
+                } else {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        Toast.makeText(getActivity(), jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
+                    } catch (Exception ex) {
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<NewsFeed>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

@@ -19,4 +19,7 @@ public interface ApiService {
 
     @GET("/newsfeed/all")
     Call<List<NewsFeed>> getAllPosts();
+
+    @POST("/newsfeed/add")
+    Call<Detail> postPostInfo(@Query("username") String username, @Query("postDescription") String postDescription, @Query("postContent") String postContent, @Query("newsfeedFileData") String newsfeedFileData, @Query("newsfeedFileExtension") String newsfeedFileExtension);
 }
