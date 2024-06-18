@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,22 +20,33 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignUpActivity extends AppCompatActivity {
-    EditText edUsername;
-    EditText edEmail;
-    EditText edPhoneNumber;
-    EditText edPassword;
+    private EditText edUsername;
+    private EditText edEmail;
+    private EditText edPhoneNumber;
+    private EditText edPassword;
+    private Button btnSignUp;
+
+    public final static String KEY_TO_SIGN_UP_USER_INFO_ACTIVITY = "username_email_phoneNumber_password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        findViewByIds();
+
+        setOnClickListeners();
+    }
+
+    private void findViewByIds() {
         edUsername = findViewById(R.id.edUsername);
         edEmail = findViewById(R.id.edEmail);
         edPhoneNumber = findViewById(R.id.edPhoneNumber);
         edPassword = findViewById(R.id.edPassword);
+        btnSignUp = findViewById(R.id.btnSignUp);
+    }
 
-        Button btnSignUp = findViewById(R.id.btnSignUp);
+    private void setOnClickListeners() {
         btnSignUp.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -43,43 +56,21 @@ public class SignUpActivity extends AppCompatActivity {
                             return;
                         }
 
-                        postSignUpInfo(edUsername.getText().toString(), edEmail.getText().toString(), edPhoneNumber.getText().toString(), edPassword.getText().toString());
+                        // create intent to start SignUpUserInfoActivity
+                        Intent myIntent = new Intent(SignUpActivity.this, SignUpUserInfoActivity.class);
+                        // create ArrayList of user's info to put to SignUpUserInfoActivity
+                        ArrayList<String> userInfo = new ArrayList<>();
+                        userInfo.add(edUsername.getText().toString());
+                        userInfo.add(edEmail.getText().toString());
+                        userInfo.add(edPhoneNumber.getText().toString());
+                        userInfo.add(edPassword.getText().toString());
+                        // put it in the intent
+                        myIntent.putStringArrayListExtra(KEY_TO_SIGN_UP_USER_INFO_ACTIVITY, userInfo);
+                        // start activity
+                        startActivity(myIntent);
+
                     }
                 }
         );
-    }
-
-    private void postSignUpInfo(String username, String email, String phoneNumber, String password) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.3.131:8080/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiService retrofitAPI = retrofit.create(ApiService.class);
-
-        Call<Detail> call = retrofitAPI.postSignUpInfo(username, email, phoneNumber, password);
-
-        call.enqueue(new Callback<Detail>() {
-            @Override
-            public void onResponse(Call<Detail> call, Response<Detail> response) {
-                if (response.isSuccessful()) {
-                    Intent myIntent = new Intent(SignUpActivity.this, MainActivity.class);
-                    Toast.makeText(SignUpActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
-                    SignUpActivity.this.startActivity(myIntent);
-                } else {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        Toast.makeText(SignUpActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
-                    } catch (Exception ex) {
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Detail> call, Throwable t) {
-                Toast.makeText(SignUpActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

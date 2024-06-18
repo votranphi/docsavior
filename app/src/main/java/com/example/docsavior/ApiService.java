@@ -12,7 +12,7 @@ public interface ApiService {
     Call<Detail> postLoginInfo(@Query("username") String username, @Query("password") String password);
 
     @POST("/user/add")
-    Call<Detail> postSignUpInfo(@Query("username") String username, @Query("email") String email, @Query("phoneNumber") String phoneNumber, @Query("password") String password);
+    Call<Detail> postSignUpInfo(@Query("username") String username, @Query("email") String email, @Query("phoneNumber") String phoneNumber, @Query("password") String password, @Query("fullName") String fullName, @Query("birthDay") String birthDay, @Query("gender") boolean gender);
 
     @POST("/user/password_recovery")
     Call<Detail> postRecoverPasswordInfo(@Query("username") String username, @Query("email") String email, @Query("phoneNumber") String phoneNumber);
