@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Intent intent = new Intent(this, OTPVerificationActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, OTPVerificationActivity.class);
+//        startActivity(intent);
         findViewByIds();
         
         setOnClickListeners();

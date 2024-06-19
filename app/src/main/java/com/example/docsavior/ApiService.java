@@ -22,7 +22,10 @@ public interface ApiService {
     Call<List<NewsFeed>> getAllPosts();
 
     @POST("/newsfeed/add")
-    Call<Detail> postPostInfo(@Query("username") String username, @Query("postDescription") String postDescription, @Query("postContent") String postContent, @Query("newsfeedFileData") String newsfeedFileData, @Query("newsfeedFileExtension") String newsfeedFileExtension);
+    Call<Detail> postNewsfeed(@Query("username") String username, @Query("postDescription") String postDescription, @Query("postContent") String postContent, @Query("newsfeedFileData") String newsfeedFileData, @Query("newsfeedFileExtension") String newsfeedFileExtension);
+
+    @POST("/friend/add")
+    Call<Detail> postNewFriend(@Query("username") String username, @Query("usernameFriend") String usernameFriend);
 
     @GET("/friend_request/all")
     Call<Requester> getAllFriendRequests(@Query("username") String username);
