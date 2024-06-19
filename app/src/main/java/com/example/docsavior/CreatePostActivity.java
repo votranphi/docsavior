@@ -93,11 +93,11 @@ public class CreatePostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (edPostDesciption.getText().toString().isEmpty()) {
-                    Toast.makeText(CreatePostActivity.this, "Please provide post's description!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreatePostActivity.this, "Please provide post's title!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (edPostContent.getText().toString().isEmpty()) {
-                    Toast.makeText(CreatePostActivity.this, "Please provide post's content!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreatePostActivity.this, "Please provide post's description!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (!isFileChosen) {
