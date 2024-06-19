@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -86,6 +87,7 @@ public class FriendFragment extends Fragment {
     private ListView lvRequest;
     private FriendAdapter friendAdapter;
     private ArrayList<Friend> friendArrayList;
+    private TextView tvNothing;
 
     // this function is the same as onCreate() in Activity
     @Override
@@ -103,6 +105,7 @@ public class FriendFragment extends Fragment {
         btnLookup = getView().findViewById(R.id.btnLookup);
         btnProfile = getView().findViewById(R.id.btnProfile);
         lvRequest = getView().findViewById(R.id.lvRequest);
+        tvNothing = getView().findViewById(R.id.tvNothing);
     }
 
     private void setOnClickListeners() {
@@ -148,9 +151,9 @@ public class FriendFragment extends Fragment {
                     if (response.isSuccessful()) {
                         Requester requesters = response.body();
                         if (requesters.getRequesters().length == 0) {
-                            // TODO: set visibility of "NOTHING TO SHOW" to VISIBLE
+                            tvNothing.setVisibility(View.VISIBLE);
                         } else {
-                            // TODO: set visibility of "NOTHING TO SHOW" to GONE
+                            tvNothing.setVisibility(View.GONE);
 
                             assignRequestersToListView(requesters);
                         }
