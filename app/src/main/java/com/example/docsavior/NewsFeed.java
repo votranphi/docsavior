@@ -9,9 +9,10 @@ public class NewsFeed {
     private int dislikeNumber;
     private int commentNumber;
     private String fileData;
+    private String fileName;
     private String fileExtension;
 
-    public NewsFeed(int id, String username, String postDescription, String postContent, int likeNumber, int dislikeNumber, int commentNumber, String fileData, String fileExtension)
+    public NewsFeed(int id, String username, String postDescription, String postContent, int likeNumber, int dislikeNumber, int commentNumber, String fileData, String fileName, String fileExtension)
     {
         this.id = id;
         this.username = username;
@@ -21,12 +22,21 @@ public class NewsFeed {
         this.dislikeNumber = dislikeNumber;
         this.commentNumber = commentNumber;
         this.fileData = fileData;
+        this.fileName = fileName;
         this.fileExtension = fileExtension;
     }
     public NewsFeed()
     {
-        username=postContent=postDescription="";
-        dislikeNumber=likeNumber=commentNumber=0;
+        id = 0;
+        username = "";
+        postDescription = "";
+        postContent = "";
+        likeNumber = 0;
+        dislikeNumber = 0;
+        commentNumber = 0;
+        fileData = "";
+        fileName = "";
+        fileExtension = "";
     }
 
     //get and set
@@ -43,12 +53,8 @@ public class NewsFeed {
         return postDescription;
     }
 
-    public String getFileData() {
-        return fileData;
-    }
-
-    public String getFileExtension() {
-        return fileExtension;
+    public String getPostContent() {
+        return postContent;
     }
 
     public int getDislikeNumber() {
@@ -59,11 +65,59 @@ public class NewsFeed {
         return likeNumber;
     }
 
-    public String getPostContent() {
-        return postContent;
-    }
-
     public int getCommentNumber() {
         return commentNumber;
+    }
+
+    public String getFileData() {
+        return fileData;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public String getFileExtension() {
+        return fileExtension;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPostDescription(String postDescription) {
+        this.postDescription = postDescription;
+    }
+
+    public void setPostContent(String postContent) {
+        this.postContent = postContent;
+    }
+
+    public void setCommentNumber(int commentNumber) {
+        this.commentNumber = commentNumber;
+    }
+
+    public void setDislikeNumber(int dislikeNumber) {
+        this.dislikeNumber = dislikeNumber;
+    }
+
+    public void setFileData(String fileData) {
+        this.fileData = fileData;
+    }
+
+    public void setFileExtension(String fileExtension) {
+        this.fileExtension = fileExtension;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public void setLikeNumber(int likeNumber) {
+        this.likeNumber = likeNumber;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

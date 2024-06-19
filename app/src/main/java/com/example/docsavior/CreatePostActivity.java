@@ -13,19 +13,35 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.documentfile.provider.DocumentFile;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Query;
 
 public class CreatePostActivity extends AppCompatActivity {
 
@@ -38,9 +54,10 @@ public class CreatePostActivity extends AppCompatActivity {
     private Button btnFile;
     private boolean isFileChosen;
     // Request code for selecting a PDF document.
-    private static final int FILE_SELECT_CODE = 0;
-    private File file = null;
+    private static final int REQUEST_CODE_OPEN_DOCUMENT = 2;
     private String fileData = "";
+    private String fileName = "";
+    private String fileExtension = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +92,21 @@ public class CreatePostActivity extends AppCompatActivity {
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (edPostDesciption.getText().toString().isEmpty()) {
+                    Toast.makeText(CreatePostActivity.this, "Please provide post's description!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (edPostContent.getText().toString().isEmpty()) {
+                    Toast.makeText(CreatePostActivity.this, "Please provide post's content!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!isFileChosen) {
+                    Toast.makeText(CreatePostActivity.this, "Please choose a file/video/image from your device!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                // call API to post the post to database
+                postNewsfeed(ApplicationInfo.username, edPostDesciption.getText().toString(), edPostContent.getText().toString(), fileData, fileName, fileExtension);
             }
         });
 
@@ -99,50 +130,77 @@ public class CreatePostActivity extends AppCompatActivity {
         isFileChosen = false;
     }
 
+    private void postNewsfeed(String username, String postDescription, String postContent, String fileData, String fileName, String fileExtension) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postNewsfeed(username, postDescription, postContent, fileData, fileName, fileExtension);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(CreatePostActivity.this, "Post successfully!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(CreatePostActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR1: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(CreatePostActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void openFileChooser() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-
-        try {
-            startActivityForResult(
-                    Intent.createChooser(intent, "Select a File to Upload"),
-                    FILE_SELECT_CODE);
-        } catch (android.content.ActivityNotFoundException ex) {
-            // Potentially direct the user to the Market with a Dialog
-            Toast.makeText(this, "Please install a File Manager.",
-                    Toast.LENGTH_SHORT).show();
-        }
+        startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), REQUEST_CODE_OPEN_DOCUMENT);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case FILE_SELECT_CODE:
-                if (resultCode == RESULT_OK) {
-                    // Get the Uri of the selected file
-                    Uri uri = data.getData();
-                    Log.d("URI: ", uri.toString());
-                    // Get the path
-                    String path = uri.getPath();
-                    Log.d("PATH: ", path);
-                    // Get the file instance
-                    file = new File(path);
-
-                    // get the byteArray of that file
-                    byte[] byteArray = new byte[(int) file.length()];
-                    try (FileInputStream inputStream = new FileInputStream(file)) {
-                        inputStream.read(byteArray);
-                    } catch (Exception ex) {
-                        Log.e("ERROR: ", ex.getMessage());
-                    }
-
-                    // convert byteArray to string
-                    fileData = new String(byteArray, StandardCharsets.UTF_8);
-                    Log.i("str: ", fileData);
-                }
-                break;
-        }
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_OPEN_DOCUMENT && resultCode == RESULT_OK) {
+            if (data != null) {
+                Uri uri = data.getData();
+                if (uri != null) {
+                    try {
+                        DocumentFile documentFile = DocumentFile.fromSingleUri(this, uri);
+                        if (documentFile != null && documentFile.isFile()) {
+                            // Read content as InputStream
+                            InputStream inputStream = getContentResolver().openInputStream(uri);
+                            byte[] bytes = new byte[inputStream.available()];
+                            inputStream.read(bytes);
+                            inputStream.close();
+
+                            // Convert byte array to string
+                            fileData = new String(bytes);
+                            // get the file's full name
+                            String fileFullName = documentFile.getName();
+                            // split the fileFullName to get file's name and file's extension
+                            String[] splitString = fileFullName.split("\\.");
+                            fileName = splitString[0];
+                            fileExtension = splitString[1];
+
+                            // set the chosen state to true
+                            isFileChosen = true;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 }

@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edPostDesciption"
                 android:layout_below="@+id/tvUsername"
-                android:hint="post description"
+                android:hint="Post's title"
                 android:layout_toRightOf="@+id/btnUser"
                 android:textSize="20dp"
                 android:background="@drawable/edittext"
@@ -105,7 +105,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/edPostDesciption"
                 android:background="@drawable/edittext"
-                android:hint="Type in your post desciption"/>
+                android:hint="Post's description"/>
         </RelativeLayout>
 
         <RelativeLayout

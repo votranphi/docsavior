@@ -2,11 +2,13 @@ package com.example.docsavior;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -84,6 +86,7 @@ public class NewsFeedFragment extends Fragment {
     private ListView lvPost;
     private NewsFeedAdapter newsFeedAdapter;
     private ArrayList<NewsFeed> newsFeedArrayList;
+    private TextView tvNothing;
 
     // this function is the same as onCreate() in Activity
     @Override
@@ -93,6 +96,8 @@ public class NewsFeedFragment extends Fragment {
         initVariables();
 
         setOnClickListeners();
+
+        getAllPost();
     }
 
     private void findViewByIds() {
@@ -100,6 +105,7 @@ public class NewsFeedFragment extends Fragment {
         btnLookup = getView().findViewById(R.id.btnLookup);
         btnProfile = getView().findViewById(R.id.btnProfile);
         lvPost = getView().findViewById(R.id.lvPost);
+        tvNothing = getView().findViewById(R.id.tvNothing);
     }
 
     private void setOnClickListeners() {
@@ -115,7 +121,6 @@ public class NewsFeedFragment extends Fragment {
         btnLookup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: start the look up activity then do the things
                 Intent myIntent = new Intent(getActivity(), LookUpPostUserActivity.class);
                 startActivity(myIntent);
             }
@@ -124,7 +129,6 @@ public class NewsFeedFragment extends Fragment {
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: start the profile activity then do the things
                 Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
                 startActivity(myIntent);
             }
@@ -144,31 +148,35 @@ public class NewsFeedFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        ApiService retrofitAPI = retrofit.create(ApiService.class);
+        ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<List<NewsFeed>> call = retrofitAPI.getAllPosts();
+        Call<List<NewsFeed>> call = apiService.getAllPosts();
 
         call.enqueue(new Callback<List<NewsFeed>>() {
             @Override
             public void onResponse(Call<List<NewsFeed>> call, Response<List<NewsFeed>> response) {
-                if (response.isSuccessful()) {
-                    ListView lvPost = getView().findViewById(R.id.lvPost);
-                    ArrayList<NewsFeed> posts = new ArrayList<>();
+                try {
+                    if (response.isSuccessful()) {
+                        List<NewsFeed> responseList = response.body();
 
-                    for (NewsFeed i : response.body()) {
-                        // posts.add(new NewsFeed(i.getId(), i.getUsername(), i.getPostDescription(), i.getPostContent(), i.getLikeNumber(), i.getDislikeNumber(), i.getCommentNumber()));
+                        // add the elements in responseList to newsFeedArrayList
+                        for (NewsFeed i : responseList) {
+                            newsFeedArrayList.add(i);
+                        }
+
+                        // update the ListView
+                        newsFeedAdapter.notifyDataSetChanged();
+
+                        // set the visibility of "NOTHING TO SHOW" to GONE
+                        tvNothing.setVisibility(View.GONE);
+                    } else if (response.code() == 600) {
+                        // set the visibility of "NOTHING TO SHOW" to VISIBLE
+                        tvNothing.setVisibility(View.VISIBLE);
+                    } else {
+                        Toast.makeText(getActivity(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
-
-                    NewsFeedAdapter newfeedAdapter = new NewsFeedAdapter(getActivity(), R.layout.item_newsfeed, posts);
-
-                    lvPost.setAdapter(newfeedAdapter);
-                } else {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        Toast.makeText(getActivity(), jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
-                    } catch (Exception ex) {
-
-                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR100: ", ex.getMessage());
                 }
             }
 

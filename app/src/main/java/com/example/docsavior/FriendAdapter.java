@@ -51,8 +51,11 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
         // set click listeners
         setOnClickListeners(position);
 
-        // image
+        // set usename
         tvUsernames.get(position).setText(fr.getUsername());
+
+        // TODO: set avatar
+
         return convertView;
     }
 

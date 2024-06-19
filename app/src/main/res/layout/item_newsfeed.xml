@@ -61,9 +61,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
-                android:id="@+id/imgPostcontent"
+                android:id="@+id/tvDocumentName"
                 android:text="document URL"
                 android:textAlignment="center"
+                android:clickable="true"
                 />
         </LinearLayout>
        <LinearLayout
