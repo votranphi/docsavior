@@ -4,29 +4,28 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:backgroundTint="@color/white"
-    android:background="@drawable/screen_bounding">
+    >
 
     <RelativeLayout
-
-        android:background="@color/light_blue"
+        android:backgroundTint="@color/light_blue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp">
+        android:background="@drawable/screen_bounding"
+        android:layout_marginTop="30dp">
 
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:id="@+id/rltUsernameMessage">
 
             <ImageButton
                 android:id="@+id/btnClose"
-                android:layout_width="48dp"
-                android:layout_height="49dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/blue"
@@ -37,7 +36,7 @@
 
             <ImageButton
                 android:id="@+id/btnVideoCall"
-                android:layout_width="51dp"
+                android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_toStartOf="@id/btnClose"
                 android:background="@drawable/circlebtn"
@@ -87,9 +86,7 @@
             android:layout_width="match_parent"
             android:layout_below="@id/rltUsernameMessage"
             android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
-            android:layout_above="@id/rltMessage"
-            />
+            android:layout_above="@id/rltMessage" />
 
 
         <RelativeLayout
@@ -109,8 +106,8 @@
 
             <ImageButton
                 android:id="@+id/btnSendMessage"
-                android:layout_width="48dp"
-                android:layout_height="49dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/blue"
