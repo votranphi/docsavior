@@ -1,11 +1,28 @@
 package com.example.docsavior;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,5 +76,93 @@ public class SettingFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_setting, container, false);
+    }
+
+    // MAIN THINGS FROM HERE
+    ImageButton btnProfile;
+    RelativeLayout rltNotification;
+    RelativeLayout rltChangePassword;
+    RelativeLayout rltLogOut;
+
+    // this function is the same as onCreate() in Activity
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        findViewByIds();
+
+        setOnClickListeners();
+    }
+
+    private void findViewByIds() {
+        btnProfile = getView().findViewById(R.id.btnProfile);
+        rltNotification = getView().findViewById(R.id.rltNotification);
+        rltChangePassword = getView().findViewById(R.id.rltChangePassword);
+        rltLogOut = getView().findViewById(R.id.rltLogOut);
+    }
+
+    private void setOnClickListeners() {
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        rltNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: open the Notification settings
+            }
+        });
+
+        rltChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: open change password activity them do things
+            }
+        });
+
+        rltLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // call API to send logout signal
+                postLogout();
+
+                Intent myIntent = new Intent(getActivity(), MainActivity.class);
+                // start MainActivity and clear all other activities
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(myIntent);
+            }
+        });
+    }
+
+    private void postLogout() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postLogout(ApplicationInfo.username);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(getActivity(), "Logout successfully!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR1: ", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(getActivity(), "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

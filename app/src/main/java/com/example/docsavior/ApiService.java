@@ -12,6 +12,9 @@ public interface ApiService {
     @POST("/user/login")
     Call<Detail> postLoginInfo(@Query("username") String username, @Query("password") String password);
 
+    @POST("/user/logout")
+    Call<Detail> postLogout(@Query("username") String username);
+
     @POST("/user/add")
     Call<Detail> postSignUpInfo(@Query("username") String username, @Query("email") String email, @Query("phoneNumber") String phoneNumber, @Query("password") String password, @Query("fullName") String fullName, @Query("birthDay") String birthDay, @Query("gender") boolean gender);
 
