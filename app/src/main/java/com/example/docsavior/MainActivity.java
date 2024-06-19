@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
     
     private void setOnClickListeners() {
         // start new activity if user press tvRecoveryPassword
-        TextView tvRecoveryPassword = findViewById(R.id.tvRecoveryPassword);
         tvRecoveryPassword.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         );
 
         // start new activity if user press tvCreateAccount
-        TextView tvCreateAccount = findViewById(R.id.tvCreateAccount);
         tvCreateAccount.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -78,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         );
 
         // things to do if user pressed login button
-        Button btnLogin = findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

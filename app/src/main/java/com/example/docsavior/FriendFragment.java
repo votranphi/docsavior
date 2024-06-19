@@ -1,11 +1,17 @@
 package com.example.docsavior;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ListView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,5 +65,52 @@ public class FriendFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_friend, container, false);
+    }
+
+
+    // MAIN THINGS FROM HERE
+    private ImageButton btnLookup;
+    private ImageButton btnProfile;
+    private ListView lvRequest;
+    private FriendAdapter friendAdapter;
+    private ArrayList<Friend> friendArrayList;
+
+    // this function is the same as onCreate() in Activity
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        findViewByIds();
+
+        initVariables();
+
+        setOnClickListeners();
+    }
+
+    private void findViewByIds() {
+        btnLookup = getView().findViewById(R.id.btnLookup);
+        btnProfile = getView().findViewById(R.id.btnProfile);
+        lvRequest = getView().findViewById(R.id.lvPost);
+    }
+
+    private void setOnClickListeners() {
+        btnLookup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: start the look up activity then do the things
+                Intent myIntent = new Intent(getActivity(), LookUpPostUserActivity.class);
+                startActivity(myIntent);
+            }
+        });
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: start the profile activity then do the things
+            }
+        });
+    }
+
+    private void initVariables() {
+        friendArrayList = new ArrayList<>();
+        friendAdapter = new FriendAdapter(getActivity(), R.layout.item_friend, friendArrayList);
     }
 }

@@ -39,7 +39,7 @@
                 android:hint="@string/type_to_look_up"
                 android:importantForAutofill="no" />
             <ImageButton
-                android:id="@+id/btnPost"
+                android:id="@+id/btnFind"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentEnd="true"

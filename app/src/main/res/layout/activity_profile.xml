@@ -37,18 +37,11 @@
             android:layout_marginTop="60dp"
             android:textSize="20dp"
             android:textStyle="bold"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvUserDescription"
-            android:text="User description"
-            android:layout_below="@+id/tvUsername"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="10dp"/>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvUserDescription"
+            android:layout_below="@+id/tvUsername"
             android:layout_centerHorizontal="true">
             <Button
                 android:layout_width="wrap_content"

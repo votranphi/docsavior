@@ -90,6 +90,8 @@ public class NewsFeedFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         findViewByIds();
 
+        initVariables();
+
         setOnClickListeners();
     }
 
@@ -114,6 +116,8 @@ public class NewsFeedFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: start the look up activity then do the things
+                Intent myIntent = new Intent(getActivity(), LookUpPostUserActivity.class);
+                startActivity(myIntent);
             }
         });
 
@@ -123,6 +127,11 @@ public class NewsFeedFragment extends Fragment {
                 // TODO: start the profile activity then do the things
             }
         });
+    }
+
+    private void initVariables() {
+        newsFeedArrayList = new ArrayList<>();
+        newsFeedAdapter = new NewsFeedAdapter(getActivity(), R.layout.item_newsfeed, newsFeedArrayList);
     }
 
     // let's complete it later
