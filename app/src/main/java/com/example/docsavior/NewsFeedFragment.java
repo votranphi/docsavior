@@ -125,6 +125,8 @@ public class NewsFeedFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO: start the profile activity then do the things
+                Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
+                startActivity(myIntent);
             }
         });
     }
@@ -132,6 +134,7 @@ public class NewsFeedFragment extends Fragment {
     private void initVariables() {
         newsFeedArrayList = new ArrayList<>();
         newsFeedAdapter = new NewsFeedAdapter(getActivity(), R.layout.item_newsfeed, newsFeedArrayList);
+        lvPost.setAdapter(newsFeedAdapter);
     }
 
     // let's complete it later

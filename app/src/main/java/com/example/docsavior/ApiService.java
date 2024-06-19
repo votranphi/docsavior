@@ -3,6 +3,7 @@ package com.example.docsavior;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -22,4 +23,10 @@ public interface ApiService {
 
     @POST("/newsfeed/add")
     Call<Detail> postPostInfo(@Query("username") String username, @Query("postDescription") String postDescription, @Query("postContent") String postContent, @Query("newsfeedFileData") String newsfeedFileData, @Query("newsfeedFileExtension") String newsfeedFileExtension);
+
+    @GET("/friend_request/all")
+    Call<Requester> getAllFriendRequests(@Query("username") String username);
+
+    @DELETE("/friend_request/delete")
+    Call<Detail> deleteFriendRequest(@Query("username") String username, @Query("requester") String requester);
 }

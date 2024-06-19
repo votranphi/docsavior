@@ -37,6 +37,9 @@ public class ProfileActivity extends AppCompatActivity {
         initVariables();
 
         setOnClickListeners();
+
+        // TODO: get the user's info then display it on the layout
+        // TODO: get the user's posts then display it on the ListView
     }
 
     private void findViewByIds() {
