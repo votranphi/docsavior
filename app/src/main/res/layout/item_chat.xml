@@ -6,10 +6,6 @@
     android:background="@drawable/bg_message_white_blue_corner"
     android:layout_marginTop="5dp"
     android:id="@+id/rltUsernameConversation">
-
-
-
-
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -29,8 +25,7 @@
         android:layout_toEndOf="@+id/btnFriendProfile"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginStart="10dp"
-         />
+        android:layout_marginStart="10dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -135,11 +135,26 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="110dp"/>
 
-    <ListView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="2"
-        android:id="@+id/gvPosts"
-        android:layout_below="@id/rltType"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/rltType">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="2"
+            android:id="@+id/gvPosts"/>
+        <TextView
+            android:id="@+id/tvNothing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="@string/there_is_nothing_to_show"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

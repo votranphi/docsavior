@@ -43,6 +43,7 @@
     <string name="conversation">Conversation</string>
     <string name="setting">Setting</string>
     <string name="choose_your_date_of_birth">Choose your date of birth</string>
+    <string name="there_is_nothing_to_show">There is nothing to show</string>
 
 
 </resources>
