@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/light_blue">
     <TextView
         android:layout_width="wrap_content"
@@ -11,7 +13,7 @@
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:textSize="30dp"/>
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/title"
@@ -19,106 +21,97 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/logo"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
-        android:text="OTP Verification"
-        android:textSize="30dp"
+        android:text="@string/otp_verification"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/tvOtpDescription"
-      android:text="One Time Password (OTP)\nhas been sent to your Email"
+      android:text="@string/one_time_password_sent"
       android:layout_below="@+id/title"
       android:layout_centerHorizontal="true"
-      android:textSize="20dp"
+      android:textSize="20sp"
       android:lines="2"
       android:textAlignment="center"/>
 
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rltOtp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvOtpDescription"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginBottom="20dp">
 
         <EditText
             android:id="@+id/edOtp1"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            app:layout_constraintLeft_toLeftOf="parent"
             android:maxLength="1"
-            android:background="@color/white" />
+            android:textAlignment="center"
+            android:background="@color/white"
+            tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/edOtp2"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
             android:maxLength="1"
-            android:layout_toRightOf="@+id/edOtp1"
-            android:background="@color/white" />
+            app:layout_constraintLeft_toLeftOf="@+id/edOtp1"
+            app:layout_constraintRight_toRightOf="@+id/edOtp3"
+            android:background="@color/white"
+            android:textAlignment="center"
+            tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/edOtp3"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
             android:maxLength="1"
-            android:layout_toRightOf="@+id/edOtp2"
-            android:background="@color/white" />
+            app:layout_constraintLeft_toLeftOf="@+id/edOtp2"
+            app:layout_constraintRight_toRightOf="@+id/edOtp4"
+            android:background="@color/white"
+            android:textAlignment="center"
+            tools:ignore="MissingConstraints" />
 
         <EditText
             android:id="@+id/edOtp4"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:maxLength="1"
-            android:layout_toRightOf="@+id/edOtp3"
-            android:background="@color/white" />
-
-        <EditText
-            android:id="@+id/edOtp5"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            android:maxLength="1"
-            android:layout_toRightOf="@+id/edOtp4"
-            android:background="@color/white" />
-
-        <EditText
-            android:id="@+id/edOtp6"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="15dp"
-            android:layout_toRightOf="@+id/edOtp5"
-            android:maxLength="1"
-            android:background="@color/white" />
-    </RelativeLayout>
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@color/white"
+            android:textAlignment="center"
+            tools:ignore="MissingConstraints" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvResendOTP"
         android:layout_below="@+id/rltOtp"
-        android:layout_alignParentRight="true"
-        android:text="Resent OTP in time"
-        android:layout_marginRight="20dp"
-        android:textSize="18dp"/>
+        android:layout_alignParentEnd="true"
+        android:text="@string/reset_password_in"
+        android:layout_marginEnd="20dp"
+        android:textSize="18sp"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnRecoverPassword"
+        android:id="@+id/btnVerify"
         android:layout_below="@+id/tvResendOTP"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="Vertify"
-        android:textSize="20dp"
+        android:text="@string/verify"
+        android:textSize="20sp"
         android:padding="20dp"
         android:textColor="@color/black"
         android:backgroundTint="@color/blue"/>

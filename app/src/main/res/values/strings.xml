@@ -44,6 +44,11 @@
     <string name="setting">Setting</string>
     <string name="choose_your_date_of_birth">Choose your date of birth</string>
     <string name="there_is_nothing_to_show">There is nothing to show</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="one_time_password_sent">One Time Password (OTP)\nhas been sent to your Email</string>
+    <string name="reset_password_in">Resent OTP in</string>
+    <string name="verify">Verify</string>
+
 
 
 </resources>
