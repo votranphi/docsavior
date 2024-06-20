@@ -68,26 +68,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvUsername"
-                android:text="Username"
-                android:layout_toRightOf="@+id/btnUser"
-                android:textSize="20dp"
+                android:text="@string/username"
+                android:layout_toEndOf="@+id/btnUser"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginStart="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvPostDesciption"
+                android:text="- topic"
+                android:layout_toEndOf="@+id/tvUsername"
+                android:textSize="20sp"
+                android:layout_marginStart="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPostContent"
                 android:layout_below="@+id/tvUsername"
-                android:text="post description"
-                android:layout_toRightOf="@+id/btnUser"
-                android:textSize="20dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_toEndOf="@+id/btnUser"
+                android:layout_marginStart="10dp"
+                android:textSize="20sp"
+                android:text="description"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:id="@+id/edPostContent"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/tvPostDesciption"
+                android:layout_below="@+id/tvPostContent"
                 android:background="@drawable/edittext"
                 android:hint="Post content"/>
             <ImageButton
