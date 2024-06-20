@@ -10,10 +10,12 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +50,8 @@ public class CreatePostActivity extends AppCompatActivity {
     private ImageButton btnClose;
     private ImageButton btnPost;
     private TextView tvUsername;
-    private EditText edPostDesciption;
+    private TextView tvSelectedFile;
+    private Spinner edPostDesciption;
     private EditText edPostContent;
     private Button btnPictureVideo;
     private Button btnFile;
@@ -75,6 +78,7 @@ public class CreatePostActivity extends AppCompatActivity {
         btnClose = findViewById(R.id.btnClose);
         btnPost = findViewById(R.id.btnPost);
         tvUsername = findViewById(R.id.tvUsername);
+        tvSelectedFile = findViewById(R.id.tvSelectedFile);
         edPostDesciption = findViewById(R.id.edPostDesciption);
         edPostContent = findViewById(R.id.edPostContent);
         btnPictureVideo = findViewById(R.id.btnPictureVideo);
@@ -92,8 +96,8 @@ public class CreatePostActivity extends AppCompatActivity {
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (edPostDesciption.getText().toString().isEmpty()) {
-                    Toast.makeText(CreatePostActivity.this, "Please provide post's title!", Toast.LENGTH_SHORT).show();
+                if (edPostDesciption.getSelectedItem().toString().equals("Select your topic")) {
+                    Toast.makeText(CreatePostActivity.this, "Please select a topic", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (edPostContent.getText().toString().isEmpty()) {
@@ -106,7 +110,7 @@ public class CreatePostActivity extends AppCompatActivity {
                 }
 
                 // call API to post the post to database
-                postNewsfeed(ApplicationInfo.username, edPostDesciption.getText().toString(), edPostContent.getText().toString(), fileData, fileName, fileExtension);
+                postNewsfeed(ApplicationInfo.username, edPostDesciption.getSelectedItem().toString(), edPostContent.getText().toString(), fileData, fileName, fileExtension);
             }
         });
 
@@ -128,6 +132,10 @@ public class CreatePostActivity extends AppCompatActivity {
     private void initVariables() {
         tvUsername.setText(ApplicationInfo.username);
         isFileChosen = false;
+
+        String[] items = new String[]{"Select your topic", "Maths", "Physic"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        edPostDesciption.setAdapter(adapter);
     }
 
     private void postNewsfeed(String username, String postDescription, String postContent, String fileData, String fileName, String fileExtension) {
@@ -195,6 +203,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
                             // set the chosen state to true
                             isFileChosen = true;
+                            tvSelectedFile.setText(documentFile.getName());
                         }
                     } catch (IOException e) {
                         e.printStackTrace();

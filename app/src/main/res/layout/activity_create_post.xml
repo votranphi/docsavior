@@ -88,24 +88,31 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"/>
-            <EditText
+            <Spinner
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/edPostDesciption"
                 android:layout_below="@+id/tvUsername"
-                android:hint="Post's title"
-                android:layout_toRightOf="@+id/btnUser"
-                android:textSize="20dp"
+                android:layout_toEndOf="@+id/btnUser"
+                android:textSize="20sp"
                 android:background="@drawable/edittext"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginStart="10dp"/>
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/edPostContent"
+                android:padding="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/edPostDesciption"
                 android:background="@drawable/edittext"
                 android:hint="Post's description"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSelectedFile"
+                android:layout_below="@+id/edPostContent"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
         </RelativeLayout>
 
         <RelativeLayout
