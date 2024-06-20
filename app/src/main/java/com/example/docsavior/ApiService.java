@@ -45,4 +45,7 @@ public interface ApiService {
 
     @DELETE("/friend_request/delete")
     Call<Detail> deleteFriendRequest(@Query("username") String username, @Query("requester") String requester);
+
+    @GET("/notification/all")
+    Call<List<Notification>> getAllNotifications(@Query("username") String username);
 }

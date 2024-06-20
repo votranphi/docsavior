@@ -1,11 +1,28 @@
 package com.example.docsavior;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,5 +76,102 @@ public class NotificationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notification, container, false);
+    }
+
+    private ImageButton btnLookup;
+    private ImageButton btnProfile;
+    private TextView tvNothing;
+    private ListView lvNotification;
+
+    private ArrayList<Notification> notificationArrayList;
+
+    private NotificationAdapter adapter;
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        findViewByIds();
+
+        initVariables();
+
+        setOnClickListeners();
+
+        loadNotifications();
+    }
+
+    private void findViewByIds()
+    {
+        btnLookup = getView().findViewById(R.id.btnLookup);
+        btnProfile = getView().findViewById(R.id.btnProfile);
+        tvNothing = getView().findViewById(R.id.tvNothing);
+        lvNotification = getView().findViewById(R.id.lvNotification);
+    }
+
+    private void initVariables() {
+        notificationArrayList = new ArrayList<>();
+        adapter = new NotificationAdapter(getActivity(), R.layout.item_notification, notificationArrayList);
+        lvNotification.setAdapter(adapter);
+    }
+    private void setOnClickListeners()
+    {
+        btnLookup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LookUpPostUserActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void loadNotifications()
+    {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<List<Notification>> call = apiService.getAllNotifications(ApplicationInfo.username);
+
+        call.enqueue(new Callback<List<Notification>>() {
+            @Override
+            public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        List<Notification> responseList = response.body();
+
+                        // add the elements in responseList to newsFeedArrayList
+                        for (Notification i : responseList) {
+                            notificationArrayList.add(i);
+                        }
+
+                        // update the ListView
+                        adapter.notifyDataSetChanged();
+
+                        // set the visibility of "NOTHING TO SHOW" to GONE
+                        tvNothing.setVisibility(View.GONE);
+                    } else if (response.code() == 600) {
+                        // set the visibility of "NOTHING TO SHOW" to VISIBLE
+                        tvNothing.setVisibility(View.VISIBLE);
+                    } else {
+                        Toast.makeText(getActivity(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR100: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Notification>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

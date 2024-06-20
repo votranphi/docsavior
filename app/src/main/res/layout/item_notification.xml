@@ -23,29 +23,14 @@
         android:padding="8dp"
         android:clickable="false"
         android:layout_gravity="center_vertical"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:orientation="vertical"
-        android:weightSum="2"
-        android:layout_marginLeft="10dp">
-
         <TextView
-            android:id="@+id/notiTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Notification"
-            android:layout_weight="1"/>
-
-        <TextView
-            android:id="@+id/notiDes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Notificaton description"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:textSize="15sp"
+            android:text="Notification"/>
 
 </LinearLayout>
+
 </LinearLayout>
