@@ -21,7 +21,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
     private List<NewsFeed> newsFeedList = new ArrayList<>();
     private List<TextView> usernames = new ArrayList<>();
     private List<TextView> postDescriptions = new ArrayList<>();
-    private List<TextView> postContents = new ArrayList<>(); // Phuc will add this in the item later
+    private List<TextView> postContents = new ArrayList<>(); // Phuc has added this
     private List<TextView> documentNames = new ArrayList<>();
     private List<ImageButton> btnLikes = new ArrayList<>();
     private List<ImageButton> btnDislikes = new ArrayList<>();
@@ -55,7 +55,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
 
         usernames.get(position).setText(nf.getUsername());
         postDescriptions.get(position).setText(nf.getPostDescription());
-        // postContents.get(position).setText(nf.getPostContent());
+        postContents.get(position).setText(nf.getPostContent());
         documentNames.get(position).setText(nf.getFileName() + "." + nf.getFileExtension());
         likeNumbers.get(position).setText(String.valueOf(nf.getLikeNumber()));
         dislikeNumbers.get(position).setText(String.valueOf(nf.getDislikeNumber()));
@@ -67,7 +67,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
     private void findViewByIds(View convertView) {
         usernames.add(convertView.findViewById(R.id.tvUsername));
         postDescriptions.add(convertView.findViewById(R.id.tvPostDesciption));
-        // postContents.add(convertView.findViewById(R.id.tvPostContent));
+        postContents.add(convertView.findViewById(R.id.tvPostContent));
         documentNames.add(convertView.findViewById(R.id.tvDocumentName));
         btnLikes.add(convertView.findViewById(R.id.btnLike));
         btnDislikes.add(convertView.findViewById(R.id.btnDislike));
