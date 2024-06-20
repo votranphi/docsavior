@@ -103,7 +103,8 @@ public class SettingFragment extends Fragment {
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), Profile.class);
+                startActivity(intent);
             }
         });
 
