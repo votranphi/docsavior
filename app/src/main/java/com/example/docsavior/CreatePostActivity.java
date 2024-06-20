@@ -27,15 +27,18 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.documentfile.provider.DocumentFile;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serial;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import retrofit2.Call;
@@ -133,7 +136,7 @@ public class CreatePostActivity extends AppCompatActivity {
         tvUsername.setText(ApplicationInfo.username);
         isFileChosen = false;
 
-        String[] items = new String[]{"Select your topic", "Maths", "Physic"};
+        String[] items = new String[]{"Select your topic", "Maths", "Physic", "MobileDev", "Picture"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         edPostDesciption.setAdapter(adapter);
     }
@@ -192,8 +195,14 @@ public class CreatePostActivity extends AppCompatActivity {
                             inputStream.read(bytes);
                             inputStream.close();
 
-                            // Convert byte array to string
-                            fileData = new String(bytes);
+                            // create jsonArray to store byte array in it
+                            JSONArray jsonArray = new JSONArray();
+                            for (byte i : bytes) {
+                                jsonArray.put(i);
+                            }
+                            // convert jsonArray to string for posting it
+                            fileData = jsonArray.toString();
+
                             // get the file's full name
                             String fileFullName = documentFile.getName();
                             // split the fileFullName to get file's name and file's extension
@@ -205,8 +214,8 @@ public class CreatePostActivity extends AppCompatActivity {
                             isFileChosen = true;
                             tvSelectedFile.setText(documentFile.getName());
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } catch (Exception e) {
+                        Log.e("ERROR123: ", e.getMessage());
                     }
                 }
             }

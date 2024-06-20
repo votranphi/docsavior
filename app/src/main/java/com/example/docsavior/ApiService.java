@@ -1,5 +1,6 @@
 package com.example.docsavior;
 
+import java.sql.Blob;
 import java.util.List;
 
 import retrofit2.Call;

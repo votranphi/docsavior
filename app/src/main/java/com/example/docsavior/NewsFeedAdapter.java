@@ -11,8 +11,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,14 +85,24 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
         documentNames.get(position).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // get the post first
-                NewsFeed post = newsFeedList.get(position);
+                try {
+                    // get the post first
+                    NewsFeed post = newsFeedList.get(position);
 
-                // convert data from string to byte array
-                byte[] byteArray = post.getFileData().getBytes();
+                    // create jsonArray to store fileData
+                    JSONArray jsonArray = new JSONArray(post.getFileData());
+                    // convert jsonArray to byteArray
+                    byte[] byteArray = new byte[jsonArray.length()];
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        int temp = (int)jsonArray.get(i);
+                        byteArray[i] = (byte)temp;
+                    }
 
-                // save file to Download
-                writeFileToDownloads(byteArray, post.getFileName() + "." + post.getFileExtension());
+                    // save file to Download
+                    writeFileToDownloads(byteArray, post.getFileName() + "." + post.getFileExtension());
+                } catch (Exception ex) {
+                    Log.e("ERROR987: ", ex.getMessage());
+                }
             }
         });
 
@@ -137,6 +150,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
             // write the file from byte array
             FileOutputStream stream = new FileOutputStream(path);
             stream.write(array);
+            stream.close();
 
             // notify user that the file is successfully downloaded
             Toast.makeText(context, "File's successfully downloaded to Downloads!", Toast.LENGTH_SHORT).show();
