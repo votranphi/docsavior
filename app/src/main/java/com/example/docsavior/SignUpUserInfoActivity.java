@@ -3,6 +3,7 @@ package com.example.docsavior;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -29,12 +30,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignUpUserInfoActivity extends AppCompatActivity {
 
+    public final static String KEY_TO_OTP_VERIFICATION_ACITVITY = "username_email_phoneNumber_password_fullName_birthDay_gender";
     private EditText edAccountName;
     private Button edDateOfBirth;
     private CheckBox cbMale;
     private CheckBox cbFemale;
     private Button btnContinue;
-
     private ArrayList<String> userInfo;
 
     @Override
@@ -74,10 +75,8 @@ public class SignUpUserInfoActivity extends AppCompatActivity {
                     return;
                 }
 
-                // male is 1 and female is 0
-                boolean gender = cbMale.isChecked();
-
-                postSignUpInfo(userInfo.get(0), userInfo.get(1), userInfo.get(2), userInfo.get(3), edAccountName.getText().toString(), edDateOfBirth.getText().toString(), gender);
+                Toast.makeText(SignUpUserInfoActivity.this, "OTP is sending to your email!", Toast.LENGTH_LONG).show();
+                postCreateOrRefreshOTP(userInfo.get(0), userInfo.get(1));
             }
         });
 
@@ -107,6 +106,55 @@ public class SignUpUserInfoActivity extends AppCompatActivity {
         }
     }
 
+    private void postCreateOrRefreshOTP(String username, String email) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postCreateOrRefreshOTP(username, email);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // male is 1 and female is 0
+                        boolean gender = cbMale.isChecked();
+
+                        // array list to put to OTPVerificationActivity
+                        ArrayList<String> arrayListToPut = new ArrayList<>();
+
+                        // put things to it
+                        arrayListToPut.add(userInfo.get(0));
+                        arrayListToPut.add(userInfo.get(1));
+                        arrayListToPut.add(userInfo.get(2));
+                        arrayListToPut.add(userInfo.get(3));
+                        arrayListToPut.add(edAccountName.getText().toString());
+                        arrayListToPut.add(edDateOfBirth.getText().toString());
+                        arrayListToPut.add(String.valueOf(gender));
+
+                        Intent myIntent = new Intent(SignUpUserInfoActivity.this, OTPVerificationActivity.class);
+                        myIntent.putStringArrayListExtra(KEY_TO_OTP_VERIFICATION_ACITVITY, arrayListToPut);
+                        startActivity(myIntent);
+                    } else {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        Toast.makeText(SignUpUserInfoActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(SignUpUserInfoActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void openDatePickerDialog()
     {
         Calendar calendar = Calendar.getInstance();
@@ -122,39 +170,5 @@ public class SignUpUserInfoActivity extends AppCompatActivity {
         }, year, month, day);
 
         dialog.show();
-    }
-
-    private void postSignUpInfo(String username, String email, String phoneNumber, String password, String fullName, String birthDay, boolean gender) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationInfo.apiPath)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiService apiService = retrofit.create(ApiService.class);
-
-        Call<Detail> call = apiService.postSignUpInfo(username, email, phoneNumber, password, fullName, birthDay, gender);
-
-        call.enqueue(new Callback<Detail>() {
-            @Override
-            public void onResponse(Call<Detail> call, Response<Detail> response) {
-                if (response.isSuccessful()) {
-                    Intent myIntent = new Intent(SignUpUserInfoActivity.this, MainActivity.class);
-                    Toast.makeText(SignUpUserInfoActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
-                    SignUpUserInfoActivity.this.startActivity(myIntent);
-                } else {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        Toast.makeText(SignUpUserInfoActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
-                    } catch (Exception ex) {
-
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Detail> call, Throwable t) {
-                Toast.makeText(SignUpUserInfoActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

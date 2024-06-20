@@ -21,6 +21,12 @@ public interface ApiService {
     @POST("/user/password_recovery")
     Call<Detail> postRecoverPasswordInfo(@Query("username") String username, @Query("email") String email, @Query("phoneNumber") String phoneNumber);
 
+    @POST("/otp/create_or_refresh")
+    Call<Detail> postCreateOrRefreshOTP(@Query("username") String username, @Query("email") String email);
+
+    @POST("/otp/check")
+    Call<Detail> postCheckOTP(@Query("username") String username, @Query("otp") String otp);
+
     @GET("/newsfeed/all")
     Call<List<NewsFeed>> getAllPosts();
 

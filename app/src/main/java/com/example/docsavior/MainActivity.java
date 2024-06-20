@@ -112,13 +112,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Detail> call, Response<Detail> response) {
                 if (response.isSuccessful()) {
-                    // start NewsFeedActivity after logging in successfully
-                    Intent myIntent = new Intent(MainActivity.this, NewsFeedActivity.class);
-                    Toast.makeText(MainActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
-                    MainActivity.this.startActivity(myIntent);
-
                     // set the username of the user for later usage
                     ApplicationInfo.username = username;
+
+                    // start NewsFeedActivity after logging in successfully
+                    Intent myIntent = new Intent(MainActivity.this, NewsFeedActivity.class);
+                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    Toast.makeText(MainActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
+                    MainActivity.this.startActivity(myIntent);
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
