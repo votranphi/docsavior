@@ -103,8 +103,8 @@ public class SettingFragment extends Fragment {
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), Profile.class);
-                startActivity(intent);
+                Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
+                startActivity(myIntent);
             }
         });
 
@@ -118,7 +118,8 @@ public class SettingFragment extends Fragment {
         rltChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: open change password activity them do things
+                Intent myIntent = new Intent(getActivity(), ChangePasswordActivity.class);
+                startActivity(myIntent);
             }
         });
 
