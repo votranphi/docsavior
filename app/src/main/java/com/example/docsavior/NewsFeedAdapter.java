@@ -99,7 +99,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                     }
 
                     // save file to Download
-                    writeFileToDownloads(byteArray, post.getFileName() + "." + post.getFileExtension());
+                    writeFileToDownloads(byteArray, post.getFileName(), post.getFileExtension());
                 } catch (Exception ex) {
                     Log.e("ERROR987: ", ex.getMessage());
                 }
@@ -135,27 +135,38 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
         });
     }
 
-    private void writeFileToDownloads(byte[] array, String fileFullName)
+    private void writeFileToDownloads(byte[] array, String fileName, String fileExtension)
     {
         try
         {
             // get the path to Downloads folder plus file's name
-            String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + "/" + fileFullName;
-            File file = new File(path);
+            String pathToDownloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath();
+            String pathToFile = pathToDownloads + "/" + fileName + "." + fileExtension;
+            File file = new File(pathToFile);
+
             // create the file if it is not existed
+            String fileFullName = fileName + "." + fileExtension;
             if (!file.exists()) {
                 file.createNewFile();
+            } else {
+                int i = 1;
+                // Loop until the file is not exist
+                do {
+                    fileFullName = fileName + " (" + i + ")." + fileExtension;
+                    pathToFile = pathToDownloads + "/" + fileName + " (" + i + ")." + fileExtension;
+                    file = new File(pathToFile);
+                    i++;
+                } while (file.exists());
             }
 
             // write the file from byte array
-            FileOutputStream stream = new FileOutputStream(path);
+            FileOutputStream stream = new FileOutputStream(pathToFile);
             stream.write(array);
             stream.close();
 
             // notify user that the file is successfully downloaded
-            Toast.makeText(context, "File's successfully downloaded to Downloads!", Toast.LENGTH_SHORT).show();
-        } catch (Exception ex)
-        {
+            Toast.makeText(context, fileFullName + " successfully downloaded to Downloads!", Toast.LENGTH_SHORT).show();
+        } catch (Exception ex) {
             Log.e("ERROR1: ", ex.getMessage());
         }
     }
