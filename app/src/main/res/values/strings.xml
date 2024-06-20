@@ -48,6 +48,7 @@
     <string name="one_time_password_sent">One Time Password (OTP)\nhas been sent to your Email</string>
     <string name="reset_password_in">Resent OTP in</string>
     <string name="verify">Verify</string>
+    <string name="password_confirm">Confirm your password</string>
 
 
 

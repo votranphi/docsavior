@@ -26,6 +26,8 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText edPassword;
     private Button btnSignUp;
 
+    private EditText edPasswordConfirm;
+
     public final static String KEY_TO_SIGN_UP_USER_INFO_ACTIVITY = "username_email_phoneNumber_password";
 
     @Override
@@ -44,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
         edPhoneNumber = findViewById(R.id.edPhoneNumber);
         edPassword = findViewById(R.id.edPassword);
         btnSignUp = findViewById(R.id.btnSignUp);
+        edPasswordConfirm = findViewById(R.id.edPasswordConfirm);
     }
 
     private void setOnClickListeners() {
@@ -51,11 +54,14 @@ public class SignUpActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (edUsername.getText().toString().isEmpty() || edEmail.getText().toString().isEmpty() || edPhoneNumber.getText().toString().isEmpty() || edPassword.getText().toString().isEmpty()) {
-                            Toast.makeText(SignUpActivity.this, "Please enter full fields above!", Toast.LENGTH_LONG);
+                        if (edUsername.getText().toString().isEmpty() || edEmail.getText().toString().isEmpty() || edPhoneNumber.getText().toString().isEmpty() || edPassword.getText().toString().isEmpty() || edPasswordConfirm.getText().toString().isEmpty()) {
+                            Toast.makeText(SignUpActivity.this, "Please enter full fields above!", Toast.LENGTH_LONG).show();
                             return;
                         }
-
+                        if (!edPassword.getText().toString().equals(edPasswordConfirm.getText().toString()))
+                        {
+                            Toast.makeText(SignUpActivity.this, "Confirm password is incorrect!", Toast.LENGTH_LONG).show();
+                        }
                         // create intent to start SignUpUserInfoActivity
                         Intent myIntent = new Intent(SignUpActivity.this, SignUpUserInfoActivity.class);
                         // create ArrayList of user's info to put to SignUpUserInfoActivity

@@ -64,8 +64,20 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edPhoneNumber"
+        android:id="@+id/edPasswordConfirm"
         android:layout_below="@id/edPassword"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/edittext"
+        android:hint="@string/password_confirm"
+        android:inputType="textPassword"
+        android:padding="15dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edPhoneNumber"
+        android:layout_below="@id/edPasswordConfirm"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
