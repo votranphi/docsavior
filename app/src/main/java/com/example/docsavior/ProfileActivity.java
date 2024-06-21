@@ -49,6 +49,8 @@ public class ProfileActivity extends AppCompatActivity {
     ProfileAdapter profileAdapter;
     ArrayList<String> stringArrayList;
 
+    ImageButton btnGoToDetails;
+
     private static final int REQUEST_CODE_OPEN_DOCUMENT = 1;
     private String fileData = "";
     private String fileName = "";
@@ -56,6 +58,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private User user = null;
     private String username = "";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnAddfriend = findViewById(R.id.btnAddfriend);
         btnMessage = findViewById(R.id.btnMessage);
         gvPosts = findViewById(R.id.gvPosts);
+        btnGoToDetails = findViewById(R.id.btnGoToDetails);
     }
 
     private void setOnClickListeners() {

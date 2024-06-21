@@ -13,6 +13,19 @@
         android:id="@+id/rltBackground"
         android:background="@color/grey">
 
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/btnGoToDetails"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/dots"
+            android:background="@drawable/circlebtn"
+            android:backgroundTint="@color/white"
+            android:scaleType="centerCrop"
+            android:padding="10dp"
+            android:layout_alignParentEnd="true"
+            android:clickable="false"/>
+
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
