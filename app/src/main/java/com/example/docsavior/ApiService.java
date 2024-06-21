@@ -25,6 +25,12 @@ public interface ApiService {
     @POST("/user/password_change")
     Call<Detail> postChangePassword(@Query("username") String username, @Query("oldPassword") String oldPassword, @Query("newPassword") String newPassword);
 
+    @GET("/user/me")
+    Call<User> getUserInfo(@Query("username") String username);
+
+    @POST("/user/avatar")
+    Call<Detail> postAvatar(@Query("username") String username, @Query("avatarData") String avatarData, @Query("avatarName") String avatarName, @Query("avatarExtension") String avatarExtension);
+
     @POST("/otp/create_or_refresh")
     Call<Detail> postCreateOrRefreshOTP(@Query("username") String username, @Query("email") String email);
 

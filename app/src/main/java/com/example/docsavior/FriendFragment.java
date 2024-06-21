@@ -112,7 +112,6 @@ public class FriendFragment extends Fragment {
         btnLookup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: start the look up activity then do the things
                 Intent myIntent = new Intent(getActivity(), LookUpPostUserActivity.class);
                 startActivity(myIntent);
             }
@@ -121,8 +120,8 @@ public class FriendFragment extends Fragment {
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: start the profile activity then do the things
                 Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
+                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, ApplicationInfo.username);
                 startActivity(myIntent);
             }
         });

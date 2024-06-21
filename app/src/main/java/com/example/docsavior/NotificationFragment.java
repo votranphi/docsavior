@@ -86,6 +86,7 @@ public class NotificationFragment extends Fragment {
     private ArrayList<Notification> notificationArrayList;
 
     private NotificationAdapter adapter;
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         findViewByIds();
@@ -123,8 +124,9 @@ public class NotificationFragment extends Fragment {
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                startActivity(intent);
+                Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
+                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, ApplicationInfo.username);
+                startActivity(myIntent);
             }
         });
     }

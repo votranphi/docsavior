@@ -104,6 +104,7 @@ public class SettingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
+                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, ApplicationInfo.username);
                 startActivity(myIntent);
             }
         });

@@ -130,6 +130,7 @@ public class NewsFeedFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
+                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, ApplicationInfo.username);
                 startActivity(myIntent);
             }
         });
@@ -162,10 +163,9 @@ public class NewsFeedFragment extends Fragment {
                         // add the elements in responseList to newsFeedArrayList
                         for (NewsFeed i : responseList) {
                             newsFeedArrayList.add(i);
+                            // update the ListView every one post
+                            newsFeedAdapter.notifyDataSetChanged();
                         }
-
-                        // update the ListView
-                        newsFeedAdapter.notifyDataSetChanged();
 
                         // set the visibility of "NOTHING TO SHOW" to GONE
                         tvNothing.setVisibility(View.GONE);
