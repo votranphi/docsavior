@@ -49,6 +49,5 @@
     <string name="reset_password_in">Resent OTP in</string>
     <string name="verify">Verify</string>
     <string name="password_confirm">Confirm your password</string>
-
-
+    <string name="send_request">Send request</string>
 </resources>
