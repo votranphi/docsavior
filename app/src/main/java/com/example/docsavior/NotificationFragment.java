@@ -78,7 +78,6 @@ public class NotificationFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_notification, container, false);
     }
 
-    private ImageButton btnLookup;
     private ImageButton btnProfile;
     private TextView tvNothing;
     private ListView lvNotification;
@@ -100,7 +99,6 @@ public class NotificationFragment extends Fragment {
 
     private void findViewByIds()
     {
-        btnLookup = getView().findViewById(R.id.btnLookup);
         btnProfile = getView().findViewById(R.id.btnProfile);
         tvNothing = getView().findViewById(R.id.tvNothing);
         lvNotification = getView().findViewById(R.id.lvNotification);
@@ -113,14 +111,6 @@ public class NotificationFragment extends Fragment {
     }
     private void setOnClickListeners()
     {
-        btnLookup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LookUpPostUserActivity.class);
-                startActivity(intent);
-            }
-        });
-
         btnProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -113,6 +113,7 @@ public class FriendFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getActivity(), LookUpPostUserActivity.class);
+                myIntent.putExtra(ApplicationInfo.KEY_TO_LOOK_UP_POST_USER_ACTIVITY, ApplicationInfo.LOOK_UP_TYPE_USER);
                 startActivity(myIntent);
             }
         });
