@@ -25,6 +25,7 @@ public class LookUpPostUserActivity extends AppCompatActivity {
     private LookupHistoryAdapter lookupHistoryAdapter;
     private ArrayList<LookupHistory> lookupHistoryArrayList;
 
+    private int lookupType = 0; // 0 is lookup in newsfeed, 1 is look up in chat, 2 is lookup in friend
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,8 @@ public class LookUpPostUserActivity extends AppCompatActivity {
         btnFind.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // TODO: call API to post to lookup history
+                // TODO: call API to get the lookup result, then start LookUpResultActivity to display it out
             }
         });
     }
@@ -64,5 +66,6 @@ public class LookUpPostUserActivity extends AppCompatActivity {
     private void initVariables() {
         lookupHistoryArrayList = new ArrayList<>();
         lookupHistoryAdapter = new LookupHistoryAdapter(this, R.layout.item_lookup_post_user, lookupHistoryArrayList);
+        lvLookupHistory.setAdapter(lookupHistoryAdapter);
     }
 }
