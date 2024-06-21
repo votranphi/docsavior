@@ -228,7 +228,7 @@
         android:background="@drawable/bg_message_white_blue_corner"
         android:clickable="true"
         android:focusable="true"
-        android:backgroundTint="@color/grey"
+        android:backgroundTint="@color/blue"
         android:gravity="center_vertical">
 
         <ImageView
