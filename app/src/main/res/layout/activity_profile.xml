@@ -19,25 +19,25 @@
         android:layout_height="20dp"
         android:layout_below="@id/rltBackground"
         android:background="@color/grey"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        app:cardCornerRadius="250dp"
+        app:cardBackgroundColor="@color/white">
         <androidx.cardview.widget.CardView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_centerHorizontal="true"
             app:cardCornerRadius="250dp"
-            app:cardBackgroundColor="@color/white">
-            <androidx.cardview.widget.CardView
+            android:layout_gravity="center">
+            <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                app:cardCornerRadius="250dp"
-                android:layout_gravity="center">
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:id="@+id/imgUserAvatar"
-                    android:src="@drawable/p_shape"
-                    android:scaleType="centerCrop"/>
-            </androidx.cardview.widget.CardView>
+                android:id="@+id/imgUserAvatar"
+                android:src="@drawable/p_shape"
+                android:scaleType="centerCrop"/>
         </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 
 
@@ -52,10 +52,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvUsername"
-            android:text="Username"
+            android:text="@string/username"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="60dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"/>
 
         <RelativeLayout
@@ -67,16 +67,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnAddfriend"
-                android:text="Add friend"
+                android:text="@string/add_friend"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/blue"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnMessage"
-                android:text="Message"
-                android:layout_toRightOf="@id/btnAddfriend"
-                android:layout_marginLeft="10dp"
+                android:text="@string/message"
+                android:layout_toEndOf="@id/btnAddfriend"
+                android:layout_marginStart="10dp"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/white"/>
 
@@ -94,44 +94,44 @@
         android:layout_marginTop="10dp">
         <Button
             android:layout_width="60dp"
-            android:layout_height="30dp"
+            android:layout_height="48dp"
             android:id="@+id/btnTypeAll"
-            android:text="All"
-            android:textSize="12dp"
+            android:text="@string/all"
+            android:textSize="12sp"
             android:padding="0dp"
             android:backgroundTint="@color/light_blue"
             android:textColor="@color/black"/>
         <Button
             android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="5dp"
             android:id="@+id/btnTypePicture"
-            android:layout_toRightOf="@+id/btnTypeAll"
+            android:layout_toEndOf="@+id/btnTypeAll"
             android:padding="0dp"
-            android:textSize="12dp"
-            android:text="Picture"
+            android:textSize="12sp"
+            android:text="@string/picture"
             android:backgroundTint="@color/light_blue"
             android:textColor="@color/black"/>
         <Button
             android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="5dp"
             android:id="@+id/btnTypeVideo"
-            android:layout_toRightOf="@+id/btnTypePicture"
+            android:layout_toEndOf="@+id/btnTypePicture"
             android:padding="0dp"
-            android:textSize="12dp"
-            android:text="Video"
+            android:textSize="12sp"
+            android:text="@string/video"
             android:backgroundTint="@color/light_blue"
             android:textColor="@color/black"/>
         <Button
             android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="5dp"
             android:id="@+id/btnTypeFile"
-            android:layout_toRightOf="@+id/btnTypeVideo"
-            android:textSize="12dp"
+            android:layout_toEndOf="@+id/btnTypeVideo"
+            android:textSize="12sp"
             android:padding="0dp"
-            android:text="File"
+            android:text="@string/file"
             android:backgroundTint="@color/light_blue"
             android:textColor="@color/black"/>
         <TextView
@@ -140,11 +140,8 @@
             android:backgroundTint="@color/grey"
             android:background="@drawable/screen_bounding"
             android:layout_below="@+id/btnTypeAll"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginStart="15dp"/>
     </RelativeLayout>
-
-
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -166,6 +163,5 @@
             android:visibility="invisible"/>
 
     </RelativeLayout>
-
 
 </RelativeLayout>

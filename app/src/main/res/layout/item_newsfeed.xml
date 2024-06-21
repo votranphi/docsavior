@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp">
+            android:layout_marginStart="10dp">
             <ImageView
                 android:id="@+id/profileImg"
                 android:layout_width="40dp"
@@ -46,14 +46,14 @@
                         android:id="@+id/tvPostDesciption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" - Topic"
+                        android:text="@string/topic"
                         android:textSize="20sp"/>
                 </LinearLayout>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvPostContent"
-                    android:text="description"
+                    android:text="@string/description"
                     android:textSize="20sp"/>
             </LinearLayout>
 
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
                 android:id="@+id/tvDocumentName"
-                android:text="document URL"
+                android:text="@string/document_url"
                 android:textAlignment="center"
                 android:clickable="true"
                 />
@@ -80,10 +80,11 @@
            android:layout_height="wrap_content"
            android:background="@color/grey">
            <ImageButton
-               android:layout_width="40dp"
-               android:layout_height="40dp"
-               android:layout_marginLeft="15dp"
+               android:layout_width="48dp"
+               android:layout_height="48dp"
+               android:layout_marginStart="15dp"
                android:id="@+id/btnLike"
+               android:importantForAccessibility="no"
                android:src="@drawable/like_icon_white"
                android:background="@drawable/circlebtn"
                android:backgroundTint="@color/grey"
@@ -95,25 +96,28 @@
                android:textColor="@color/white"
                android:id="@+id/tvLikeNumber"/>
            <ImageButton
-               android:layout_width="40dp"
-               android:layout_height="40dp"
-               android:layout_marginLeft="15dp"
+               android:layout_width="48dp"
+               android:layout_height="48dp"
+               android:layout_marginStart="15dp"
                android:id="@+id/btnDislike"
+               android:contentDescription="TODO"
                android:src="@drawable/dislike_icon_white"
                android:background="@drawable/circlebtn"
                android:backgroundTint="@color/grey"
                android:scaleType="fitCenter"
                android:padding="5dp"/>
+
            <TextView
+               android:id="@+id/tvDislikeNumber"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:textColor="@color/white"
-               android:id="@+id/tvDislikeNumber"/>
+               android:textColor="@color/white" />
            <ImageButton
-               android:layout_width="40dp"
-               android:layout_height="40dp"
-               android:layout_marginLeft="15dp"
+               android:layout_width="48dp"
+               android:layout_height="48dp"
+               android:layout_marginStart="15dp"
                android:id="@+id/btnComment"
+               android:contentDescription="TODO"
                android:src="@drawable/comment_icon_white"
                android:background="@drawable/circlebtn"
                android:backgroundTint="@color/grey"
@@ -125,10 +129,11 @@
                android:textColor="@color/white"
                android:id="@+id/tvCommentNumber"/>
            <ImageButton
-               android:layout_width="40dp"
-               android:layout_height="40dp"
-               android:layout_marginLeft="170dp"
+               android:layout_width="48dp"
+               android:layout_height="48dp"
+               android:layout_marginStart="170dp"
                android:id="@+id/btnSave"
+               android:importantForAccessibility="no"
                android:src="@drawable/save_icon_white"
                android:background="@drawable/circlebtn"
                android:backgroundTint="@color/grey"
