@@ -42,6 +42,14 @@ public interface ApiService {
 
     @POST("/newsfeed/add")
     Call<Detail> postNewsfeed(@Query("username") String username, @Query("postDescription") String postDescription, @Query("postContent") String postContent, @Query("fileData") String fileData, @Query("fileName") String fileName, @Query("fileExtension") String fileExtension);
+    @POST("/newsfeed/like")
+    Call<Integer> postLike(@Query("id") Integer id);
+    @POST("/newsfeed/like")
+    Call<Integer> postUnlike(@Query("id") Integer id);
+    @POST("/newsfeed/like")
+    Call<Integer> postDisike(@Query("id") Integer id);
+    @POST("/newsfeed/like")
+    Call<Integer> postUndislike(@Query("id") Integer id);
 
     @POST("/friend/add")
     Call<Detail> postNewFriend(@Query("username") String username, @Query("usernameFriend") String usernameFriend);

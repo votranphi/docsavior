@@ -19,6 +19,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
     private final Activity context;
     private List<NewsFeed> newsFeedList = new ArrayList<>();
@@ -109,14 +115,70 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
         btnLikes.get(position).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: code API to increase like number of this post by 1 then call it in here
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(ApplicationInfo.apiPath).addConverterFactory(GsonConverterFactory.create()).build();
+
+                ApiService apiService = retrofit.create(ApiService.class);
+
+                Call<Integer> call = apiService.postLike(getItem(position).getId());
+
+                call.enqueue(new Callback<Integer>() {
+                    @Override
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+                        try {
+                            if (response.isSuccessful())
+                            {
+                                Toast.makeText(context, "Like successfully!", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        catch (Throwable t)
+                        {
+                            Log.e("ERROR100: ", t.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+                        Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         btnDislikes.get(position).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: code API to increase dislike number of this post by 1 then call it in here
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(ApplicationInfo.apiPath).addConverterFactory(GsonConverterFactory.create()).build();
+
+                ApiService apiService = retrofit.create(ApiService.class);
+
+                Call<Integer> call = apiService.postDisike(getItem(position).getId());
+
+                call.enqueue(new Callback<Integer>() {
+                    @Override
+                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+                        try {
+                            if (response.isSuccessful())
+                            {
+                                Toast.makeText(context, "Like successfully!", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        catch (Throwable t)
+                        {
+                            Log.e("ERROR100: ", t.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+                        Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
