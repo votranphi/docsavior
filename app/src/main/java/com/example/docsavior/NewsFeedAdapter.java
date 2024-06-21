@@ -162,7 +162,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                         try {
                             if (response.isSuccessful())
                             {
-                                Toast.makeText(context, "Like successfully!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, "Disike successfully!", Toast.LENGTH_LONG).show();
                             }
                             else {
                                 Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
