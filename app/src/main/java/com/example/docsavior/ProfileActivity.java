@@ -158,19 +158,21 @@ public class ProfileActivity extends AppCompatActivity {
             // set username
             tvUsername.setText(user.getUsername());
 
-            // create jsonArray to store fileData
-            JSONArray jsonArray = new JSONArray(user.getAvatarData());
-            // convert jsonArray to byteArray
-            byte[] byteArray = new byte[jsonArray.length()];
-            for (int i = 0; i < jsonArray.length(); i++) {
-                int temp = (int)jsonArray.get(i);
-                byteArray[i] = (byte)temp;
-            }
+            if (!user.getAvatarData().isEmpty()) {
+                // create jsonArray to store fileData
+                JSONArray jsonArray = new JSONArray(user.getAvatarData());
+                // convert jsonArray to byteArray
+                byte[] byteArray = new byte[jsonArray.length()];
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    int temp = (int)jsonArray.get(i);
+                    byteArray[i] = (byte)temp;
+                }
 
-            // convert byteArray to bitmap
-            Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            // set the avatar
-            imgUserAvatar.setImageBitmap(Bitmap.createScaledBitmap(bmp, imgUserAvatar.getWidth(), imgUserAvatar.getHeight(), false));
+                // convert byteArray to bitmap
+                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                // set the avatar
+                imgUserAvatar.setImageBitmap(Bitmap.createScaledBitmap(bmp, imgUserAvatar.getWidth(), imgUserAvatar.getHeight(), false));
+            }
         } catch (Exception ex) {
             Log.e("ERROR230: ", ex.getMessage());
         }

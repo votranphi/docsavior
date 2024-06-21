@@ -27,13 +27,14 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/close_icon"
                 android:padding="8dp"/>
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/tvLookUpContent"
                 android:background="@drawable/edittext"
                 android:layout_toEndOf="@+id/btnClose"
-                android:layout_marginStart="5dp" />
+                android:layout_marginStart="5dp"
+                android:clickable="false"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -45,6 +46,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/lvResult"/>
+            <TextView
+                android:id="@+id/tvNothing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:text="@string/there_is_nothing_to_show"
+                android:visibility="gone"/>
         </RelativeLayout>
     </RelativeLayout>
 </RelativeLayout>

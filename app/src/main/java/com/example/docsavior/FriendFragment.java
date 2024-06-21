@@ -130,7 +130,7 @@ public class FriendFragment extends Fragment {
 
     private void initVariables() {
         friendArrayList = new ArrayList<>();
-        friendAdapter = new FriendAdapter(getActivity(), R.layout.item_friend, friendArrayList);
+        friendAdapter = new FriendAdapter(getActivity(), R.layout.item_friend, friendArrayList, false);
         lvRequest.setAdapter(friendAdapter);
     }
 

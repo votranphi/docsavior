@@ -24,6 +24,8 @@ public interface ApiService {
     Call<User> getUserInfo(@Query("username") String username);
     @POST("/user/avatar")
     Call<Detail> postAvatar(@Query("username") String username, @Query("avatarData") String avatarData, @Query("avatarName") String avatarName, @Query("avatarExtension") String avatarExtension);
+    @POST("/user/look_up")
+    Call<FoundUsers> postUserLookUp(@Query("lookUpInfo") String lookUpInfo);
 
 
 
@@ -56,6 +58,8 @@ public interface ApiService {
 
     @GET("/friend_request/all")
     Call<Requester> getAllFriendRequests(@Query("username") String username);
+    @POST("/friend_request/add")
+    Call<Detail> postFriendRequest(@Query("username") String username, @Query("requester") String requester);
     @DELETE("/friend_request/delete")
     Call<Detail> deleteFriendRequest(@Query("username") String username, @Query("requester") String requester);
 

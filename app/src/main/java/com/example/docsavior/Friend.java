@@ -1,17 +1,18 @@
 package com.example.docsavior;
 
 public class Friend {
-    public String avatar;
-    public String username;
+    private String avatarData;
+    private String username;
 
-    public Friend (String avatar, String username)
+    public Friend (String avatarData, String username)
     {
-        this.avatar = avatar;
+        this.avatarData = avatarData;
         this.username = username;
     }
     public Friend ()
     {
-        avatar=username="";
+        avatarData = "";
+        username = "";
     }
 
     //get and set
@@ -20,7 +21,7 @@ public class Friend {
         return username;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public String getAvatarData() {
+        return avatarData;
     }
 }

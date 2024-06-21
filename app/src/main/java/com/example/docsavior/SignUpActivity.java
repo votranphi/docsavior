@@ -58,6 +58,12 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(SignUpActivity.this, "Please enter full fields above!", Toast.LENGTH_LONG).show();
                             return;
                         }
+
+                        if (edUsername.getText().toString().contains(" ")) {
+                            Toast.makeText(SignUpActivity.this, "Your username cannot have space!", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
                         if (!edPassword.getText().toString().equals(edPasswordConfirm.getText().toString()))
                         {
                             Toast.makeText(SignUpActivity.this, "Confirm password is incorrect!", Toast.LENGTH_LONG).show();

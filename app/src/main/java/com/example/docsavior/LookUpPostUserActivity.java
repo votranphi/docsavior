@@ -1,9 +1,11 @@
 package com.example.docsavior;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -36,6 +38,8 @@ public class LookUpPostUserActivity extends AppCompatActivity {
     private ArrayList<LookupHistory> lookupHistoryArrayList;
 
     private int lookupType = 0; // 0 is lookup in newsfeed, 1 is look up in chat, 2 is lookup in friend
+
+    public static String KEY_TO_LOOK_UP_RESULT_ACTIVITY = "lookUpContent_lookUpType";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +79,35 @@ public class LookUpPostUserActivity extends AppCompatActivity {
                     return;
                 }
 
-                // TODO: call API to post to lookup history
+                // call API to post to lookup history
+                postLookUpHistory(edLookup.getText().toString(), lookupType);
 
+                // start LookUpResultActivity then call the look up API
+                Intent myIntent = new Intent(LookUpPostUserActivity.this, LookUpResultActivity.class);
+                // prepare the string to put to LookUpResultActivity
+                ArrayList<String> arrayToPut = new ArrayList<>();
+                arrayToPut.add(edLookup.getText().toString());
+                arrayToPut.add(String.valueOf(lookupType));
+                // put it in the intent
+                myIntent.putStringArrayListExtra(KEY_TO_LOOK_UP_RESULT_ACTIVITY, arrayToPut);
+                // start activity
+                startActivity(myIntent);
+            }
+        });
 
-                // TODO: call API to get the lookup result, then start LookUpResultActivity to display it out
+        lvLookupHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // start LookUpResultActivity then call the look up API
+                Intent myIntent = new Intent(LookUpPostUserActivity.this, LookUpResultActivity.class);
+                // prepare the string to put to LookUpResultActivity
+                ArrayList<String> arrayToPut = new ArrayList<>();
+                arrayToPut.add(lookupHistoryArrayList.get(position).getLookupContent());
+                arrayToPut.add(String.valueOf(lookupType));
+                // put it in the intent
+                myIntent.putStringArrayListExtra(KEY_TO_LOOK_UP_RESULT_ACTIVITY, arrayToPut);
+                // start activity
+                startActivity(myIntent);
             }
         });
     }
@@ -93,6 +122,35 @@ public class LookUpPostUserActivity extends AppCompatActivity {
         if(extras != null) {
             lookupType = extras.getInt(ApplicationInfo.KEY_TO_LOOK_UP_POST_USER_ACTIVITY);
         }
+    }
+
+    private void postLookUpHistory(String lookUpInfo, int lookUpType) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postLookUpHistory(ApplicationInfo.username, lookUpInfo, lookUpType);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(LookUpPostUserActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR1: ", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(LookUpPostUserActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void loadLookUpHistory() {
