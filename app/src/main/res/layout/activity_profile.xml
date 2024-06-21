@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:backgroundTint="@color/light_blue"
     android:background="@drawable/screen_bounding">
 
@@ -18,6 +19,26 @@
         android:layout_height="20dp"
         android:layout_below="@id/rltBackground"
         android:background="@color/grey"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            app:cardCornerRadius="250dp"
+            app:cardBackgroundColor="@color/white">
+            <androidx.cardview.widget.CardView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:cardCornerRadius="250dp"
+                android:layout_gravity="center">
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/imgUserAvatar"
+                    android:src="@drawable/p_shape"
+                    android:scaleType="centerCrop"/>
+            </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
+
 
 
     <RelativeLayout
@@ -27,7 +48,6 @@
         android:background="@drawable/screen_bounding"
         android:backgroundTint="@color/light_blue"
         android:layout_below="@+id/rltBackground">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,6 +79,7 @@
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/white"/>
+
         </RelativeLayout>
 
     </RelativeLayout>
@@ -123,16 +144,7 @@
     </RelativeLayout>
 
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/imgUserAvatar"
-        android:src="@drawable/p_shape"
-        android:background="@drawable/circlebtn"
-        android:backgroundTint="@color/white"
-        android:scaleType="fitCenter"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="110dp"/>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
