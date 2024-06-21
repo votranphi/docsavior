@@ -74,4 +74,7 @@
     <string name="status">Status</string>
     <string name="offline">Offline</string>
     <string name="edit_profile">Edit profile</string>
+    <string name="full_name">Your full name</string>
+
+    full_name
 </resources>
