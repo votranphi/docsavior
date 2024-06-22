@@ -78,11 +78,11 @@
             android:background="@color/white">
 
             <ImageView
+                android:id="@+id/imgPost"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:id="@+id/imgPost"
                 android:layout_gravity="center"
-                android:src="@drawable/p_shape"/>
+                android:src="@drawable/loading" />
 
             <TextView
                 android:layout_width="match_parent"
