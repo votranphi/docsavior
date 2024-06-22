@@ -6,15 +6,36 @@
     android:background="@color/light_blue">
 
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvPersonalInformation"
-        android:text="@string/personal_information"
-        android:layout_marginTop="30dp"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_marginStart="15dp"/>
+        android:id="@+id/rltTop"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvPersonalInformation"
+            android:text="@string/personal_information"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginStart="15dp"
+            android:layout_centerVertical="true"/>
+
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/circlebtn"
+            android:backgroundTint="@color/blue"
+            android:contentDescription="@string/todo"
+            android:scaleType="centerInside"
+            android:src="@drawable/close_icon"
+            android:padding="8dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"/>
+
+    </RelativeLayout>
 
 
     <RelativeLayout
@@ -22,7 +43,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/rltUsername"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/tvPersonalInformation">
+        android:layout_below="@+id/rltTop">
 
         <TextView
             android:layout_marginTop="7dp"
@@ -50,9 +71,39 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rltEmail"
+        android:id="@+id/rtlFullname"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/rltUsername">
+
+        <TextView
+            android:layout_marginTop="7dp"
+            android:id="@+id/tvFullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fullname"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="20sp"
+
+            />
+        <EditText
+            android:id="@+id/etFullname"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/tvFullname"
+            android:layout_marginStart="58dp"
+            android:text="@string/the_name"
+            tools:ignore="LabelFor" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rltEmail"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/rtlFullname">
 
         <TextView
             android:layout_marginTop="7dp"

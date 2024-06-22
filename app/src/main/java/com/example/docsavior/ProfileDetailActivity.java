@@ -1,58 +1,108 @@
 package com.example.docsavior;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class ProfileDetailActivity extends AppCompatActivity {
 
-    private TextView tvPersonalInformation, tvUsername, tvEmail, tvStatus, tvGender, tvBirthday, tvPhone, tvEditProfile;
-    private EditText etUsername, etEmail, etStatus, etGender, etBirthday, etPhone;
-    private ImageView imgEditProfileIcon;
+    private EditText etUsername, etEmail, etStatus, etGender, etBirthday, etPhone, etFullname;
     private RelativeLayout rltEditProfile;
+    private ImageButton btnClose;
+
+    private ArrayList<String> userInfo = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_detail);
-        initViews();
+
+        findViewByIds();
+
+        initVariables();
+
+        setOnClickListeners();
+
+        // check if this is my profile's view
+        if (ApplicationInfo.username.equals(userInfo.get(0))) {
+            // if it's mine
+        } else {
+            // if it isn't mine
+            rltEditProfile.setVisibility(View.GONE);
+            etUsername.setFocusable(false);
+            etUsername.setClickable(false);
+            etFullname.setFocusable(false);
+            etFullname.setClickable(false);
+            etEmail.setFocusable(false);
+            etEmail.setClickable(false);
+            etStatus.setFocusable(false);
+            etStatus.setClickable(false);
+            etGender.setFocusable(false);
+            etGender.setClickable(false);
+            etBirthday.setFocusable(false);
+            etBirthday.setClickable(false);
+            etPhone.setFocusable(false);
+            etPhone.setClickable(false);
+        }
     }
 
-    private void initViews() {
-        //Text view
-        tvPersonalInformation = findViewById(R.id.tvPersonalInformation);
-        tvUsername = findViewById(R.id.tvUsername);
-        tvEmail = findViewById(R.id.tvEmail);
-        tvStatus = findViewById(R.id.tvStatus);
-        tvGender = findViewById(R.id.tvGender);
-        tvBirthday = findViewById(R.id.tvBirthday);
-        tvPhone = findViewById(R.id.tvPhone);
-        tvEditProfile = findViewById(R.id.tvEditProfile);
-
+    private void findViewByIds() {
         //Edit text
         etUsername = findViewById(R.id.etUsername);
+        etFullname = findViewById(R.id.etFullname);
         etEmail = findViewById(R.id.etEmail);
         etStatus = findViewById(R.id.etStatus);
         etGender = findViewById(R.id.etGender);
         etBirthday = findViewById(R.id.etBirthday);
         etPhone = findViewById(R.id.etPhone);
 
-        //Image
-        imgEditProfileIcon = findViewById(R.id.imgEditProfileIcon);
+        //Button
+        btnClose = findViewById(R.id.btnClose);
 
         //Relative layout (clickable)
         rltEditProfile = findViewById(R.id.rltEditProfile);
+    }
 
+    private void setOnClickListeners() {
         // Set an OnClickListener for the edit profile button
         rltEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // TODO: call API to update user's infomation
             }
         });
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private void initVariables() {
+        // retrieve the userInfo from ProfileActivity
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            userInfo = extras.getStringArrayList(ProfileActivity.KEY_TO_PROFILE_DETAIL_ACTIVITY);
+
+            // set the EditTexts' text
+            etUsername.setText(userInfo.get(0));
+            etFullname.setText(userInfo.get(1));
+            etEmail.setText(userInfo.get(2));
+            etStatus.setText(Boolean.valueOf(userInfo.get(3)) ? "Online" : "Offline");
+            etGender.setText(Boolean.valueOf(userInfo.get(4)) ? "Male" : "Female");
+            etBirthday.setText(userInfo.get(5));
+            etPhone.setText(userInfo.get(6));
+        }
     }
 }

@@ -34,9 +34,9 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
     private List<Button> btnAddFriends = new ArrayList<>();
     private List<Friend> friendList = new ArrayList<>();
 
-    private boolean displayType = false; // false is friend request, true is found user
+    private int displayType = 0; // 0 is friend request (FriendFragment), 1 is found user (InUserLookUp), 2 is my friend (MyFriend)
 
-    public FriendAdapter(Activity context, int layoutID, List<Friend> objects, boolean displayType) {
+    public FriendAdapter(Activity context, int layoutID, List<Friend> objects, int displayType) {
         super(context, layoutID, objects);
         this.context = context;
         this.displayType = displayType;
@@ -72,23 +72,27 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
         profileImgs.add(convertView.findViewById(R.id.profileImg));
         tvUsernames.add(convertView.findViewById(R.id.tvUsername));
 
-        if (displayType) {
+        if (displayType == 1) {
             btnAddFriends.add(convertView.findViewById(R.id.btnAddFriend));
 
             // set VISIBILITY of btnAccept and btnDeclines to GONE
             convertView.findViewById(R.id.btnAccept).setVisibility(View.GONE);
             convertView.findViewById(R.id.btnDecline).setVisibility(View.GONE);
-        } else {
+        } else if (displayType == 0) {
             btnAccepts.add(convertView.findViewById(R.id.btnAccept));
             btnDeclines.add(convertView.findViewById(R.id.btnDecline));
 
             // set VISIBILITY of btnAddFriend to GONE
             convertView.findViewById(R.id.btnAddFriend).setVisibility(View.GONE);
+        } else {
+            convertView.findViewById(R.id.btnAccept).setVisibility(View.GONE);
+            convertView.findViewById(R.id.btnDecline).setVisibility(View.GONE);
+            convertView.findViewById(R.id.btnAddFriend).setVisibility(View.GONE);
         }
     }
 
     private void setOnClickListeners(int position) {
-        if (displayType) {
+        if (displayType == 1) {
             btnAddFriends.get(position).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -99,7 +103,7 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
                     btnAddFriends.get(position).setText("Cancel request");
                 }
             });
-        } else {
+        } else if (displayType == 0) {
             btnAccepts.get(position).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

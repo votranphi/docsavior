@@ -64,8 +64,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvUsername"
-            android:text="@string/username"
+            android:id="@+id/tvFullname"
+            android:text="@string/fullname"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="60dp"
             android:textSize="20sp"
@@ -74,7 +74,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvUsername"
+            android:layout_below="@+id/tvFullname"
             android:layout_centerHorizontal="true">
             <Button
                 android:layout_width="wrap_content"

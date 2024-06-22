@@ -5,6 +5,7 @@
     <string name="create_new_account">Create new account</string>
     <string name="logo_here">Logo here</string>
     <string name="username">Username</string>
+    <string name="fullname">Fullname</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="phone_number">Phone number</string>

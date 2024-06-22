@@ -41,15 +41,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    ImageView imgUserAvatar;
-    TextView tvUsername;
-    Button btnAddfriend;
-    Button btnMessage;
-    ListView gvPosts;
-    ProfileAdapter profileAdapter;
-    ArrayList<String> stringArrayList;
+    private ImageView imgUserAvatar;
+    private TextView tvFullname;
+    private Button btnAddfriend;
+    private Button btnMessage;
+    private ListView gvPosts;
+    private ProfileAdapter profileAdapter;
+    private ArrayList<String> stringArrayList;
 
-    ImageButton btnGoToDetails;
+    private ImageButton btnGoToDetails;
 
     private static final int REQUEST_CODE_OPEN_DOCUMENT = 1;
     private String fileData = "";
@@ -59,7 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
     private User user = null;
     private String username = "";
 
-
+    public static String KEY_TO_PROFILE_DETAIL_ACTIVITY = "username_fullname_email_status_gender_birthdate_phone";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,11 +76,22 @@ public class ProfileActivity extends AppCompatActivity {
         getUserInfo();
 
         // TODO: get the user's posts then display it on the ListView
+
+        // check if this is my profile's view
+        if (ApplicationInfo.username.equals(username)) {
+            // if it's mine
+            btnMessage.setVisibility(View.GONE);
+            btnAddfriend.setVisibility(View.GONE);
+        } else {
+            // if it isn't mine
+            btnMessage.setVisibility(View.VISIBLE);
+            btnAddfriend.setVisibility(View.VISIBLE);
+        }
     }
 
     private void findViewByIds() {
         imgUserAvatar = findViewById(R.id.imgUserAvatar);
-        tvUsername = findViewById(R.id.tvUsername);
+        tvFullname = findViewById(R.id.tvFullname);
         btnAddfriend = findViewById(R.id.btnAddfriend);
         btnMessage = findViewById(R.id.btnMessage);
         gvPosts = findViewById(R.id.gvPosts);
@@ -92,7 +103,6 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // request for permission
-
 
                 openFileChooser();
             }
@@ -109,6 +119,26 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO: open ChatDetailActivity then do the things
+            }
+        });
+
+        btnGoToDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ProfileActivity.this, ProfileDetailActivity.class);
+                // prepare ArrayList to put
+                ArrayList<String> arrayToPut = new ArrayList<>();
+                arrayToPut.add(user.getUsername());
+                arrayToPut.add(user.getFullName());
+                arrayToPut.add(user.getEmail());
+                arrayToPut.add(String.valueOf(user.getIsActive()));
+                arrayToPut.add(String.valueOf(user.getGender()));
+                arrayToPut.add(user.getBirthDate());
+                arrayToPut.add(user.getPhoneNumber());
+                // put array list to intent
+                myIntent.putStringArrayListExtra(KEY_TO_PROFILE_DETAIL_ACTIVITY, arrayToPut);
+                // start activity
+                startActivity(myIntent);
             }
         });
     }
@@ -161,8 +191,9 @@ public class ProfileActivity extends AppCompatActivity {
     private void assignUserInfoToLayout() {
         try {
             // set username
-            tvUsername.setText(user.getUsername());
+            tvFullname.setText(user.getFullName());
 
+            // set avatar
             if (!user.getAvatarData().isEmpty()) {
                 // create jsonArray to store fileData
                 JSONArray jsonArray = new JSONArray(user.getAvatarData());

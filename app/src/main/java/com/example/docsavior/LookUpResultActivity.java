@@ -1,5 +1,6 @@
 package com.example.docsavior;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -92,7 +93,7 @@ public class LookUpResultActivity extends AppCompatActivity {
             // TODO: initialize the Conversation Adapter and ArrayList of Conversation
         } else {
             friendArrayList = new ArrayList<>();
-            friendAdapter = new FriendAdapter(this, R.layout.item_friend, friendArrayList, true);
+            friendAdapter = new FriendAdapter(this, R.layout.item_friend, friendArrayList, 1);
             lvResult.setAdapter(friendAdapter);
         }
 
@@ -110,7 +111,16 @@ public class LookUpResultActivity extends AppCompatActivity {
         lvResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: start ProfileActivity and display user's info
+                if (itemType == 0) {
+                    // TODO: start PostDetailActivity then do things
+                } else if (itemType == 1) {
+                    // TODO: start ChatDetailActivity then do things
+                } else {
+                    // start ProfileActivity and display user's info
+                    Intent myIntent = new Intent(LookUpResultActivity.this, ProfileActivity.class);
+                    myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, friendArrayList.get(position).getUsername());
+                    startActivity(myIntent);
+                }
             }
         });
     }

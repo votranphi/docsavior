@@ -110,6 +110,27 @@ public class LookUpPostUserActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+
+        lvLookupHistory.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                // call API to delete look up history from database
+                deleteLookUpHistory(lookupHistoryArrayList.get(position).getLookupContent(), lookupType);
+
+                // remove the clicked item from ListView
+                lookupHistoryArrayList.remove(position);
+                lookupHistoryAdapter.notifyDataSetChanged();
+
+                // check if the ArrayList is empty
+                if (lookupHistoryArrayList.size() == 0) {
+                    tvNothing.setVisibility(View.VISIBLE);
+                } else {
+                    tvNothing.setVisibility(View.GONE);
+                }
+
+                return false;
+            }
+        });
     }
 
     private void initVariables() {
@@ -122,6 +143,35 @@ public class LookUpPostUserActivity extends AppCompatActivity {
         if(extras != null) {
             lookupType = extras.getInt(ApplicationInfo.KEY_TO_LOOK_UP_POST_USER_ACTIVITY);
         }
+    }
+
+    private void deleteLookUpHistory(String lookUpInfo, int lookUpType) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.deleteLookUpHistory(ApplicationInfo.username, lookUpInfo, lookUpType);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(LookUpPostUserActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR1: ", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(LookUpPostUserActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void postLookUpHistory(String lookUpInfo, int lookUpType) {

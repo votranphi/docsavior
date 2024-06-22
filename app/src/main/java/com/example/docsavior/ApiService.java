@@ -49,10 +49,14 @@ public interface ApiService {
     @POST("/newsfeed/undislike")
     Call<Detail> postUndislike(@Query("id") Integer id);
 
+
+
     @POST("/user_interact/interact")
     Call<Detail> postInteract(@Query("username") String username, @Query("idPost") Integer idPost, @Query("type") Boolean type);
     @GET("/user_interact/likeordislike")
     Call<Detail> getInteract(@Query("username") String username, @Query("idPost") Integer idPost);
+
+
 
     @POST("/friend/add")
     Call<Detail> postNewFriend(@Query("username") String username, @Query("usernameFriend") String usernameFriend);
@@ -79,4 +83,6 @@ public interface ApiService {
     Call<LookUpInfos> getPostLookUpHistory(@Query("username") String username);
     @GET("/look_up_history/me/friend")
     Call<LookUpInfos> getFriendLookUpHistory(@Query("username") String username);
+    @DELETE("/look_up_history/delete")
+    Call<Detail> deleteLookUpHistory(@Query("username") String username, @Query("lookUpInfo") String lookUpInfo, @Query("lookUpType") Integer lookUpType);
 }
