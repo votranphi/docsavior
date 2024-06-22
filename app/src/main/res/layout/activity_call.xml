@@ -4,17 +4,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white">
-
-
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/rltVideoCall"
-    android:layout_above="@+id/rltVideoCallBar"
     android:background="@drawable/screen_bounding"
     android:backgroundTint="@color/light_blue"
-    android:layout_marginTop="50dp">
+    android:id="@+id/rltVideoCall">
 
     <ImageButton
         android:layout_width="50dp"
@@ -54,7 +46,6 @@
         android:textStyle="bold"
         android:textSize="30sp"
         android:layout_marginEnd="15dp"/>
-</RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rltVideoCallBar"

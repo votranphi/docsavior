@@ -15,20 +15,20 @@
         <androidx.cardview.widget.CardView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_centerHorizontal="true"
             app:cardCornerRadius="250dp"
             app:cardBackgroundColor="@color/white"
             android:layout_gravity="center"
-            android:layout_marginLeft="5dp">
+            android:layout_marginStart="5dp">
             <androidx.cardview.widget.CardView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 app:cardCornerRadius="250dp"
                 android:layout_gravity="center">
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:id="@+id/profileImg"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/user_icon_black"
                     android:scaleType="centerCrop"
                     android:clickable="true"/>
@@ -39,15 +39,15 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:orientation="vertical"
-            android:layout_marginLeft="10dp">
+            android:layout_marginStart="10dp">
 
             <TextView
                 android:id="@+id/tvUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Username"
+                android:text="@string/username"
                 android:textStyle="bold"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:gravity="center"
                 android:clickable="true"/>
 
@@ -60,29 +60,31 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:id="@+id/lnBtn"
                 android:layout_centerVertical="true">
                 <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:id="@+id/btnAccept"
                     android:backgroundTint="@color/blue"
                     android:background="@drawable/circlebtn"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/accept_icon"
                     android:scaleType="centerInside"
                     android:padding="15dp"
-                    android:layout_marginRight="10dp"/>
+                    android:layout_marginEnd="10dp"/>
                 <ImageButton
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:id="@+id/btnDecline"
                     android:backgroundTint="@color/blue"
                     android:background="@drawable/circlebtn"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/decline_icon"
                     android:scaleType="centerInside"
                     android:padding="15dp"
-                    android:layout_marginRight="10dp"/>
+                    android:layout_marginEnd="10dp"/>
             </LinearLayout>
 
             <Button
@@ -91,7 +93,7 @@
                 android:id="@+id/btnAddFriend"
                 android:text="@string/send_request"
                 android:backgroundTint="@color/blue"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentEnd="true"/>
         </RelativeLayout>
 
 

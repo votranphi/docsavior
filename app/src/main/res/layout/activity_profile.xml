@@ -7,11 +7,43 @@
     android:backgroundTint="@color/light_blue"
     android:background="@drawable/screen_bounding">
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:id="@+id/rltBackground"
-        android:background="@color/grey">
+        android:layout_height="wrap_content"
+        android:id="@+id/rltUserInfo"
+        android:background="@drawable/screen_bounding"
+        android:backgroundTint="@color/light_blue">
+
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/circlebtn"
+            android:backgroundTint="@color/white"
+            android:importantForAccessibility="no"
+            android:padding="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/turn_back" />
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:cardCornerRadius="250dp"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/cardview"
+            android:layout_gravity="center">
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:id="@+id/imgUserAvatar"
+                android:src="@drawable/user_icon_black"
+                android:scaleType="centerCrop"/>
+        </androidx.cardview.widget.CardView>
 
         <ImageButton
             android:layout_width="50dp"
@@ -26,48 +58,14 @@
             android:layout_alignParentEnd="true"
             android:clickable="false"/>
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_below="@id/rltBackground"
-        android:background="@color/grey"/>
-    <androidx.cardview.widget.CardView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        app:cardCornerRadius="250dp"
-        app:cardBackgroundColor="@color/white">
-        <androidx.cardview.widget.CardView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:cardCornerRadius="250dp"
-            android:layout_gravity="center">
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/imgUserAvatar"
-                android:src="@drawable/user_icon_black"
-                android:scaleType="centerCrop"/>
-        </androidx.cardview.widget.CardView>
-    </androidx.cardview.widget.CardView>
-
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rltUserInfo"
-        android:background="@drawable/screen_bounding"
-        android:backgroundTint="@color/light_blue"
-        android:layout_below="@+id/rltBackground">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvFullname"
+            android:layout_below="@id/cardview"
             android:text="@string/fullname"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="30dp"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -97,69 +95,12 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rltType"
-        android:layout_below="@id/rltUserInfo"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginTop="10dp">
-        <Button
-            android:layout_width="60dp"
-            android:layout_height="48dp"
-            android:id="@+id/btnTypeAll"
-            android:text="@string/all"
-            android:textSize="12sp"
-            android:padding="0dp"
-            android:backgroundTint="@color/light_blue"
-            android:textColor="@color/black"/>
-        <Button
-            android:layout_width="60dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="5dp"
-            android:id="@+id/btnTypePicture"
-            android:layout_toEndOf="@+id/btnTypeAll"
-            android:padding="0dp"
-            android:textSize="12sp"
-            android:text="@string/picture"
-            android:backgroundTint="@color/light_blue"
-            android:textColor="@color/black"/>
-        <Button
-            android:layout_width="60dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="5dp"
-            android:id="@+id/btnTypeVideo"
-            android:layout_toEndOf="@+id/btnTypePicture"
-            android:padding="0dp"
-            android:textSize="12sp"
-            android:text="@string/video"
-            android:backgroundTint="@color/light_blue"
-            android:textColor="@color/black"/>
-        <Button
-            android:layout_width="60dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="5dp"
-            android:id="@+id/btnTypeFile"
-            android:layout_toEndOf="@+id/btnTypeVideo"
-            android:textSize="12sp"
-            android:padding="0dp"
-            android:text="@string/file"
-            android:backgroundTint="@color/light_blue"
-            android:textColor="@color/black"/>
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="3dp"
-            android:backgroundTint="@color/grey"
-            android:background="@drawable/screen_bounding"
-            android:layout_below="@+id/btnTypeAll"
-            android:layout_marginStart="15dp"/>
-    </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rltType">
+        android:layout_below="@id/rltUserInfo">
         <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
