@@ -2,98 +2,120 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:animateLayoutChanges="true"
     android:background="@color/light_blue">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvAppname"
-        android:text="@string/docsavior"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:lines="3"
-        android:id="@+id/tvDescription"
-        android:text="@string/place_to_find_nsaviors_for_nyour_studies"
-        android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        android:layout_below="@+id/tvAppname"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:textSize="18sp"/>
+        android:layout_centerInParent="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/logo"
-        android:text="@string/logo_here"
-        android:textStyle="bold"
-        android:layout_below="@+id/tvDescription"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:textSize="30sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAppname"
+            android:text="@string/docsavior"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"/>
 
-    <EditText
-        android:id="@+id/edUsername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/logo"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/edittext"
-        android:hint="@string/username"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:padding="15dp" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edPassword"
-        android:layout_below="@id/edUsername"
-        android:background="@drawable/edittext"
-        android:hint="@string/password"
-        android:layout_margin="15dp"
-        android:inputType="textPassword"
-        android:padding="15dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="3"
+            android:id="@+id/tvDescription"
+            android:text="@string/place_to_find_nsaviors_for_nyour_studies"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:layout_below="@+id/tvAppname"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:id="@+id/tvRecoveryPassword"
-        android:text="@string/forgot_password"
-        android:clickable="true"
-        android:layout_below="@+id/edPassword"
-        android:textStyle="italic"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="15dp"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
-        android:id="@+id/btnLogin"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/tvRecoveryPassword"
-        android:layout_centerHorizontal="true"
-        android:text="@string/login"
-        android:textSize="20sp"
-        android:padding="20dp"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/blue"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:id="@+id/tvCreateAccount"
-        android:text="@string/create_new_account"
-        android:clickable="true"
-        android:layout_below="@+id/btnLogin"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:textStyle="italic"
-        android:layout_marginEnd="15dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logo"
+            android:text="@string/logo_here"
+            android:textStyle="bold"
+            android:layout_below="@+id/tvDescription"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:textSize="30sp"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo"
+            android:visibility="gone"
+            android:id="@+id/relay">
+
+            <EditText
+                android:id="@+id/edUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/edittext"
+                android:hint="@string/username"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:padding="15dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edPassword"
+                android:layout_below="@id/edUsername"
+                android:background="@drawable/edittext"
+                android:hint="@string/password"
+                android:layout_margin="15dp"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"
+                android:padding="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:id="@+id/tvRecoveryPassword"
+                android:text="@string/forgot_password"
+                android:clickable="true"
+                android:layout_below="@+id/edPassword"
+                android:textStyle="italic"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="200dp"
+                android:id="@+id/btnLogin"
+                android:layout_marginTop="30dp"
+                android:layout_below="@+id/tvRecoveryPassword"
+                android:layout_centerHorizontal="true"
+                android:text="@string/login"
+                android:textSize="20sp"
+                android:padding="20dp"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/blue"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:id="@+id/tvCreateAccount"
+                android:text="@string/create_new_account"
+                android:clickable="true"
+                android:layout_below="@+id/btnLogin"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:textStyle="italic"
+                android:layout_marginEnd="15dp"/>
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+
 </RelativeLayout>

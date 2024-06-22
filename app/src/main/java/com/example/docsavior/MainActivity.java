@@ -6,10 +6,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,13 +30,19 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin;
     TextView tvCreateAccount;
 
-/*    private EditText edMessageBody;
-    private Button btnSend;
+    RelativeLayout relay;
 
-    private RecyclerView rcvMessage;
 
-    private MyMessageAdapter myMessageAdapter;
-    private List<MyMessage> mListMessage;*/
+
+    // Set animation for Splash
+    Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            relay.setVisibility(View.VISIBLE);
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         setOnClickListeners();
 
         // Log.e("PATH: ", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath());
+
+        handler.postDelayed(runnable, 2000); // Timeout for the splash
     }
     
     private void findViewByIds() {
@@ -56,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         tvRecoveryPassword = findViewById(R.id.tvRecoveryPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvCreateAccount = findViewById(R.id.tvCreateAccount);
+        relay = (RelativeLayout) findViewById(R.id.relay);
     }
     
     private void setOnClickListeners() {
