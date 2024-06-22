@@ -150,7 +150,7 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
                 // convert byteArray to bitmap
                 Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
                 // set the avatar
-                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 40, 40, false));
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(), imageView.getHeight(), false));
             }
         } catch (Exception ex) {
             Log.e("ERROR261: ", ex.getMessage());
