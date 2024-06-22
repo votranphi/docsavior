@@ -31,7 +31,7 @@ If you want to continually work on this project, you will need to have Android S
 1. Clone this repository to your device
 2. Open Android Studio and open the folder
 3. Run the application on your virtual device or a real phone (Remember this application only works on android)
-4. Continually work on the appication. If you have something to improve or work with database, remember to clone our API repository at the link in API refercence.
+4. Continually work on the application. If you have something to improve or work with database, remember to clone our API repository at the link in API refercence.
 
 ## Features
 
