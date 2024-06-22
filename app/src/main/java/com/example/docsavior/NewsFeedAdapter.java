@@ -3,6 +3,9 @@ package com.example.docsavior;
 import static com.example.docsavior.ApplicationInfo.username;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.util.Log;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +48,9 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
     private List<TextView> likeNumbers = new ArrayList<>();
     private List<TextView> dislikeNumbers = new ArrayList<>();
     private List<TextView> commentNumbers = new ArrayList<>();
+
+    private List<ImageView> profileImgs = new ArrayList<>();
+    private List<ImageView> imgPosts = new ArrayList<>();
     public NewsFeedAdapter(Activity context, int layoutID, List<NewsFeed> objects) {
         super(context, layoutID, objects);
         this.context = context;
@@ -76,8 +83,15 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
         dislikeNumbers.get(position).setText(String.valueOf(nf.getDislikeNumber()));
         commentNumbers.get(position).setText(String.valueOf(nf.getCommentNumber()));
 
+        // set user's avatar
+        getUserInfoAndSetAvatar(profileImgs.get(position), nf.getUsername());
 
-
+        // set the post's image if the file is image type (jpg, png, jpeg,...)
+        if (nf.getFileExtension().equals("jpg") || nf.getFileExtension().equals("png") || nf.getFileExtension().equals("jpeg")) {
+            setImage(imgPosts.get(position), nf.getFileData());
+        } else {
+            imgPosts.get(position).setVisibility(View.GONE);
+        }
 
         return convertView;
     }
@@ -94,6 +108,9 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
         likeNumbers.add(convertView.findViewById(R.id.tvLikeNumber));
         dislikeNumbers.add(convertView.findViewById(R.id.tvDislikeNumber));
         commentNumbers.add(convertView.findViewById(R.id.tvCommentNumber));
+
+        profileImgs.add(convertView.findViewById(R.id.profileImg));
+        imgPosts.add(convertView.findViewById(R.id.imgPost));
     }
 
     private void checkInteract(int position)
@@ -157,6 +174,16 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                 } catch (Exception ex) {
                     Log.e("ERROR987: ", ex.getMessage());
                 }
+            }
+        });
+
+        profileImgs.get(position).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // start ProfileActivity then display user's info
+                Intent myIntent = new Intent(context, ProfileActivity.class);
+                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, usernames.get(position).getText().toString());
+                context.startActivity(myIntent);
             }
         });
 
@@ -336,6 +363,61 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
             Toast.makeText(context, fileFullName + " successfully downloaded to Downloads!", Toast.LENGTH_SHORT).show();
         } catch (Exception ex) {
             Log.e("ERROR1: ", ex.getMessage());
+        }
+    }
+
+    private void getUserInfoAndSetAvatar(ImageView imageView, String username) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<User> call = apiService.getUserInfo(username);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // after getting the user's info, set the avatar
+                        setImage(imageView, response.body().getAvatarData());
+                    } else {
+                        Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setImage(ImageView imageView, String avatarData) {
+        try {
+            if (!avatarData.isEmpty()) {
+                // create jsonArray to store avatarData
+                JSONArray jsonArray = new JSONArray(avatarData);
+
+                // convert jsonArray to byteArray
+                byte[] byteArray = new byte[jsonArray.length()];
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    int temp = (int)jsonArray.get(i);
+                    byteArray[i] = (byte)temp;
+                }
+
+                // convert byteArray to bitmap
+                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                // set the avatar
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(), imageView.getHeight(), false));
+            }
+        } catch (Exception ex) {
+            Log.e("ERROR111: ", ex.getMessage());
         }
     }
 }

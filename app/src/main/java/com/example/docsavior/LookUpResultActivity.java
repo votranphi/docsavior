@@ -154,7 +154,7 @@ public class LookUpResultActivity extends AppCompatActivity {
                         Toast.makeText(LookUpResultActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception ex) {
-                    Log.e("ERROR106: ", ex.getMessage());
+                    Log.e("ERROR601: ", ex.getMessage());
                 }
             }
 

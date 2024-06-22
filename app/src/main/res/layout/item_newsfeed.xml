@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -14,22 +15,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp">
-            <ImageView
-                android:id="@+id/profileImg"
+            <androidx.cardview.widget.CardView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:src="@drawable/user_icon_black"
-                android:background="@drawable/circlebtn"
-                android:backgroundTint="@color/white"
-                android:scaleType="fitCenter"
-                android:padding="8dp"
-                android:clickable="false"
-                android:layout_gravity="center_vertical"/>
+                android:layout_centerHorizontal="true"
+                app:cardCornerRadius="250dp"
+                app:cardBackgroundColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:cardCornerRadius="250dp"
+                    android:layout_gravity="center">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/profileImg"
+                        android:src="@drawable/user_icon_black"
+                        android:scaleType="centerCrop"/>
+                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -62,8 +73,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/imgPost"
+                android:layout_gravity="center"
+                android:src="@drawable/p_shape"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -73,7 +92,9 @@
                 android:text="@string/document_url"
                 android:textAlignment="center"
                 android:clickable="true"
+                android:layout_gravity="center"
                 />
+
         </LinearLayout>
        <LinearLayout
            android:layout_width="match_parent"
