@@ -135,7 +135,6 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                         {
                             btnLikes.get(position).setImageResource(R.drawable.like_icon);
                             isLiked.set(position, true);
-                            Toast.makeText(context, isLiked.get(position).toString(), Toast.LENGTH_SHORT).show();
                             // add animation change from like to unlike
                         } else if (res.equals("dislike"))
                         {
@@ -200,7 +199,6 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
             public void onClick(View v) {
 
                 Retrofit retrofit = new Retrofit.Builder().baseUrl(ApplicationInfo.apiPath).addConverterFactory(GsonConverterFactory.create()).build();
-
                 ApiService apiService = retrofit.create(ApiService.class);
                 if(isLiked.get(position)) // if already liked
                 {
