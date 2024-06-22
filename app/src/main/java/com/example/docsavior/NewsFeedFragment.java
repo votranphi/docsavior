@@ -143,7 +143,6 @@ public class NewsFeedFragment extends Fragment {
         lvPost.setAdapter(newsFeedAdapter);
     }
 
-    // let's complete it later
     private void getAllPost() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApplicationInfo.apiPath)

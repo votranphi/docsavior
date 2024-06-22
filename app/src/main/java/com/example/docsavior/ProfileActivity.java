@@ -46,8 +46,8 @@ public class ProfileActivity extends AppCompatActivity {
     private Button btnAddfriend;
     private Button btnMessage;
     private ListView gvPosts;
-    private ProfileAdapter profileAdapter;
-    private ArrayList<String> stringArrayList;
+    private NewsFeedAdapter newsFeedAdapter;
+    private ArrayList<NewsFeed> newsFeedArrayList;
 
     private ImageButton btnGoToDetails;
 
@@ -61,6 +61,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     public static String KEY_TO_PROFILE_DETAIL_ACTIVITY = "username_fullname_email_status_gender_birthdate_phone";
 
+    private TextView tvNothing;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,10 +74,11 @@ public class ProfileActivity extends AppCompatActivity {
 
         setOnClickListeners();
 
-        // TODO: get the user's info then display it on the layout
+        // get the user's info then display it on the layout
         getUserInfo();
 
-        // TODO: get the user's posts then display it on the ListView
+        // get the user's posts then display it on the ListView
+        getMyPost(username);
 
         // check if this is my profile's view
         if (ApplicationInfo.username.equals(username)) {
@@ -96,6 +99,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnMessage = findViewById(R.id.btnMessage);
         gvPosts = findViewById(R.id.gvPosts);
         btnGoToDetails = findViewById(R.id.btnGoToDetails);
+        tvNothing = findViewById(R.id.tvNothing);
     }
 
     private void setOnClickListeners() {
@@ -144,9 +148,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initVariables() {
-        stringArrayList = new ArrayList<>();
-        profileAdapter = new ProfileAdapter(this, R.layout.item_profile, stringArrayList);
-        gvPosts.setAdapter(profileAdapter);
+        newsFeedArrayList = new ArrayList<>();
+        newsFeedAdapter = new NewsFeedAdapter(this, R.layout.item_profile, newsFeedArrayList);
+        gvPosts.setAdapter(newsFeedAdapter);
 
         // retrieve the isMyInfo from NewsFeedFragment
         Bundle extras = getIntent().getExtras();
@@ -288,6 +292,50 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getMyPost(String username) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<List<NewsFeed>> call = apiService.getMyPost(username);
+
+        call.enqueue(new Callback<List<NewsFeed>>() {
+            @Override
+            public void onResponse(Call<List<NewsFeed>> call, Response<List<NewsFeed>> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        List<NewsFeed> responseList = response.body();
+
+                        // add the elements in responseList to newsFeedArrayList
+                        for (NewsFeed i : responseList) {
+                            newsFeedArrayList.add(i);
+                            // update the ListView every one post
+                            newsFeedAdapter.notifyDataSetChanged();
+                        }
+
+                        // set the visibility of "NOTHING TO SHOW" to GONE
+                        tvNothing.setVisibility(View.GONE);
+                    } else if (response.code() == 600) {
+                        // set the visibility of "NOTHING TO SHOW" to VISIBLE
+                        tvNothing.setVisibility(View.VISIBLE);
+                    } else {
+                        Toast.makeText(ProfileActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR100: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<NewsFeed>> call, Throwable t) {
                 Toast.makeText(ProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

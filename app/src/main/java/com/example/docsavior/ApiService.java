@@ -48,6 +48,8 @@ public interface ApiService {
     Call<Detail> postDislike(@Query("id") Integer id);
     @POST("/newsfeed/undislike")
     Call<Detail> postUndislike(@Query("id") Integer id);
+    @GET("/newsfeed/me")
+    Call<List<NewsFeed>> getMyPost(@Query("username") String username);
 
 
 
