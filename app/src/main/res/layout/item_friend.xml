@@ -30,7 +30,8 @@
                     android:layout_height="40dp"
                     android:id="@+id/profileImg"
                     android:src="@drawable/user_icon_black"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    android:clickable="true"/>
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>
 
@@ -47,7 +48,8 @@
                 android:text="Username"
                 android:textStyle="bold"
                 android:textSize="20dp"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:clickable="true"/>
 
         </LinearLayout>
 

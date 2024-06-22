@@ -107,22 +107,6 @@ public class LookUpResultActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        lvResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (itemType == 0) {
-                    // TODO: start PostDetailActivity then do things
-                } else if (itemType == 1) {
-                    // TODO: start ChatDetailActivity then do things
-                } else {
-                    // start ProfileActivity and display user's info
-                    Intent myIntent = new Intent(LookUpResultActivity.this, ProfileActivity.class);
-                    myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, friendArrayList.get(position).getUsername());
-                    startActivity(myIntent);
-                }
-            }
-        });
     }
 
     private void loadPostLookUpResult() {

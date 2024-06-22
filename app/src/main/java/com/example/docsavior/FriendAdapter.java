@@ -1,6 +1,7 @@
 package com.example.docsavior;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -132,6 +133,24 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
                 }
             });
         }
+
+        tvUsernames.get(position).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 Intent myIntent = new Intent(context, ProfileActivity.class);
+                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, tvUsernames.get(position).getText().toString());
+                 context.startActivity(myIntent);
+            }
+        });
+
+        profileImgs.get(position).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(context, ProfileActivity.class);
+                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, tvUsernames.get(position).getText().toString());
+                context.startActivity(myIntent);
+            }
+        });
     }
 
     private void setAvatar(ImageView imageView, String avatarData) {
@@ -150,7 +169,7 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
                 // convert byteArray to bitmap
                 Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
                 // set the avatar
-                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(), imageView.getHeight(), false));
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 40, 40, false));
             }
         } catch (Exception ex) {
             Log.e("ERROR261: ", ex.getMessage());
