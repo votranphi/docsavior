@@ -50,6 +50,8 @@ public interface ApiService {
     Call<Detail> postUndislike(@Query("id") Integer id);
     @GET("/newsfeed/me")
     Call<List<NewsFeed>> getMyPost(@Query("username") String username);
+    @POST("/newsfeed/look_up")
+    Call<FoundNewsfeeds> postPostLookUp(@Query("lookUpInfo") String lookUpInfo);
 
 
 

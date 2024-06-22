@@ -126,7 +126,52 @@ public class LookUpResultActivity extends AppCompatActivity {
     }
 
     private void loadPostLookUpResult() {
-        // TODO: call API to look up post
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<FoundNewsfeeds> call = apiService.postPostLookUp(lookUpInfo);
+
+        call.enqueue(new Callback<FoundNewsfeeds>() {
+            @Override
+            public void onResponse(Call<FoundNewsfeeds> call, Response<FoundNewsfeeds> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        FoundNewsfeeds foundNewsfeeds = response.body();
+
+                        if (foundNewsfeeds.getFoundNewsfeeds().length == 0) {
+                            tvNothing.setVisibility(View.VISIBLE);
+                        } else {
+                            tvNothing.setVisibility(View.GONE);
+
+                            assignFoundNewsfeedsToListView(foundNewsfeeds);
+                        }
+                    } else {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        Toast.makeText(LookUpResultActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FoundNewsfeeds> call, Throwable t) {
+                Toast.makeText(LookUpResultActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void assignFoundNewsfeedsToListView(FoundNewsfeeds foundNewsfeeds) {
+        NewsFeed[] newsFeeds = foundNewsfeeds.getFoundNewsfeeds();
+
+        for (int i = 0; i < newsFeeds.length; i++) {
+            newsFeedArrayList.add(newsFeeds[i]);
+            newsFeedAdapter.notifyDataSetChanged();
+        }
     }
 
     private void loadUserLookUpResult() {
