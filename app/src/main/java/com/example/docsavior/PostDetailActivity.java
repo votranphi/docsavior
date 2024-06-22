@@ -153,7 +153,7 @@ public class PostDetailActivity extends AppCompatActivity {
         }
 
         // load the post's admin avatar
-        getAndSetImage(profileImg, newsFeed.getUsername());
+        getAndSetPostAdminAvatar(profileImg, newsFeed.getUsername());
     }
 
     private void getNewsfeedById(int id) {
@@ -212,7 +212,9 @@ public class PostDetailActivity extends AppCompatActivity {
 
                         for (Comment i : comments) {
                             // call API to get avatarData
-                            String avatarData = getAvatarData(i.getUsername());
+                            PostDetail postDetail = new PostDetail(i.getUsername(), i.getCommentContent());
+                            postDetailArrayList.add(postDetail);
+                            postDetailAdapter.notifyDataSetChanged();
                         }
                     } else {
                         Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
@@ -229,7 +231,7 @@ public class PostDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void getAndSetImage(ImageView imageView, String username) {
+    private void getAndSetPostAdminAvatar(ImageView imageView, String username) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApplicationInfo.apiPath)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -237,15 +239,15 @@ public class PostDetailActivity extends AppCompatActivity {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<String> call = apiService.getAvatarData(username);
+        Call<Detail> call = apiService.getAvatarData(username);
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<Detail>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
                 try {
                     if (response.isSuccessful()) {
                         // setting the post's admin avatar after complete loading
-                        setImage(imageView, response.body());
+                        setImage(imageView, response.body().getDetail());
                     } else {
                         Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
@@ -255,7 +257,7 @@ public class PostDetailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Detail> call, Throwable t) {
                 Toast.makeText(PostDetailActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -277,7 +279,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 // convert byteArray to bitmap
                 Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
                 // set the avatar
-                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 40, 40, false));
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(), imageView.getHeight(), false));
             }
         } catch (Exception ex) {
             Log.e("ERROR111: ", ex.getMessage());

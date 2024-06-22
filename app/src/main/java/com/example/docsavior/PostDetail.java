@@ -3,18 +3,16 @@ package com.example.docsavior;
 public class PostDetail {
     private String username;
     private String comment;
-    private String avatar;
 
-    public PostDetail(String username, String comment, String avatar)
+    public PostDetail(String username, String comment)
     {
         this.username = username;
         this.comment = comment;
-        this.avatar = avatar;
     }
 
     public PostDetail()
     {
-        username=comment=avatar="";
+        username=comment="";
     }
 
     //get and set
@@ -22,10 +20,6 @@ public class PostDetail {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getAvatar() {
-        return avatar;
     }
 
     public String getComment() {

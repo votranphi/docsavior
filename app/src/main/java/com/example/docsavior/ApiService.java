@@ -27,7 +27,7 @@ public interface ApiService {
     @POST("/user/look_up")
     Call<FoundUsers> postUserLookUp(@Query("lookUpInfo") String lookUpInfo);
     @GET("/user/avatar_data")
-    Call<String> getAvatarData(@Query("username") String username);
+    Call<Detail> getAvatarData(@Query("username") String username);
 
 
 
