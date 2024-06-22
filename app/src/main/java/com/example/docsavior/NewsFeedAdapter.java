@@ -53,6 +53,9 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
     private List<Boolean> isDisliked = new ArrayList<>();
     private List<ImageView> profileImgs = new ArrayList<>();
     private List<ImageView> imgPosts = new ArrayList<>();
+
+    public static String KEY_TO_POST_DETAIL_ACTIVITY = "id";
+
     public NewsFeedAdapter(Activity context, int layoutID, List<NewsFeed> objects) {
         super(context, layoutID, objects);
         this.context = context;
@@ -390,7 +393,12 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
         btnComments.get(position).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: open the comment activity then let the user comment, code API to increase comment number of this post by 1 then call it in there if user really comment
+                // open the comment activity then let the user comment, code API to increase comment number of this post by 1 then call it in there if user really comment
+                Intent myIntent = new Intent(context, PostDetailActivity.class);
+                // put the id array list
+                myIntent.putExtra(NewsFeedAdapter.KEY_TO_POST_DETAIL_ACTIVITY, newsFeedList.get(position).getId());
+                // start activity
+                context.startActivity(myIntent);
             }
         });
 

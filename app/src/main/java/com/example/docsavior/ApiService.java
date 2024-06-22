@@ -26,6 +26,8 @@ public interface ApiService {
     Call<Detail> postAvatar(@Query("username") String username, @Query("avatarData") String avatarData, @Query("avatarName") String avatarName, @Query("avatarExtension") String avatarExtension);
     @POST("/user/look_up")
     Call<FoundUsers> postUserLookUp(@Query("lookUpInfo") String lookUpInfo);
+    @GET("/user/avatar_data")
+    Call<String> getAvatarData(@Query("username") String username);
 
 
 
@@ -52,6 +54,8 @@ public interface ApiService {
     Call<List<NewsFeed>> getMyPost(@Query("username") String username);
     @POST("/newsfeed/look_up")
     Call<FoundNewsfeeds> postPostLookUp(@Query("lookUpInfo") String lookUpInfo);
+    @GET("/newsfeed/id")
+    Call<NewsFeed> getNewsfeedById(@Query("id") Integer id);
 
 
 
@@ -89,4 +93,13 @@ public interface ApiService {
     Call<LookUpInfos> getFriendLookUpHistory(@Query("username") String username);
     @DELETE("/look_up_history/delete")
     Call<Detail> deleteLookUpHistory(@Query("username") String username, @Query("lookUpInfo") String lookUpInfo, @Query("lookUpType") Integer lookUpType);
+
+
+
+    @POST("/comment/add")
+    Call<Detail> postComment(@Query("username") String username, @Query("idPost") Integer idPost, @Query("commentContent") String commentContent);
+    @GET("/comment/comment_on_post")
+    Call<List<Comment>> getPostComment(@Query("idPost") Integer idPost);
+    @DELETE("/comment/delete")
+    Call<Detail> deleteComment(@Query("idComment") Integer idComment);
 }

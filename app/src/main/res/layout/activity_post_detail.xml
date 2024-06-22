@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -55,15 +56,34 @@
             android:id="@+id/rltPostInfo"
             android:layout_below="@+id/horizontal_line">
 
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/btnUser"
-                android:src="@drawable/user_icon_black"
-                android:background="@drawable/circlebtn"
-                android:backgroundTint="@color/white"
-                android:scaleType="centerCrop"
-                android:padding="15dp"/>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:cardCornerRadius="250dp"
+                app:cardBackgroundColor="@color/white"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:id="@+id/btnUser">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:cardCornerRadius="250dp"
+                    android:layout_gravity="center">
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:id="@+id/profileImg"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/user_icon_black"
+                        android:scaleType="centerCrop"
+                        android:clickable="true"/>
+                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,20 +110,42 @@
                 android:layout_marginStart="10dp"
                 android:textSize="20sp"
                 android:text="description"/>
-            <EditText
+
+            <LinearLayout
+                android:id="@+id/llPost"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:id="@+id/edPostContent"
-                android:layout_marginTop="10dp"
-                android:layout_below="@+id/tvPostContent"
-                android:background="@drawable/edittext"
-                android:hint="Post content"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_below="@+id/tvPostContent">
+
+                <ImageView
+                    android:id="@+id/imgPost"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/loading" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:id="@+id/tvDocumentName"
+                    android:text="@string/document_url"
+                    android:textAlignment="center"
+                    android:clickable="true"
+                    android:layout_gravity="center"
+                    />
+
+            </LinearLayout>
+
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:id="@+id/btnLike"
-                android:layout_below="@+id/edPostContent"
+                android:layout_below="@+id/llPost"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/white"
                 android:src="@drawable/like_icon"
@@ -114,7 +156,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:id="@+id/btnDislike"
-                android:layout_below="@+id/edPostContent"
+                android:layout_below="@+id/llPost"
                 android:layout_toRightOf="@+id/btnLike"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/circlebtn"
@@ -127,7 +169,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:id="@+id/btnDownload"
-                android:layout_below="@+id/edPostContent"
+                android:layout_below="@+id/llPost"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/circlebtn"
