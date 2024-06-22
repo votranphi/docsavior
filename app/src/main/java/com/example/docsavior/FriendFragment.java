@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -123,6 +124,16 @@ public class FriendFragment extends Fragment {
             public void onClick(View v) {
                 Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, ApplicationInfo.username);
+                startActivity(myIntent);
+            }
+        });
+
+        lvRequest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // start ProfileActivity and display user's info
+                Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
+                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, friendArrayList.get(position).getUsername());
                 startActivity(myIntent);
             }
         });
