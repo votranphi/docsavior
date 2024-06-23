@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -149,6 +150,21 @@ public class PostDetailActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(PostDetailActivity.this, ProfileActivity.class);
                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, newsFeed.getUsername());
                 startActivity(myIntent);
+            }
+        });
+
+        lvComment.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                if (!postDetailArrayList.get(position).getUsername().equals(username)) {
+                    Toast.makeText(PostDetailActivity.this, "You cannot delete other's comment!", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+                // call API to delete post's comment notification
+                deleteNotification(newsFeed.getUsername(), 2, newsFeed.getId(), username);
+
+                return false;
             }
         });
 
