@@ -1,5 +1,7 @@
 package com.example.docsavior;
 
+import static com.example.docsavior.ApplicationInfo.username;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,6 +50,8 @@ public class PostDetailActivity extends AppCompatActivity {
     private ImageButton btnPost;
     private TextView tvNothing;
 
+    private Boolean isLiked;
+    private Boolean isDisliked;
     private PostDetailAdapter postDetailAdapter;
     private ArrayList<PostDetail> postDetailArrayList;
 
@@ -62,6 +66,8 @@ public class PostDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_detail);
 
         findViewByIds();
+
+        checkInteract();
 
         setOnClickListeners();
 
@@ -81,11 +87,52 @@ public class PostDetailActivity extends AppCompatActivity {
         edComment = findViewById(R.id.edComment);
         btnPost = findViewById(R.id.btnPost);
         tvNothing = findViewById(R.id.tvNothing);
-
+        isLiked = false;
+        isDisliked = false;
         imgPost = findViewById(R.id.imgPost);
         tvDocumentName = findViewById(R.id.tvDocumentName);
     }
 
+    private void checkInteract()
+    {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(ApplicationInfo.apiPath).addConverterFactory(GsonConverterFactory.create()).build();
+        ApiService apiService = retrofit.create(ApiService.class);
+        Call<Detail> call = apiService.getInteract(username, newsFeed.getId());
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful())
+                    {
+                        String res = response.body().getDetail();
+                        if(res.equals("like"))
+                        {
+                            btnLike.setImageResource(R.drawable.like_icon);
+                            isLiked = true;
+                            // add animation change from like to unlike
+                        } else if (res.equals("dislike"))
+                        {
+                            btnDislike.setImageResource(R.drawable.dislike_icon);
+                            isDisliked = true;
+                            // add animation change from dislike to undislike
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                }
+                catch (Throwable t)
+                {
+                    Log.e("ERROR100: ", t.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void setOnClickListeners() {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,14 +153,193 @@ public class PostDetailActivity extends AppCompatActivity {
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: this is for Phuc
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(ApplicationInfo.apiPath).addConverterFactory(GsonConverterFactory.create()).build();
+                ApiService apiService = retrofit.create(ApiService.class);
+                if(isLiked) // if already liked
+                {
+                    isLiked = false;
+                    btnLike.setImageResource(R.drawable.like_icon_white);
+                    Call<Detail> callNewsfeed = apiService.postUnlike(newsFeed.getId());
+                    callNewsfeed.enqueue(new Callback<Detail>() {
+                        @Override
+                        public void onResponse(Call<Detail> call, Response<Detail> response) {
+                            try {
+                                if (response.isSuccessful())
+                                {
+                                    //Toast.makeText(context, "Unlike successfully!", Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                    Toast.makeText(getApplicationContext(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            catch (Throwable t)
+                            {
+                                Log.e("ERROR100: ", t.getMessage());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Detail> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else
+                {
+                    if(isDisliked)
+                    {
+                        Toast.makeText(getApplicationContext(), "Cannot like and dislike at a same time", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    btnLike.setImageResource(R.drawable.like_icon);
+                    isLiked = true;
+                    Call<Detail> callNewsfeed = apiService.postLike(newsFeed.getId());
+                    callNewsfeed.enqueue(new Callback<Detail>() {
+                        @Override
+                        public void onResponse(Call<Detail> call, Response<Detail> response) {
+                            try {
+                                if (response.isSuccessful())
+                                {
+                                    //Toast.makeText(context, "Like successfully!", Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                    Toast.makeText(getApplicationContext(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            catch (Throwable t)
+                            {
+                                Log.e("ERROR100: ", t.getMessage());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Detail> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                Call<Detail> callUserInteract = apiService.postInteract(username,newsFeed.getId(), true);
+                callUserInteract.enqueue(new Callback<Detail>() {
+                    @Override
+                    public void onResponse(Call<Detail> call, Response<Detail> response) {
+                        try {
+                            if (response.isSuccessful())
+                            {
+                                //Toast.makeText(context, "user_interact_like successfully!", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        catch (Throwable t)
+                        {
+                            Log.e("ERROR100: ", t.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Detail> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         btnDislike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: this is for Phuc
+                Retrofit retrofit = new Retrofit.Builder().baseUrl(ApplicationInfo.apiPath).addConverterFactory(GsonConverterFactory.create()).build();
+
+                ApiService apiService = retrofit.create(ApiService.class);
+
+                if(isDisliked)
+                {
+                    isDisliked = false;
+                    btnDislike.setImageResource(R.drawable.dislike_icon_white);
+                    Call<Detail> callNewsfeed = apiService.postUndislike(newsFeed.getId());
+                    callNewsfeed.enqueue(new Callback<Detail>() {
+                        @Override
+                        public void onResponse(Call<Detail> call, Response<Detail> response) {
+                            try {
+                                if (response.isSuccessful())
+                                {
+                                    //Toast.makeText(context, "Undislike successfully!", Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                    Toast.makeText(getApplicationContext(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            catch (Throwable t)
+                            {
+                                Log.e("ERROR100: ", t.getMessage());
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<Detail> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else
+                {
+                    if (isLiked)
+                    {
+                        Toast.makeText(getApplicationContext(), "Cannot like and dislike at a same time", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    isDisliked=true;
+                    btnDislike.setImageResource(R.drawable.dislike_icon);
+                    Call<Detail> callNewsfeed = apiService.postDislike(newsFeed.getId());
+                    callNewsfeed.enqueue(new Callback<Detail>() {
+                        @Override
+                        public void onResponse(Call<Detail> call, Response<Detail> response) {
+                            try {
+                                if (response.isSuccessful())
+                                {
+                                    //Toast.makeText(context, "Disike successfully!", Toast.LENGTH_LONG).show();
+                                }
+                                else {
+                                    Toast.makeText(getApplicationContext(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                            catch (Throwable t)
+                            {
+                                Log.e("ERROR100: ", t.getMessage());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Detail> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+                Call<Detail> callUserInteract = apiService.postInteract(username ,newsFeed.getId(), false);
+                callUserInteract.enqueue(new Callback<Detail>() {
+                    @Override
+                    public void onResponse(Call<Detail> call, Response<Detail> response) {
+                        try {
+                            if (response.isSuccessful())
+                            {
+                                //Toast.makeText(context, "user_interact_dislike successfully!", Toast.LENGTH_LONG).show();
+                            }
+                            else {
+                                Toast.makeText(getApplicationContext(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        catch (Throwable t)
+                        {
+                            Log.e("ERROR100: ", t.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Detail> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
