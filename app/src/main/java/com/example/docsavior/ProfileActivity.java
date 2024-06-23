@@ -50,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ArrayList<NewsFeed> newsFeedArrayList;
 
     private ImageButton btnGoToDetails;
+    private ImageButton btnClose;
 
     private static final int REQUEST_CODE_OPEN_DOCUMENT = 1;
     private String fileData = "";
@@ -100,6 +101,7 @@ public class ProfileActivity extends AppCompatActivity {
         gvPosts = findViewById(R.id.gvPosts);
         btnGoToDetails = findViewById(R.id.btnGoToDetails);
         tvNothing = findViewById(R.id.tvNothing);
+        btnClose = findViewById(R.id.btnClose);
     }
 
     private void setOnClickListeners() {
@@ -143,6 +145,13 @@ public class ProfileActivity extends AppCompatActivity {
                 myIntent.putStringArrayListExtra(KEY_TO_PROFILE_DETAIL_ACTIVITY, arrayToPut);
                 // start activity
                 startActivity(myIntent);
+            }
+        });
+
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

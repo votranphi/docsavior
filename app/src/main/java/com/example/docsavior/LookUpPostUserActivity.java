@@ -79,6 +79,29 @@ public class LookUpPostUserActivity extends AppCompatActivity {
                     return;
                 }
 
+                // flag the check if the lookup content is in the ListView
+                boolean isExisted = false;
+                int position = -1;
+                for (int i = 0; i < lookupHistoryArrayList.size(); i++) {
+                    if (lookupHistoryArrayList.get(i).getLookupContent().equals(edLookup.getText().toString())) {
+                        isExisted = true;
+                        position = i;
+                        break;
+                    }
+                }
+
+                // add the lookup content to the ListView if the it's not existed, else bring it to beginning of the ListView
+                LookupHistory newLookUpHistory = new LookupHistory(edLookup.getText().toString());
+                if (!isExisted) {
+                    // add the lookUpInfo to the beginning of the ListView
+                    lookupHistoryArrayList.add(0, newLookUpHistory);
+                } else {
+                    // bring it to beginning of the ListView
+                    lookupHistoryArrayList.remove(position);
+                    lookupHistoryArrayList.add(0, newLookUpHistory);
+                }
+                lookupHistoryAdapter.notifyDataSetChanged();
+
                 // call API to post to lookup history
                 postLookUpHistory(edLookup.getText().toString(), lookupType);
 
@@ -98,11 +121,23 @@ public class LookUpPostUserActivity extends AppCompatActivity {
         lvLookupHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // keep the clicked lookup content for later usages
+                String lookUpContent = lookupHistoryArrayList.get(position).getLookupContent();
+
+                // bring the lookUpInfo to the beginning of the ListView
+                LookupHistory newLookUpHistory = new LookupHistory(lookupHistoryArrayList.get(position).getLookupContent());
+                lookupHistoryArrayList.remove(position);
+                lookupHistoryArrayList.add(0, newLookUpHistory);
+                lookupHistoryAdapter.notifyDataSetChanged();
+
+                // call API to post to lookup history
+                postLookUpHistory(lookUpContent, lookupType);
+
                 // start LookUpResultActivity then call the look up API
                 Intent myIntent = new Intent(LookUpPostUserActivity.this, LookUpResultActivity.class);
                 // prepare the string to put to LookUpResultActivity
                 ArrayList<String> arrayToPut = new ArrayList<>();
-                arrayToPut.add(lookupHistoryArrayList.get(position).getLookupContent());
+                arrayToPut.add(lookUpContent);
                 arrayToPut.add(String.valueOf(lookupType));
                 // put it in the intent
                 myIntent.putStringArrayListExtra(KEY_TO_LOOK_UP_RESULT_ACTIVITY, arrayToPut);
