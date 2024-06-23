@@ -1,76 +1,76 @@
 package com.example.docsavior;
 
 public class Notification {
+    private Integer idNotification; // Notification's id
 
-    private String image;
-    private String notificationContent;
-    private Integer type; // like=0, comment=1, friendRequest=2
+    private String username; //username of this account
 
-    private Integer idPost; // Id post that userInteract interact
-    private String usernameInteract; //The person who interacts with post or send a request
+    private Integer type; // like = 0, dislike = 1, comment = 2, friend request = 3
 
-    public Notification(String image, String notificationContent)
-    {
-        this.image = image;
-        this.notificationContent = notificationContent;
-    }
+    private Integer idPost; // post's id. This can be -1 if type is 2
 
-    public Notification(Integer id,Integer type, String usernameInteract, String username)
-    {
-        this.type = type;
-        this.usernameInteract = usernameInteract;
-    }
+    private String interacter; // username of the person who interact with post or send a request
 
-    public Notification(Integer id, Integer type, String userInteract, String username, Integer idPost)
-    {
+    private String notificationContent; // "has liked/disliked your post", "has left a comment on your post", "has sent you a friend request"
 
-        this.type = type;
-        this.usernameInteract = userInteract;
-        this.idPost = idPost;
-    }
+    private Long time; // in Unix
 
-    // get and set
+    public Notification() { }
 
-    public String getImage() {
-        return image;
-    }
-
-    public String getNotificationContent() {
-        return notificationContent;
+    public Integer getIdNotification() {
+        return idNotification;
     }
 
     public Integer getIdPost() {
         return idPost;
     }
 
+    public String getInteracter() {
+        return interacter;
+    }
+
+    public String getNotificationContent() {
+        return notificationContent;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
     public Integer getType() {
         return type;
     }
 
-    public String getUsernameInteract() {
-        return usernameInteract;
+    public String getUsername() {
+        return username;
     }
 
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public void setNotificationContent(String notificationContent) {
-        this.notificationContent = notificationContent;
+    public void setIdNotification(Integer idNotification) {
+        this.idNotification = idNotification;
     }
 
     public void setIdPost(Integer idPost) {
         this.idPost = idPost;
     }
 
+    public void setInteracter(String interacter) {
+        this.interacter = interacter;
+    }
+
+    public void setNotificationContent(String notificationContent) {
+        this.notificationContent = notificationContent;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
+
     public void setType(Integer type) {
         this.type = type;
     }
 
-    public void setUserInteract(String userInteract) {
-        this.usernameInteract = userInteract;
+    public void setUsername(String username) {
+        this.username = username;
     }
-
 }
 

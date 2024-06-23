@@ -80,8 +80,12 @@ public interface ApiService {
 
 
 
-    @GET("/notification/all")
-    Call<List<Notification>> getAllNotifications(@Query("username") String username);
+    @GET("/notification/me")
+    Call<List<Notification>> getAllMyNotifications(@Query("username") String username);
+    @POST("/notification/add")
+    Call<Detail> postNotification(@Query("username") String username, @Query("type") Integer type,  @Query("idPost") Integer idPost, @Query("interacter") String interacter);
+    @DELETE("/notification/delete")
+    Call<Detail> deleteNotification(@Query("username") String username, @Query("type") Integer type, @Query("idPost") Integer idPost, @Query("interacter") String interacter);
 
 
 
