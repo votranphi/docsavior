@@ -181,7 +181,6 @@ public class FriendFragment extends Fragment implements RecyclerViewInterface{
         try {
             for (int i = 0; i < requesters.getRequesters().length; i++) {
                 getAvatarDataThenAddToArrayList(requesters.getRequesters()[i]);
-                friendAdapter.notifyDataSetChanged();
             }
         } catch (Exception ex) {
             Log.e("ERROR2: ", ex.getMessage());
@@ -213,6 +212,7 @@ public class FriendFragment extends Fragment implements RecyclerViewInterface{
                     if (response.isSuccessful()) {
                         Friend friend = new Friend(response.body().getDetail(), username);
                         friendArrayList.add(friend);
+                        friendAdapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(getActivity(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
