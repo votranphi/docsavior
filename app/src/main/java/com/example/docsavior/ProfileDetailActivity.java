@@ -1,7 +1,10 @@
 package com.example.docsavior;
 
+import static com.example.docsavior.ApplicationInfo.username;
+
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,9 +14,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProfileDetailActivity extends AppCompatActivity {
 
@@ -35,7 +46,7 @@ public class ProfileDetailActivity extends AppCompatActivity {
         setOnClickListeners();
 
         // check if this is my profile's view
-        if (ApplicationInfo.username.equals(userInfo.get(0))) {
+        if (username.equals(userInfo.get(0))) {
             // if it's mine
         } else {
             // if it isn't mine
@@ -75,7 +86,60 @@ public class ProfileDetailActivity extends AppCompatActivity {
         rltEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: call API to update user's infomation
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(ApplicationInfo.apiPath)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+
+                ApiService apiService = retrofit.create(ApiService.class);
+
+                if(spGender.getSelectedItem().equals("Male"))
+                {
+                    Call<Detail> call = apiService.postUserInfo(username, etFullname.getText().toString(), etEmail.getText().toString(), true, etBirthday.getText().toString(), etPhone.getText().toString());
+                    call.enqueue(new Callback<Detail>() {
+                        @Override
+                        public void onResponse(Call<Detail> call, Response<Detail> response) {
+                            try {
+                                if (response.isSuccessful()) {
+                                    // do nothing
+                                } else {
+                                    Toast.makeText(getApplicationContext(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                                }
+                            } catch (Exception ex) {
+                                Log.e("ERROR106: ", ex.getMessage());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Detail> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else
+                {
+                    Call<Detail> call = apiService.postUserInfo(username, etFullname.getText().toString(), etEmail.getText().toString(), false, etBirthday.getText().toString(), etPhone.getText().toString());
+                    call.enqueue(new Callback<Detail>() {
+                        @Override
+                        public void onResponse(Call<Detail> call, Response<Detail> response) {
+                            try {
+                                if (response.isSuccessful()) {
+                                    Toast.makeText(getApplicationContext(), "Edit profile successfully!", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                                }
+                            } catch (Exception ex) {
+                                Log.e("ERROR106: ", ex.getMessage());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Detail> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
             }
         });
 
@@ -97,7 +161,7 @@ public class ProfileDetailActivity extends AppCompatActivity {
             etUsername.setText(userInfo.get(0));
             etFullname.setText(userInfo.get(1));
             etEmail.setText(userInfo.get(2));
-            if(userInfo.get(4).equals("Male"))
+            if(Boolean.parseBoolean(userInfo.get(4)))
             {
                 String[] items = new String[]{"Male", "Female"};
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);

@@ -28,7 +28,8 @@ public interface ApiService {
     Call<FoundUsers> postUserLookUp(@Query("lookUpInfo") String lookUpInfo);
     @GET("/user/avatar_data")
     Call<Detail> getAvatarData(@Query("username") String username);
-
+    @POST("/user/update_user_info")
+    Call<Detail> postUserInfo(@Query("username") String username, @Query("fullName") String fullName, @Query("email") String email, @Query("gender") Boolean gender, @Query("birthDate") String birthDate, @Query("phoneNumber") String phoneNumber);
 
 
     @POST("/otp/create_or_refresh")
