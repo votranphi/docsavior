@@ -46,6 +46,7 @@ public class PostDetailActivity extends AppCompatActivity {
     private ListView lvComment;
     private EditText edComment;
     private ImageButton btnPost;
+    private TextView tvNothing;
 
     private PostDetailAdapter postDetailAdapter;
     private ArrayList<PostDetail> postDetailArrayList;
@@ -79,6 +80,7 @@ public class PostDetailActivity extends AppCompatActivity {
         lvComment = findViewById(R.id.lvComment);
         edComment = findViewById(R.id.edComment);
         btnPost = findViewById(R.id.btnPost);
+        tvNothing = findViewById(R.id.tvNothing);
 
         imgPost = findViewById(R.id.imgPost);
         tvDocumentName = findViewById(R.id.tvDocumentName);
@@ -237,11 +239,17 @@ public class PostDetailActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         List<Comment> comments = response.body();
 
-                        for (Comment i : comments) {
-                            // call API to get avatarData
-                            PostDetail postDetail = new PostDetail(i.getUsername(), i.getCommentContent(), i.getTime());
-                            postDetailArrayList.add(postDetail);
-                            postDetailAdapter.notifyDataSetChanged();
+                        if (comments.size() == 0) {
+                            tvNothing.setVisibility(View.VISIBLE);
+                        } else {
+                            tvNothing.setVisibility(View.GONE);
+
+                            for (Comment i : comments) {
+                                // call API to get avatarData
+                                PostDetail postDetail = new PostDetail(i.getUsername(), i.getCommentContent(), i.getTime());
+                                postDetailArrayList.add(postDetail);
+                                postDetailAdapter.notifyDataSetChanged();
+                            }
                         }
                     } else {
                         Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
