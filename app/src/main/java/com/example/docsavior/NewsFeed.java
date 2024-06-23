@@ -11,6 +11,7 @@ public class NewsFeed {
     private String fileData;
     private String fileName;
     private String fileExtension;
+    private Long time;
 
     public NewsFeed(int id, String username, String postDescription, String postContent, int likeNumber, int dislikeNumber, int commentNumber, String fileData, String fileName, String fileExtension)
     {
@@ -81,6 +82,10 @@ public class NewsFeed {
         return fileExtension;
     }
 
+    public Long getTime() {
+        return time;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -119,5 +124,9 @@ public class NewsFeed {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
     }
 }

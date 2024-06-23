@@ -25,8 +25,12 @@ import org.json.JSONArray;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,6 +57,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
     private List<Boolean> isDisliked = new ArrayList<>();
     private List<ImageView> profileImgs = new ArrayList<>();
     private List<ImageView> imgPosts = new ArrayList<>();
+    private List<TextView> tvDateTimes = new ArrayList<>();
 
     public static String KEY_TO_POST_DETAIL_ACTIVITY = "id";
 
@@ -87,6 +92,8 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
         likeNumbers.get(position).setText(String.valueOf(nf.getLikeNumber()));
         dislikeNumbers.get(position).setText(String.valueOf(nf.getDislikeNumber()));
         commentNumbers.get(position).setText(String.valueOf(nf.getCommentNumber()));
+        // set post's datetime
+        setPostDateTime(tvDateTimes.get(position), nf.getTime());
 
         // set user's avatar
         getUserInfoAndSetAvatar(profileImgs.get(position), nf.getUsername());
@@ -117,6 +124,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
         isDisliked.add(false);
         profileImgs.add(convertView.findViewById(R.id.profileImg));
         imgPosts.add(convertView.findViewById(R.id.imgPost));
+        tvDateTimes.add(convertView.findViewById(R.id.tvDateTime));
     }
 
     private void checkInteract(int position)
@@ -501,5 +509,15 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
         } catch (Exception ex) {
             Log.e("ERROR111: ", ex.getMessage());
         }
+    }
+
+    private void setPostDateTime(TextView textView, long time) {
+        Date date = new Date(time * 1000);
+
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+        String dateFormatted = formatter.format(date);
+
+        textView.setText(dateFormatted);
     }
 }
