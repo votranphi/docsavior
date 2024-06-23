@@ -26,6 +26,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.documentfile.provider.DocumentFile;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 
@@ -45,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView tvFullname;
     private Button btnAddfriend;
     private Button btnMessage;
-    private ListView gvPosts;
+    private RecyclerView gvPosts;
     private NewsFeedAdapter newsFeedAdapter;
     private ArrayList<NewsFeed> newsFeedArrayList;
 
@@ -171,8 +173,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void initVariables() {
         newsFeedArrayList = new ArrayList<>();
-        newsFeedAdapter = new NewsFeedAdapter(this, R.layout.item_profile, newsFeedArrayList);
+        newsFeedAdapter = new NewsFeedAdapter(this, newsFeedArrayList);
         gvPosts.setAdapter(newsFeedAdapter);
+        gvPosts.setLayoutManager(new LinearLayoutManager(this));
 
         // retrieve the isMyInfo from NewsFeedFragment
         Bundle extras = getIntent().getExtras();

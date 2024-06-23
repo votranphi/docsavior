@@ -1,6 +1,7 @@
 package com.example.docsavior;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.json.JSONArray;
 
 import java.util.ArrayList;
@@ -26,137 +30,154 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class FriendAdapter extends ArrayAdapter<Friend> {
-    private final Activity context;
-    private List<ImageView> profileImgs = new ArrayList<>();
-    private List<TextView> tvUsernames = new ArrayList<>();
-    private List<ImageButton> btnAccepts = new ArrayList<>();
-    private List<ImageButton> btnDeclines = new ArrayList<>();
-    private List<Button> btnAddFriends = new ArrayList<>();
-    private List<Friend> friendList = new ArrayList<>();
+public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder> {
+    private Context context;
+    private RecyclerViewInterface recyclerViewInterface;
+
+    private List<Friend> friendList;
 
     private int displayType = 0; // 0 is friend request (FriendFragment), 1 is found user (InUserLookUp), 2 is my friend (MyFriend)
 
-    public FriendAdapter(Activity context, int layoutID, List<Friend> objects, int displayType) {
-        super(context, layoutID, objects);
+    public FriendAdapter(Context context, List<Friend> friendList, RecyclerViewInterface recyclerViewInterface, int displayType) {
         this.context = context;
+        this.friendList = friendList;
+        this.recyclerViewInterface = recyclerViewInterface;
         this.displayType = displayType;
     }
+
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent)
-    {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_friend, null, false);
-        }
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View friendView = inflater.inflate(R.layout.item_friend, parent, false);
+        ViewHolder viewHolder = new ViewHolder(friendView);
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Get item
-        Friend fr = getItem(position);
-
-        // add fr to friend list
-        friendList.add(fr);
-
-        // Get view
-        findViewByIds(convertView);
+        Friend fr = friendList.get(position);
 
         // set click listeners
-        setOnClickListeners(position);
+        setOnClickListeners(holder, position);
 
         // set username
-        tvUsernames.get(position).setText(fr.getUsername());
+        holder.tvUsername.setText(fr.getUsername());
 
         // set avatar
-        setAvatar(profileImgs.get(position), fr.getAvatarData());
-
-        return convertView;
+        setAvatar(holder.profileImg, fr.getAvatarData());
     }
 
-    private void findViewByIds(View convertView) {
-        profileImgs.add(convertView.findViewById(R.id.profileImg));
-        tvUsernames.add(convertView.findViewById(R.id.tvUsername));
+    @Override
+    public int getItemCount() {
+        return friendList.size();
+    }
 
-        if (displayType == 1) {
-            btnAddFriends.add(convertView.findViewById(R.id.btnAddFriend));
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView profileImg;
+        TextView tvUsername;
+        ImageButton btnAccept;
+        ImageButton btnDecline;
+        Button btnAddFriend;
 
-            // set VISIBILITY of btnAccept and btnDeclines to GONE
-            convertView.findViewById(R.id.btnAccept).setVisibility(View.GONE);
-            convertView.findViewById(R.id.btnDecline).setVisibility(View.GONE);
-        } else if (displayType == 0) {
-            btnAccepts.add(convertView.findViewById(R.id.btnAccept));
-            btnDeclines.add(convertView.findViewById(R.id.btnDecline));
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            profileImg = itemView.findViewById(R.id.profileImg);
+            tvUsername = itemView.findViewById(R.id.tvUsername);
 
-            // set VISIBILITY of btnAddFriend to GONE
-            convertView.findViewById(R.id.btnAddFriend).setVisibility(View.GONE);
-        } else {
-            convertView.findViewById(R.id.btnAccept).setVisibility(View.GONE);
-            convertView.findViewById(R.id.btnDecline).setVisibility(View.GONE);
-            convertView.findViewById(R.id.btnAddFriend).setVisibility(View.GONE);
+            if (displayType == 1) {
+                btnAddFriend = itemView.findViewById(R.id.btnAddFriend);
+
+                // set VISIBILITY of btnAccept and btnDeclines to GONE
+                itemView.findViewById(R.id.btnAccept).setVisibility(View.GONE);
+                itemView.findViewById(R.id.btnDecline).setVisibility(View.GONE);
+            } else if (displayType == 0) {
+                btnAccept = itemView.findViewById(R.id.btnAccept);
+                btnDecline = itemView.findViewById(R.id.btnDecline);
+
+                // set VISIBILITY of btnAddFriend to GONE
+                itemView.findViewById(R.id.btnAddFriend).setVisibility(View.GONE);
+            } else {
+                itemView.findViewById(R.id.btnAccept).setVisibility(View.GONE);
+                itemView.findViewById(R.id.btnDecline).setVisibility(View.GONE);
+                itemView.findViewById(R.id.btnAddFriend).setVisibility(View.GONE);
+            }
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (recyclerViewInterface != null) {
+                        recyclerViewInterface.startProfileActivity(getAdapterPosition());
+                    }
+                }
+            });
         }
     }
 
-    private void setOnClickListeners(int position) {
+    private void setOnClickListeners(ViewHolder holder, int position) {
         if (displayType == 1) {
-            btnAddFriends.get(position).setOnClickListener(new View.OnClickListener() {
+            holder.btnAddFriend.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // call API to post the friend request to database
-                    postFriendRequest(tvUsernames.get(position).getText().toString());
+                    postFriendRequest(holder.tvUsername.getText().toString());
 
                     // set the text of the button to "Cancel request"
-                    btnAddFriends.get(position).setText("Cancel request");
+                    holder.btnAddFriend.setText("Cancel request");
 
                     // call API to post notification
-                    postNotification(tvUsernames.get(position).getText().toString(), 3, -1, ApplicationInfo.username);
+                    postNotification(holder.tvUsername.getText().toString(), 3, -1, ApplicationInfo.username);
                 }
             });
         } else if (displayType == 0) {
-            btnAccepts.get(position).setOnClickListener(new View.OnClickListener() {
+            holder.btnAccept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // remove the Friend and its attribute base on the position
-                    remove(friendList.get(position));
                     friendList.remove(position);
                     notifyDataSetChanged();
 
                     // call API to delete friend request from the database
-                    deleteFriendRequest(tvUsernames.get(position).getText().toString(), false);
+                    deleteFriendRequest(holder.tvUsername.getText().toString(), false);
                     // call API to add friend in the database
-                    postNewFriend(tvUsernames.get(position).getText().toString());
+                    postNewFriend(holder.tvUsername.getText().toString());
 
                     // call API to post notification
-                    postNotification(tvUsernames.get(position).getText().toString(), 4, -1, ApplicationInfo.username);
+                    postNotification(holder.tvUsername.getText().toString(), 4, -1, ApplicationInfo.username);
                 }
             });
 
-            btnDeclines.get(position).setOnClickListener(new View.OnClickListener() {
+            holder.btnDecline.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // remove the Friend and its attribute base on the position
-                    remove(friendList.get(position));
                     friendList.remove(position);
                     notifyDataSetChanged();
 
                     // call API to delete friend request from the database
-                    deleteFriendRequest(tvUsernames.get(position).getText().toString(), true);
+                    deleteFriendRequest(holder.tvUsername.getText().toString(), true);
 
                     // call API to post notification
-                    postNotification(tvUsernames.get(position).getText().toString(), 5, -1, ApplicationInfo.username);
+                    postNotification(holder.tvUsername.getText().toString(), 5, -1, ApplicationInfo.username);
                 }
             });
         }
 
-        tvUsernames.get(position).setOnClickListener(new View.OnClickListener() {
+        holder.tvUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                  Intent myIntent = new Intent(context, ProfileActivity.class);
-                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, tvUsernames.get(position).getText().toString());
+                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, holder.tvUsername.getText().toString());
                  context.startActivity(myIntent);
             }
         });
 
-        profileImgs.get(position).setOnClickListener(new View.OnClickListener() {
+        holder.profileImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(context, ProfileActivity.class);
-                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, tvUsernames.get(position).getText().toString());
+                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, holder.tvUsername.getText().toString());
                 context.startActivity(myIntent);
             }
         });
@@ -178,7 +199,7 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
                 // convert byteArray to bitmap
                 Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
                 // set the avatar
-                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 40, 40, false));
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(), imageView.getHeight(), false));
             }
         } catch (Exception ex) {
             Log.e("ERROR261: ", ex.getMessage());

@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Use the {@link FriendFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FriendFragment extends Fragment {
+public class FriendFragment extends Fragment implements RecyclerViewInterface{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,7 +87,7 @@ public class FriendFragment extends Fragment {
     // MAIN THINGS FROM HERE
     private ImageButton btnLookup;
     private ImageButton btnProfile;
-    private ListView lvRequest;
+    private RecyclerView lvRequest;
     private FriendAdapter friendAdapter;
     private ArrayList<Friend> friendArrayList;
     private TextView tvNothing;
@@ -127,22 +129,13 @@ public class FriendFragment extends Fragment {
                 startActivity(myIntent);
             }
         });
-
-        lvRequest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // start ProfileActivity and display user's info
-                Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
-                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, friendArrayList.get(position).getUsername());
-                startActivity(myIntent);
-            }
-        });
     }
 
     private void initVariables() {
         friendArrayList = new ArrayList<>();
-        friendAdapter = new FriendAdapter(getActivity(), R.layout.item_friend, friendArrayList, 0);
+        friendAdapter = new FriendAdapter(getActivity(), friendArrayList, this, 0);
         lvRequest.setAdapter(friendAdapter);
+        lvRequest.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void loadFriendRequests() {
@@ -193,5 +186,13 @@ public class FriendFragment extends Fragment {
         } catch (Exception ex) {
             Log.e("ERROR2: ", ex.getMessage());
         }
+    }
+
+    @Override
+    public void startProfileActivity(int position) {
+        // start ProfileActivity and display user's info
+        Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
+        myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, friendArrayList.get(position).getUsername());
+        startActivity(myIntent);
     }
 }

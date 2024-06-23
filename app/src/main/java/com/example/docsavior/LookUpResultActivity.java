@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONObject;
 
@@ -28,12 +30,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LookUpResultActivity extends AppCompatActivity {
+public class LookUpResultActivity extends AppCompatActivity implements RecyclerViewInterface {
 
     private ImageButton btnClose;
     private EditText tvLookUpContent;
     private TextView tvNothing;
-    private ListView lvResult;
+    private RecyclerView lvResult;
 
     // use two variables below if user looks for post
     private NewsFeedAdapter newsFeedAdapter;
@@ -87,15 +89,16 @@ public class LookUpResultActivity extends AppCompatActivity {
 
         if (itemType == 0) {
             newsFeedArrayList = new ArrayList<>();
-            newsFeedAdapter = new NewsFeedAdapter(this, R.layout.item_newsfeed, newsFeedArrayList);
+            newsFeedAdapter = new NewsFeedAdapter(this, newsFeedArrayList);
             lvResult.setAdapter(newsFeedAdapter);
         } else if (itemType == 1) {
             // TODO: initialize the Conversation Adapter and ArrayList of Conversation
         } else {
             friendArrayList = new ArrayList<>();
-            friendAdapter = new FriendAdapter(this, R.layout.item_friend, friendArrayList, 1);
+            friendAdapter = new FriendAdapter(this, friendArrayList, this, 1);
             lvResult.setAdapter(friendAdapter);
         }
+        lvResult.setLayoutManager(new LinearLayoutManager(LookUpResultActivity.this));
 
         tvLookUpContent.setText(lookUpInfo);
     }
@@ -206,5 +209,13 @@ public class LookUpResultActivity extends AppCompatActivity {
             friendArrayList.add(friend);
             friendAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void startProfileActivity(int position) {
+        // start ProfileActivity and display user's info
+        Intent myIntent = new Intent(LookUpResultActivity.this, ProfileActivity.class);
+        myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, friendArrayList.get(position).getUsername());
+        startActivity(myIntent);
     }
 }

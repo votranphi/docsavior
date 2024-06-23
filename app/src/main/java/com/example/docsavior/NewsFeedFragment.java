@@ -8,11 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONObject;
 
@@ -83,7 +86,7 @@ public class NewsFeedFragment extends Fragment {
     private ImageButton btnCreatePost;
     private ImageButton btnLookup;
     private ImageButton btnProfile;
-    private ListView lvPost;
+    private RecyclerView lvPost;
     private NewsFeedAdapter newsFeedAdapter;
     private ArrayList<NewsFeed> newsFeedArrayList;
     private TextView tvNothing;
@@ -139,8 +142,9 @@ public class NewsFeedFragment extends Fragment {
 
     private void initVariables() {
         newsFeedArrayList = new ArrayList<>();
-        newsFeedAdapter = new NewsFeedAdapter(getActivity(), R.layout.item_newsfeed, newsFeedArrayList);
+        newsFeedAdapter = new NewsFeedAdapter(getActivity(), newsFeedArrayList);
         lvPost.setAdapter(newsFeedAdapter);
+        lvPost.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void getAllPost() {

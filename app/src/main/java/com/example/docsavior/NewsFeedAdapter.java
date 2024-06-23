@@ -3,6 +3,7 @@ package com.example.docsavior;
 import static com.example.docsavior.ApplicationInfo.username;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
@@ -38,137 +40,107 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
-    private final Activity context;
-    private List<NewsFeed> newsFeedList = new ArrayList<>();
-    private List<TextView> usernames = new ArrayList<>();
-    private List<TextView> postDescriptions = new ArrayList<>();
-    private List<TextView> postContents = new ArrayList<>(); // Phuc has added this
-    private List<TextView> documentNames = new ArrayList<>();
-    private List<ImageButton> btnLikes = new ArrayList<>();
-    private List<ImageButton> btnDislikes = new ArrayList<>();
-    private List<ImageButton> btnComments = new ArrayList<>();
-    private List<ImageButton> btnSaves = new ArrayList<>();
-    private List<TextView> likeNumbers = new ArrayList<>();
-    private List<TextView> dislikeNumbers = new ArrayList<>();
-    private List<TextView> commentNumbers = new ArrayList<>();
+public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHolder> {
+    private Context context;
+    private List<NewsFeed> newsFeedList;
 
     private List<Boolean> isLiked = new ArrayList<>();
     private List<Boolean> isDisliked = new ArrayList<>();
-    private List<ImageView> profileImgs = new ArrayList<>();
-    private List<ImageView> imgPosts = new ArrayList<>();
-    private List<TextView> tvDateTimes = new ArrayList<>();
 
     public static String KEY_TO_POST_DETAIL_ACTIVITY = "id";
 
-    public NewsFeedAdapter(Activity context, int layoutID, List<NewsFeed> objects) {
-        super(context, layoutID, objects);
+    public NewsFeedAdapter(Context context, List<NewsFeed> newsFeedList) {
         this.context = context;
+        this.newsFeedList = newsFeedList;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View newsfeedView = inflater.inflate(R.layout.item_newsfeed, parent, false);
+        ViewHolder viewHolder = new ViewHolder(newsfeedView);
+        return viewHolder;
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent)
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_newsfeed, null, false);
-        }
         // Get item
-        NewsFeed nf = getItem(position);
+        NewsFeed nf = newsFeedList.get(position);
 
-        // add nf to newsFeedList
-        newsFeedList.add(nf);
+        if (nf != null) {
+            holder.username.setText(nf.getUsername());
+            holder.postDescription.setText(nf.getPostDescription());
+            holder.postContent.setText(nf.getPostContent());
+            holder.documentName.setText(nf.getFileName() + "." + nf.getFileExtension());
+            holder.likeNumber.setText(String.valueOf(nf.getLikeNumber()));
+            holder.dislikeNumber.setText(String.valueOf(nf.getDislikeNumber()));
+            holder.commentNumber.setText(String.valueOf(nf.getCommentNumber()));
 
-        // findViewByIds
-        findViewByIds(convertView, position);
+            // set post's datetime
+            setPostDateTime(holder.tvDateTime, nf.getTime());
 
-        // setOnClickListeners
-        setOnClickListeners(position);
+            // set user's avatar
+            getUserInfoAndSetAvatar(holder.profileImg, nf.getUsername());
 
-        checkInteract(position);
-        usernames.get(position).setText(nf.getUsername());
-        postDescriptions.get(position).setText(nf.getPostDescription());
-        postContents.get(position).setText(nf.getPostContent());
-        documentNames.get(position).setText(nf.getFileName() + "." + nf.getFileExtension());
-        likeNumbers.get(position).setText(String.valueOf(nf.getLikeNumber()));
-        dislikeNumbers.get(position).setText(String.valueOf(nf.getDislikeNumber()));
-        commentNumbers.get(position).setText(String.valueOf(nf.getCommentNumber()));
-        // set post's datetime
-        setPostDateTime(tvDateTimes.get(position), nf.getTime());
+            // set the post's image if the file is image type (jpg, png, jpeg,...)
+            if (nf.getFileExtension().equals("jpg") || nf.getFileExtension().equals("png") || nf.getFileExtension().equals("jpeg")) {
+                setImage(holder.imgPost, nf.getFileData());
+            } else {
+                holder.imgPost.setVisibility(View.GONE);
+            }
 
-        // set user's avatar
-        getUserInfoAndSetAvatar(profileImgs.get(position), nf.getUsername());
+            setOnClickListeners(holder, position);
 
-        // set the post's image if the file is image type (jpg, png, jpeg,...)
-        if (nf.getFileExtension().equals("jpg") || nf.getFileExtension().equals("png") || nf.getFileExtension().equals("jpeg")) {
-            setImage(imgPosts.get(position), nf.getFileData());
-        } else {
-            imgPosts.get(position).setVisibility(View.GONE);
+            checkInteract(holder, position);
         }
-
-        return convertView;
     }
 
-    private void findViewByIds(View convertView, int position) {
-        usernames.add(convertView.findViewById(R.id.tvUsername));
-        postDescriptions.add(convertView.findViewById(R.id.tvPostDesciption));
-        postContents.add(convertView.findViewById(R.id.tvPostContent));
-        documentNames.add(convertView.findViewById(R.id.tvDocumentName));
-        btnLikes.add(convertView.findViewById(R.id.btnLike));
-        btnDislikes.add(convertView.findViewById(R.id.btnDislike));
-        btnComments.add(convertView.findViewById(R.id.btnComment));
-        btnSaves.add(convertView.findViewById(R.id.btnSave));
-        likeNumbers.add(convertView.findViewById(R.id.tvLikeNumber));
-        dislikeNumbers.add(convertView.findViewById(R.id.tvDislikeNumber));
-        commentNumbers.add(convertView.findViewById(R.id.tvCommentNumber));
-        isLiked.add(false);
-        isDisliked.add(false);
-        profileImgs.add(convertView.findViewById(R.id.profileImg));
-        imgPosts.add(convertView.findViewById(R.id.imgPost));
-        tvDateTimes.add(convertView.findViewById(R.id.tvDateTime));
+    @Override
+    public int getItemCount() {
+        return  newsFeedList.size();
     }
 
-    private void checkInteract(int position)
-    {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(ApplicationInfo.apiPath).addConverterFactory(GsonConverterFactory.create()).build();
-        ApiService apiService = retrofit.create(ApiService.class);
-        Call<Detail> call = apiService.getInteract(username, getItem(position).getId());
-        call.enqueue(new Callback<Detail>() {
-            @Override
-            public void onResponse(Call<Detail> call, Response<Detail> response) {
-                try {
-                    if (response.isSuccessful())
-                    {
-                        String res = response.body().getDetail();
-                        if(res.equals("like"))
-                        {
-                            btnLikes.get(position).setImageResource(R.drawable.like_icon_red);
-                            isLiked.set(position, true);
-                            // add animation change from like to unlike
-                        } else if (res.equals("dislike"))
-                        {
-                            btnDislikes.get(position).setImageResource(R.drawable.dislike_icon_red);
-                            isDisliked.set(position, true);
-                            // add animation change from dislike to undislike
-                        }
-                    }
-                    else {
-                        Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
-                    }
-                }
-                catch (Throwable t)
-                {
-                    Log.e("ERROR100: ", t.getMessage());
-                }
-            }
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView username;
+        TextView postDescription;
+        TextView postContent;
+        TextView documentName;
+        ImageButton btnLike;
+        ImageButton btnDislike;
+        ImageButton btnComment;
+        ImageButton btnSave;
+        TextView likeNumber;
+        TextView dislikeNumber;
+        TextView commentNumber;
 
-            @Override
-            public void onFailure(Call<Detail> call, Throwable t) {
-                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        ImageView profileImg;
+        ImageView imgPost;
+        TextView tvDateTime;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            username = itemView.findViewById(R.id.tvUsername);
+            postDescription = itemView.findViewById(R.id.tvPostDesciption);
+            postContent = itemView.findViewById(R.id.tvPostContent);
+            documentName = itemView.findViewById(R.id.tvDocumentName);
+            btnLike = itemView.findViewById(R.id.btnLike);
+            btnDislike = itemView.findViewById(R.id.btnDislike);
+            btnComment = itemView.findViewById(R.id.btnComment);
+            btnSave = itemView.findViewById(R.id.btnSave);
+            likeNumber = itemView.findViewById(R.id.tvLikeNumber);
+            dislikeNumber = itemView.findViewById(R.id.tvDislikeNumber);
+            commentNumber = itemView.findViewById(R.id.tvCommentNumber);
+
+            profileImg = itemView.findViewById(R.id.profileImg);
+            imgPost = itemView.findViewById(R.id.imgPost);
+            tvDateTime = itemView.findViewById(R.id.tvDateTime);
+        }
     }
-    private void setOnClickListeners(int position) {
-        documentNames.get(position).setOnClickListener(new View.OnClickListener() {
+
+    private void setOnClickListeners(ViewHolder holder, int position) {
+        holder.documentName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -192,17 +164,17 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
             }
         });
 
-        profileImgs.get(position).setOnClickListener(new View.OnClickListener() {
+        holder.profileImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // start ProfileActivity then display user's info
                 Intent myIntent = new Intent(context, ProfileActivity.class);
-                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, usernames.get(position).getText().toString());
+                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, holder.username.getText().toString());
                 context.startActivity(myIntent);
             }
         });
 
-        btnLikes.get(position).setOnClickListener(new View.OnClickListener() {
+        holder.btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -214,8 +186,8 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                     deleteNotification(newsFeedList.get(position).getUsername(), 0, newsFeedList.get(position).getId(), username);
 
                     isLiked.set(position, false);
-                    btnLikes.get(position).setImageResource(R.drawable.like_icon);
-                    Call<Detail> callNewsfeed = apiService.postUnlike(getItem(position).getId());
+                    holder.btnLike.setImageResource(R.drawable.like_icon);
+                    Call<Detail> callNewsfeed = apiService.postUnlike(newsFeedList.get(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
                         public void onResponse(Call<Detail> call, Response<Detail> response) {
@@ -251,9 +223,9 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                     // call api to post the like notification
                     postNotification(newsFeedList.get(position).getUsername(), 0, newsFeedList.get(position).getId(), username);
 
-                    btnLikes.get(position).setImageResource(R.drawable.like_icon_red);
+                    holder.btnLike.setImageResource(R.drawable.like_icon_red);
                     isLiked.set(position, true);
-                    Call<Detail> callNewsfeed = apiService.postLike(getItem(position).getId());
+                    Call<Detail> callNewsfeed = apiService.postLike(newsFeedList.get(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
                         public void onResponse(Call<Detail> call, Response<Detail> response) {
@@ -279,7 +251,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                     });
                 }
 
-                Call<Detail> callUserInteract = apiService.postInteract(username,getItem(position).getId(), true);
+                Call<Detail> callUserInteract = apiService.postInteract(username, newsFeedList.get(position).getId(), true);
                 callUserInteract.enqueue(new Callback<Detail>() {
                     @Override
                     public void onResponse(Call<Detail> call, Response<Detail> response) {
@@ -306,7 +278,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
             }
         });
 
-        btnDislikes.get(position).setOnClickListener(new View.OnClickListener() {
+        holder.btnDislike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Retrofit retrofit = new Retrofit.Builder().baseUrl(ApplicationInfo.apiPath).addConverterFactory(GsonConverterFactory.create()).build();
@@ -319,8 +291,8 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                     deleteNotification(newsFeedList.get(position).getUsername(), 1, newsFeedList.get(position).getId(), username);
 
                     isDisliked.set(position, false);
-                    btnDislikes.get(position).setImageResource(R.drawable.dislike_icon);
-                    Call<Detail> callNewsfeed = apiService.postUndislike(getItem(position).getId());
+                    holder.btnDislike.setImageResource(R.drawable.dislike_icon);
+                    Call<Detail> callNewsfeed = apiService.postUndislike(newsFeedList.get(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
                         public void onResponse(Call<Detail> call, Response<Detail> response) {
@@ -356,8 +328,8 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                     postNotification(newsFeedList.get(position).getUsername(), 1, newsFeedList.get(position).getId(), username);
 
                     isDisliked.set(position, true);
-                    btnDislikes.get(position).setImageResource(R.drawable.dislike_icon_red);
-                    Call<Detail> callNewsfeed = apiService.postDislike(getItem(position).getId());
+                    holder.btnDislike.setImageResource(R.drawable.dislike_icon_red);
+                    Call<Detail> callNewsfeed = apiService.postDislike(newsFeedList.get(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
                         public void onResponse(Call<Detail> call, Response<Detail> response) {
@@ -383,7 +355,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                     });
 
                 }
-                Call<Detail> callUserInteract = apiService.postInteract(username ,getItem(position).getId(), false);
+                Call<Detail> callUserInteract = apiService.postInteract(username, newsFeedList.get(position).getId(), false);
                 callUserInteract.enqueue(new Callback<Detail>() {
                     @Override
                     public void onResponse(Call<Detail> call, Response<Detail> response) {
@@ -410,7 +382,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
             }
         });
 
-        btnComments.get(position).setOnClickListener(new View.OnClickListener() {
+        holder.btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // open the comment activity then let the user comment, code API to increase comment number of this post by 1 then call it in there if user really comment
@@ -422,10 +394,51 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
             }
         });
 
-        btnSaves.get(position).setOnClickListener(new View.OnClickListener() {
+        holder.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO: save the post to see later
+            }
+        });
+    }
+
+    private void checkInteract(ViewHolder holder, int position)
+    {
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(ApplicationInfo.apiPath).addConverterFactory(GsonConverterFactory.create()).build();
+        ApiService apiService = retrofit.create(ApiService.class);
+        Call<Detail> call = apiService.getInteract(username, newsFeedList.get(position).getId());
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful())
+                    {
+                        String res = response.body().getDetail();
+                        if(res.equals("like"))
+                        {
+                            holder.btnLike.setImageResource(R.drawable.like_icon_red);
+                            isLiked.set(position, true);
+                            // add animation change from like to unlike
+                        } else if (res.equals("dislike"))
+                        {
+                            holder.btnDislike.setImageResource(R.drawable.dislike_icon_red);
+                            isDisliked.set(position, true);
+                            // add animation change from dislike to undislike
+                        }
+                    }
+                    else {
+                        Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                }
+                catch (Throwable t)
+                {
+                    Log.e("ERROR100: ", t.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
