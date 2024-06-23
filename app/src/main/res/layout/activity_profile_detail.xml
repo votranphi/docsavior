@@ -64,8 +64,8 @@
             <EditText
                 android:id="@+id/etUsername"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="17dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="25dp"
                 android:layout_toEndOf="@id/tvUsername"
                 android:background="@drawable/edittext"
                 android:importantForAutofill="no"
@@ -97,8 +97,8 @@
             <EditText
                 android:id="@+id/etFullname"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="27dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="34dp"
                 android:layout_toEndOf="@id/tvFullname"
                 android:background="@drawable/edittext"
                 android:importantForAutofill="no"
@@ -130,8 +130,8 @@
             <EditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="66dp"
                 android:layout_toEndOf="@id/tvEmail"
                 android:background="@drawable/edittext"
                 android:importantForAutofill="no"
@@ -164,8 +164,8 @@
             <EditText
                 android:id="@+id/etStatus"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="55dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="60dp"
                 android:layout_toEndOf="@id/tvStatus"
                 android:background="@drawable/edittext"
                 android:importantForAutofill="no"
@@ -198,8 +198,8 @@
             <EditText
                 android:id="@+id/etGender"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="53dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="56dp"
                 android:layout_toEndOf="@id/tvGender"
                 android:background="@drawable/edittext"
                 android:importantForAutofill="no"
@@ -229,7 +229,7 @@
             <EditText
                 android:id="@+id/etBirthday"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/tvBirthday"
                 android:background="@drawable/edittext"
@@ -260,7 +260,7 @@
             <EditText
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginStart="65dp"
                 android:layout_toEndOf="@id/tvPhone"
                 android:background="@drawable/edittext"
