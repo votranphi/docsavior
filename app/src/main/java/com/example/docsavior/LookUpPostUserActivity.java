@@ -115,6 +115,9 @@ public class LookUpPostUserActivity extends AppCompatActivity {
                 myIntent.putStringArrayListExtra(KEY_TO_LOOK_UP_RESULT_ACTIVITY, arrayToPut);
                 // start activity
                 startActivity(myIntent);
+
+                // clear the EditText after looking up
+                edLookup.setText("");
             }
         });
 
