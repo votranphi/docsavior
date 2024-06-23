@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        handler.postDelayed(runnable, 3000); // Timeout for the splash
+
 //        Intent intent = new Intent(this, OTPVerificationActivity.class);
 //        startActivity(intent);
         findViewByIds();
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Log.e("PATH: ", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath());
 
-        handler.postDelayed(runnable, 2000); // Timeout for the splash
+
     }
     
     private void findViewByIds() {
