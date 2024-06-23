@@ -41,6 +41,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginLeft="10dp">
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,19 +54,29 @@
                         android:text="@string/username"
                         android:textStyle="bold"
                         android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hyphen"
+                        android:id="@+id/tvHyphen"/>
+
                     <TextView
                         android:id="@+id/tvPostDesciption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/topic"
-                        android:textSize="20sp"/>
+                        android:textSize="20sp"
+                        />
                 </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvPostContent"
                     android:text="@string/description"
                     android:textSize="20sp"/>
+
             </LinearLayout>
 
 
@@ -155,7 +166,7 @@
                android:layout_marginStart="170dp"
                android:id="@+id/btnSave"
                android:importantForAccessibility="no"
-               android:src="@drawable/save_icon_white"
+               android:src="@drawable/download_icon_white_2"
                android:background="@drawable/circlebtn"
                android:backgroundTint="@color/grey"
                android:scaleType="fitCenter"

@@ -58,7 +58,7 @@
     <string name="video">Video</string>
     <string name="file">File</string>
     <string name="personal_information">Personal information</string>
-    <string name="topic">- Topic</string>
+    <string name="topic">Topic</string>
     <string name="description">description</string>
     <string name="document_url">document URL</string>
     <string name="gi_i_t_nh">Giới tính</string>
@@ -76,6 +76,8 @@
     <string name="offline">Offline</string>
     <string name="edit_profile">Edit profile</string>
     <string name="full_name">Your full name</string>
+    <string name="_12_12_2012_12_12_12">12/12/2012 12:12:12</string>
+    <string name="hyphen">" - "</string>
 
     full_name
 </resources>

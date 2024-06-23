@@ -63,9 +63,10 @@
                 android:layout_height="40dp"
                 app:cardCornerRadius="250dp"
                 app:cardBackgroundColor="@color/white"
-                android:layout_gravity="center"
                 android:layout_marginStart="5dp"
-                android:id="@+id/btnUser">
+                android:id="@+id/btnUser"
+                android:layout_above="@+id/llPost"
+                android:layout_marginBottom="6dp">
                 <androidx.cardview.widget.CardView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
@@ -174,7 +175,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/white"
-                android:src="@drawable/save_icon"
+                android:src="@drawable/download_icon_2"
                 android:padding="10dp"
                 android:scaleType="centerInside"/>
         </RelativeLayout>
@@ -184,7 +185,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rltPostInfo"
             android:layout_marginTop="5dp"
-            android:id="@+id/rltUserComment">
+            android:id="@+id/rltUserComment"
+            android:layout_above="@+id/rltComment">
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
