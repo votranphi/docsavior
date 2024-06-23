@@ -67,8 +67,6 @@ public class PostDetailActivity extends AppCompatActivity {
 
         findViewByIds();
 
-        checkInteract();
-
         setOnClickListeners();
 
         initVariables();
@@ -433,6 +431,9 @@ public class PostDetailActivity extends AppCompatActivity {
 
                         // load post comment after newsFeed is completely initialized
                         loadPostComments();
+
+                        // load the interact information
+                        checkInteract();
                     } else {
                         Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }

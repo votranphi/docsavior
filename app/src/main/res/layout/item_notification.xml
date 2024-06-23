@@ -3,34 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="3dp"
-    android:background="@drawable/edittext"
-    android:backgroundTint="@color/light_blue"
-    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:background="@drawable/edittext"
+        android:backgroundTint="@color/light_blue"
+        android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/profileImg"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/user_icon_black"
-        android:background="@drawable/circlebtn"
-        android:backgroundTint="@color/white"
-        android:layout_marginLeft="5dp"
-        android:scaleType="fitCenter"
-        android:padding="8dp"
-        android:clickable="false"
-        android:layout_gravity="center_vertical"/>
-        <TextView
-            android:id="@+id/tvContent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:textSize="15sp"
-            android:text="Notification"/>
+        <ImageView
+            android:id="@+id/profileImg"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/user_icon_black"
+            android:background="@drawable/circlebtn"
+            android:backgroundTint="@color/white"
+            android:layout_marginLeft="5dp"
+            android:scaleType="fitCenter"
+            android:padding="8dp"
+            android:clickable="false"
+            android:layout_gravity="center_vertical"/>
+            <TextView
+                android:id="@+id/tvContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:textSize="15sp"
+                android:text="Notification"/>
 
-</LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
