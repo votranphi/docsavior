@@ -236,7 +236,12 @@ public class ProfileActivity extends AppCompatActivity {
                 // convert byteArray to bitmap
                 Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
                 // set the avatar
-                imgUserAvatar.setImageBitmap(Bitmap.createScaledBitmap(bmp, imgUserAvatar.getWidth(), imgUserAvatar.getHeight(), false));
+                imgUserAvatar.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        imgUserAvatar.setImageBitmap(Bitmap.createScaledBitmap(bmp, imgUserAvatar.getWidth(), imgUserAvatar.getHeight(), false));
+                    }
+                });
             }
         } catch (Exception ex) {
             Log.e("ERROR230: ", ex.getMessage());

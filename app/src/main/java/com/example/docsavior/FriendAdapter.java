@@ -198,8 +198,13 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
                 // convert byteArray to bitmap
                 Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                // set the avatar
-                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(), imageView.getHeight(), false));
+                imageView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        // set the avatar
+                        imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(), imageView.getHeight(), false));
+                    }
+                });
             }
         } catch (Exception ex) {
             Log.e("ERROR261: ", ex.getMessage());
