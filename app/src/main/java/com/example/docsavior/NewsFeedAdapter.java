@@ -210,6 +210,9 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                 ApiService apiService = retrofit.create(ApiService.class);
                 if(isLiked.get(position)) // if already liked
                 {
+                    // call api to delete the like notification
+                    deleteNotification(newsFeedList.get(position).getUsername(), 0, newsFeedList.get(position).getId(), username);
+
                     isLiked.set(position, false);
                     btnLikes.get(position).setImageResource(R.drawable.like_icon);
                     Call<Detail> callNewsfeed = apiService.postUnlike(getItem(position).getId());
@@ -244,6 +247,10 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                         Toast.makeText(context, "Cannot like and dislike at a same time", Toast.LENGTH_SHORT).show();
                         return;
                     }
+
+                    // call api to post the like notification
+                    postNotification(newsFeedList.get(position).getUsername(), 0, newsFeedList.get(position).getId(), username);
+
                     btnLikes.get(position).setImageResource(R.drawable.like_icon_red);
                     isLiked.set(position, true);
                     Call<Detail> callNewsfeed = apiService.postLike(getItem(position).getId());
@@ -308,6 +315,9 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
 
                 if(isDisliked.get(position))
                 {
+                    // call api to delete the dislike notification
+                    deleteNotification(newsFeedList.get(position).getUsername(), 1, newsFeedList.get(position).getId(), username);
+
                     isDisliked.set(position, false);
                     btnDislikes.get(position).setImageResource(R.drawable.dislike_icon);
                     Call<Detail> callNewsfeed = apiService.postUndislike(getItem(position).getId());
@@ -341,6 +351,10 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                         Toast.makeText(context, "Cannot like and dislike at a same time", Toast.LENGTH_SHORT).show();
                         return;
                     }
+
+                    // call api to post the dislike notification
+                    postNotification(newsFeedList.get(position).getUsername(), 1, newsFeedList.get(position).getId(), username);
+
                     isDisliked.set(position, true);
                     btnDislikes.get(position).setImageResource(R.drawable.dislike_icon_red);
                     Call<Detail> callNewsfeed = apiService.postDislike(getItem(position).getId());
@@ -519,5 +533,67 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
         String dateFormatted = formatter.format(date);
 
         textView.setText(dateFormatted);
+    }
+
+    private void postNotification(String username, Integer type,  Integer idPost, String interacter) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postNotification(username, type, idPost, interacter);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // do nothing
+                    } else {
+                        Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void deleteNotification(String username, Integer type,  Integer idPost, String interacter) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.deleteNotification(username, type, idPost, interacter);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // do nothing
+                    } else {
+                        Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

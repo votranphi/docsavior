@@ -26,8 +26,12 @@ import org.json.JSONArray;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -155,6 +159,9 @@ public class PostDetailActivity extends AppCompatActivity {
                 ApiService apiService = retrofit.create(ApiService.class);
                 if(isLiked) // if already liked
                 {
+                    // call api to delete the like notification
+                    deleteNotification(newsFeed.getUsername(), 0, newsFeed.getId(), username);
+
                     isLiked = false;
                     btnLike.setImageResource(R.drawable.like_icon);
                     Call<Detail> callNewsfeed = apiService.postUnlike(newsFeed.getId());
@@ -189,6 +196,10 @@ public class PostDetailActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Cannot like and dislike at a same time", Toast.LENGTH_SHORT).show();
                         return;
                     }
+
+                    // call api to post the like notification
+                    postNotification(newsFeed.getUsername(), 0, newsFeed.getId(), username);
+
                     btnLike.setImageResource(R.drawable.like_icon_red);
                     isLiked = true;
                     Call<Detail> callNewsfeed = apiService.postLike(newsFeed.getId());
@@ -253,6 +264,9 @@ public class PostDetailActivity extends AppCompatActivity {
 
                 if(isDisliked)
                 {
+                    // call api to delete the dislike notification
+                    deleteNotification(newsFeed.getUsername(), 1, newsFeed.getId(), username);
+
                     isDisliked = false;
                     btnDislike.setImageResource(R.drawable.dislike_icon);
                     Call<Detail> callNewsfeed = apiService.postUndislike(newsFeed.getId());
@@ -286,6 +300,10 @@ public class PostDetailActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Cannot like and dislike at a same time", Toast.LENGTH_SHORT).show();
                         return;
                     }
+
+                    // call api to post the dislike notification
+                    postNotification(newsFeed.getUsername(), 1, newsFeed.getId(), username);
+
                     isDisliked=true;
                     btnDislike.setImageResource(R.drawable.dislike_icon_red);
                     Call<Detail> callNewsfeed = apiService.postDislike(newsFeed.getId());
@@ -372,6 +390,9 @@ public class PostDetailActivity extends AppCompatActivity {
 
                 // call API to upload comment to database
                 postComment(edComment.getText().toString());
+
+                // call api to post the comment notification
+                postNotification(newsFeed.getUsername(), 2, newsFeed.getId(), username);
             }
         });
     }
@@ -623,5 +644,77 @@ public class PostDetailActivity extends AppCompatActivity {
         } catch (Exception ex) {
             Log.e("ERROR1: ", ex.getMessage());
         }
+    }
+
+    private void setPostDateTime(TextView textView, long time) {
+        Date date = new Date(time * 1000);
+
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        formatter.setTimeZone(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+        String dateFormatted = formatter.format(date);
+
+        textView.setText(dateFormatted);
+    }
+
+    private void postNotification(String username, Integer type,  Integer idPost, String interacter) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postNotification(username, type, idPost, interacter);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // do nothing
+                    } else {
+                        Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(PostDetailActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void deleteNotification(String username, Integer type,  Integer idPost, String interacter) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.deleteNotification(username, type, idPost, interacter);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // do nothing
+                    } else {
+                        Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(PostDetailActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
