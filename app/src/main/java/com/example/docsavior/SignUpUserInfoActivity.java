@@ -139,6 +139,7 @@ public class SignUpUserInfoActivity extends AppCompatActivity {
                         Intent myIntent = new Intent(SignUpUserInfoActivity.this, OTPVerificationActivity.class);
                         myIntent.putStringArrayListExtra(KEY_TO_OTP_VERIFICATION_ACITVITY, arrayListToPut);
                         startActivity(myIntent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_top);
                     } else {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
                         Toast.makeText(SignUpUserInfoActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();

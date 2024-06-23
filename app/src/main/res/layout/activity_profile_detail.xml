@@ -70,7 +70,7 @@
                 android:inputType="text"
                 android:padding="10dp"
                 android:text="@string/the_name"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 tools:ignore="LabelFor" />
         </RelativeLayout>
 
@@ -100,7 +100,7 @@
                 android:inputType="text"
                 android:padding="10dp"
                 android:text="@string/the_name"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 tools:ignore="LabelFor" />
         </RelativeLayout>
 
@@ -130,7 +130,7 @@
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
                 android:text="@string/_22521648_gm_uit_edu_vn"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 tools:ignore="LabelFor" />
         </RelativeLayout>
 
@@ -154,7 +154,7 @@
             <Spinner
                 android:id="@+id/spGender"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_below="@id/tvGender"
                 android:background="@drawable/bg_message_white_corner"
                 android:inputType="text"
@@ -187,7 +187,7 @@
                 android:inputType="date"
                 android:padding="10dp"
                 android:text="@string/_20_01_1999"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 tools:ignore="LabelFor" />
         </RelativeLayout>
 
@@ -217,7 +217,7 @@
                 android:inputType="phone"
                 android:padding="10dp"
                 android:text="@string/phone_number"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 tools:ignore="LabelFor" />
         </RelativeLayout>
 

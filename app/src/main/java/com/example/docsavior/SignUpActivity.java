@@ -80,6 +80,7 @@ public class SignUpActivity extends AppCompatActivity {
                         myIntent.putStringArrayListExtra(KEY_TO_SIGN_UP_USER_INFO_ACTIVITY, userInfo);
                         // start activity
                         startActivity(myIntent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                     }
                 }

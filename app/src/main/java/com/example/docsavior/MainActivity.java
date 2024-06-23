@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import org.json.JSONObject;
 
 import retrofit2.Call;
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent myIntent = new Intent(MainActivity.this, RecoveryPasswordActivity.class);
                         MainActivity.this.startActivity(myIntent);
+                        overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
                     }
                 }
         );
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent myIntent = new Intent(MainActivity.this, SignUpActivity.class);
                         MainActivity.this.startActivity(myIntent);
+                        overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
                     }
                 }
         );
@@ -133,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     Toast.makeText(MainActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
                     MainActivity.this.startActivity(myIntent);
+                    overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
                 } else {
                     try {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
