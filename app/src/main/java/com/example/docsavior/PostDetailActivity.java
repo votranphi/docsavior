@@ -67,6 +67,8 @@ public class PostDetailActivity extends AppCompatActivity {
 
         findViewByIds();
 
+        checkInteract();
+
         setOnClickListeners();
 
         initVariables();
@@ -105,12 +107,12 @@ public class PostDetailActivity extends AppCompatActivity {
                         String res = response.body().getDetail();
                         if(res.equals("like"))
                         {
-                            btnLike.setImageResource(R.drawable.like_icon);
+                            btnLike.setImageResource(R.drawable.like_icon_red);
                             isLiked = true;
                             // add animation change from like to unlike
                         } else if (res.equals("dislike"))
                         {
-                            btnDislike.setImageResource(R.drawable.dislike_icon);
+                            btnDislike.setImageResource(R.drawable.dislike_icon_red);
                             isDisliked = true;
                             // add animation change from dislike to undislike
                         }
@@ -156,7 +158,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 if(isLiked) // if already liked
                 {
                     isLiked = false;
-                    btnLike.setImageResource(R.drawable.like_icon_white);
+                    btnLike.setImageResource(R.drawable.like_icon);
                     Call<Detail> callNewsfeed = apiService.postUnlike(newsFeed.getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
@@ -189,7 +191,7 @@ public class PostDetailActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Cannot like and dislike at a same time", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    btnLike.setImageResource(R.drawable.like_icon);
+                    btnLike.setImageResource(R.drawable.like_icon_red);
                     isLiked = true;
                     Call<Detail> callNewsfeed = apiService.postLike(newsFeed.getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
@@ -254,7 +256,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 if(isDisliked)
                 {
                     isDisliked = false;
-                    btnDislike.setImageResource(R.drawable.dislike_icon_white);
+                    btnDislike.setImageResource(R.drawable.dislike_icon);
                     Call<Detail> callNewsfeed = apiService.postUndislike(newsFeed.getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
@@ -287,7 +289,7 @@ public class PostDetailActivity extends AppCompatActivity {
                         return;
                     }
                     isDisliked=true;
-                    btnDislike.setImageResource(R.drawable.dislike_icon);
+                    btnDislike.setImageResource(R.drawable.dislike_icon_red);
                     Call<Detail> callNewsfeed = apiService.postDislike(newsFeed.getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
@@ -431,9 +433,6 @@ public class PostDetailActivity extends AppCompatActivity {
 
                         // load post comment after newsFeed is completely initialized
                         loadPostComments();
-
-                        // load the interact information
-                        checkInteract();
                     } else {
                         Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }

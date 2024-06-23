@@ -211,7 +211,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                 if(isLiked.get(position)) // if already liked
                 {
                     isLiked.set(position, false);
-                    btnLikes.get(position).setImageResource(R.drawable.like_icon_white);
+                    btnLikes.get(position).setImageResource(R.drawable.like_icon);
                     Call<Detail> callNewsfeed = apiService.postUnlike(getItem(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
@@ -244,7 +244,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                         Toast.makeText(context, "Cannot like and dislike at a same time", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    btnLikes.get(position).setImageResource(R.drawable.like_icon);
+                    btnLikes.get(position).setImageResource(R.drawable.like_icon_red);
                     isLiked.set(position, true);
                     Call<Detail> callNewsfeed = apiService.postLike(getItem(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
@@ -309,7 +309,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                 if(isDisliked.get(position))
                 {
                     isDisliked.set(position, false);
-                    btnDislikes.get(position).setImageResource(R.drawable.dislike_icon_white);
+                    btnDislikes.get(position).setImageResource(R.drawable.dislike_icon);
                     Call<Detail> callNewsfeed = apiService.postUndislike(getItem(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
@@ -342,7 +342,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                         return;
                     }
                     isDisliked.set(position, true);
-                    btnDislikes.get(position).setImageResource(R.drawable.dislike_icon);
+                    btnDislikes.get(position).setImageResource(R.drawable.dislike_icon_red);
                     Call<Detail> callNewsfeed = apiService.postDislike(getItem(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
