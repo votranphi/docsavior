@@ -141,12 +141,12 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
                         String res = response.body().getDetail();
                         if(res.equals("like"))
                         {
-                            btnLikes.get(position).setImageResource(R.drawable.like_icon);
+                            btnLikes.get(position).setImageResource(R.drawable.like_icon_red);
                             isLiked.set(position, true);
                             // add animation change from like to unlike
                         } else if (res.equals("dislike"))
                         {
-                            btnDislikes.get(position).setImageResource(R.drawable.dislike_icon);
+                            btnDislikes.get(position).setImageResource(R.drawable.dislike_icon_red);
                             isDisliked.set(position, true);
                             // add animation change from dislike to undislike
                         }

@@ -67,8 +67,6 @@ public class PostDetailActivity extends AppCompatActivity {
 
         findViewByIds();
 
-        checkInteract();
-
         setOnClickListeners();
 
         initVariables();
@@ -430,7 +428,8 @@ public class PostDetailActivity extends AppCompatActivity {
 
                         // load post info after newsFeed is completely initialized
                         loadPostInfo();
-
+                        // check if user has interacted on this post
+                        checkInteract();
                         // load post comment after newsFeed is completely initialized
                         loadPostComments();
                     } else {
