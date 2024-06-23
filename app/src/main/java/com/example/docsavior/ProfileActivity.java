@@ -59,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private User user = null;
     private String username = "";
+    private boolean isMyProfile = false;
 
     public static String KEY_TO_PROFILE_DETAIL_ACTIVITY = "username_fullname_email_status_gender_birthdate_phone";
 
@@ -86,10 +87,12 @@ public class ProfileActivity extends AppCompatActivity {
             // if it's mine
             btnMessage.setVisibility(View.GONE);
             btnAddfriend.setVisibility(View.GONE);
+            isMyProfile = true;
         } else {
             // if it isn't mine
             btnMessage.setVisibility(View.VISIBLE);
             btnAddfriend.setVisibility(View.VISIBLE);
+            isMyProfile = false;
         }
     }
 
@@ -117,7 +120,17 @@ public class ProfileActivity extends AppCompatActivity {
         btnAddfriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: send the add friend signal via API to add a record to friend request table, then change the text of the button
+                // send the add friend signal via API to add a record to friend request table, then change the text of the button
+                if (!isMyProfile) {
+                    // call API to post friend request
+                    postFriendRequest(username);
+
+                    // set the text of the button
+                    btnAddfriend.setText("Cancel request");
+
+                    // call API to post notification
+                    postNotification(username, 3, -1, ApplicationInfo.username);
+                }
             }
         });
 
@@ -345,6 +358,68 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<NewsFeed>> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void postFriendRequest(String username) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postFriendRequest(username, ApplicationInfo.username);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(ProfileActivity.this, "Sent friend request to " + username + "!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ProfileActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR1: ", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void postNotification(String username, Integer type,  Integer idPost, String interacter) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postNotification(username, type, idPost, interacter);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // do nothing
+                    } else {
+                        Toast.makeText(ProfileActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
                 Toast.makeText(ProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

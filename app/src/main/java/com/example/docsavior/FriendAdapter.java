@@ -102,6 +102,9 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
 
                     // set the text of the button to "Cancel request"
                     btnAddFriends.get(position).setText("Cancel request");
+
+                    // call API to post notification
+                    postNotification(tvUsernames.get(position).getText().toString(), 3, -1, ApplicationInfo.username);
                 }
             });
         } else if (displayType == 0) {
@@ -117,6 +120,9 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
                     deleteFriendRequest(tvUsernames.get(position).getText().toString(), false);
                     // call API to add friend in the database
                     postNewFriend(tvUsernames.get(position).getText().toString());
+
+                    // call API to post notification
+                    postNotification(tvUsernames.get(position).getText().toString(), 4, -1, ApplicationInfo.username);
                 }
             });
 
@@ -130,6 +136,9 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
 
                     // call API to delete friend request from the database
                     deleteFriendRequest(tvUsernames.get(position).getText().toString(), true);
+
+                    // call API to post notification
+                    postNotification(tvUsernames.get(position).getText().toString(), 5, -1, ApplicationInfo.username);
                 }
             });
         }
@@ -267,6 +276,37 @@ public class FriendAdapter extends ArrayAdapter<Friend> {
             @Override
             public void onFailure(Call<Detail> call, Throwable t) {
                 Toast.makeText(context, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void postNotification(String username, Integer type,  Integer idPost, String interacter) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postNotification(username, type, idPost, interacter);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // do nothing
+                    } else {
+                        Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
