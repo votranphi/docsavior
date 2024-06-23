@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -119,6 +120,13 @@ public class NotificationFragment extends Fragment {
                 startActivity(myIntent);
             }
         });
+
+        lvNotification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO: jump to the Activity base on the type of the notification
+            }
+        });
     }
 
     private void loadNotifications()
@@ -130,7 +138,7 @@ public class NotificationFragment extends Fragment {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<List<Notification>> call = apiService.getAllNotifications(ApplicationInfo.username);
+        Call<List<Notification>> call = apiService.getAllMyNotifications(ApplicationInfo.username);
 
         call.enqueue(new Callback<List<Notification>>() {
             @Override
@@ -139,19 +147,19 @@ public class NotificationFragment extends Fragment {
                     if (response.isSuccessful()) {
                         List<Notification> responseList = response.body();
 
-                        // add the elements in responseList to newsFeedArrayList
-                        for (Notification i : responseList) {
-                            notificationArrayList.add(i);
+                        if (responseList.size() == 0) {
+                            // set the visibility of "NOTHING TO SHOW" to GONE
+                            tvNothing.setVisibility(View.VISIBLE);
+                        } else {
+                            // add the elements in responseList to newsFeedArrayList
+                            for (Notification i : responseList) {
+                                notificationArrayList.add(i);
+                                // update the ListView
+                                adapter.notifyDataSetChanged();
+                            }
+
+                            tvNothing.setVisibility(View.GONE);
                         }
-
-                        // update the ListView
-                        adapter.notifyDataSetChanged();
-
-                        // set the visibility of "NOTHING TO SHOW" to GONE
-                        tvNothing.setVisibility(View.GONE);
-                    } else if (response.code() == 600) {
-                        // set the visibility of "NOTHING TO SHOW" to VISIBLE
-                        tvNothing.setVisibility(View.VISIBLE);
                     } else {
                         Toast.makeText(getActivity(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }

@@ -78,6 +78,7 @@
     <string name="full_name">Your full name</string>
     <string name="_12_12_2012_12_12_12">12/12/2012 12:12:12</string>
     <string name="hyphen">" - "</string>
+    <string name="notification1">Notification</string>
 
     full_name
 </resources>

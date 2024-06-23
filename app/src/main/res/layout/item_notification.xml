@@ -23,13 +23,28 @@
             android:padding="8dp"
             android:clickable="false"
             android:layout_gravity="center_vertical"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tvContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="10dp"
                 android:textSize="15sp"
-                android:text="Notification"/>
+                android:text="@string/notification1"/>
+
+            <TextView
+                android:id="@+id/tvDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/_12_12_2012_12_12_12"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
