@@ -478,15 +478,15 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<User> call = apiService.getUserInfo(username);
+        Call<Detail> call = apiService.getAvatarData(username);
 
-        call.enqueue(new Callback<User>() {
+        call.enqueue(new Callback<Detail>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
                 try {
                     if (response.isSuccessful()) {
                         // after getting the user's info, set the avatar
-                        setImage(imageView, response.body().getAvatarData());
+                        setImage(imageView, response.body().getDetail());
                     } else {
                         Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
@@ -496,7 +496,7 @@ public class NewsFeedAdapter extends ArrayAdapter<NewsFeed> {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Detail> call, Throwable t) {
                 Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
