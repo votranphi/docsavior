@@ -161,10 +161,47 @@ public class PostDetailActivity extends AppCompatActivity {
                     return false;
                 }
 
+                if (postDetailArrayList.size() == 1) {
+                    tvNothing.setVisibility(View.VISIBLE);
+                }
+
+                // call API to delete comment
+                deleteComment(postDetailArrayList.get(position).getIdComment());
+
                 // call API to delete post's comment notification
                 deleteNotification(newsFeed.getUsername(), 2, newsFeed.getId(), username);
 
+                // call API to decrease comment number
+                postDecreaseCommentNumber(newsFeed.getId());
+
+                // delete item from ListView
+                postDetailArrayList.remove(position);
+                postDetailAdapter.notifyDataSetChanged();
+
                 return false;
+            }
+        });
+
+        btnPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (edComment.getText().toString().isEmpty()) {
+                    Toast.makeText(PostDetailActivity.this, "Please enter your comment!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (postDetailArrayList.isEmpty()) {
+                    tvNothing.setVisibility(View.GONE);
+                }
+
+                // call API to upload comment to database
+                postComment(edComment.getText().toString());
+
+                // call api to post the comment notification
+                postNotification(newsFeed.getUsername(), 2, newsFeed.getId(), username);
+
+                // call API to increase comment number
+                postIncreaseCommentNumber(newsFeed.getId());
             }
         });
 
@@ -395,22 +432,6 @@ public class PostDetailActivity extends AppCompatActivity {
                 }
             }
         });
-
-        btnPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (edComment.getText().toString().isEmpty()) {
-                    Toast.makeText(PostDetailActivity.this, "Please enter your comment!", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                // call API to upload comment to database
-                postComment(edComment.getText().toString());
-
-                // call api to post the comment notification
-                postNotification(newsFeed.getUsername(), 2, newsFeed.getId(), username);
-            }
-        });
     }
 
     private void initVariables() {
@@ -465,12 +486,11 @@ public class PostDetailActivity extends AppCompatActivity {
 
                         // load post info after newsFeed is completely initialized
                         loadPostInfo();
-                        // check if user has interacted on this post
-                        checkInteract();
+
                         // load post comment after newsFeed is completely initialized
                         loadPostComments();
 
-                        // load the interact informations
+                        // load the interact information
                         checkInteract();
                     } else {
                         Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
@@ -511,7 +531,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
                             for (Comment i : comments) {
                                 // call API to get avatarData
-                                PostDetail postDetail = new PostDetail(i.getUsername(), i.getCommentContent(), i.getTime());
+                                PostDetail postDetail = new PostDetail(i.getIdComment(), i.getUsername(), i.getCommentContent(), i.getTime());
                                 postDetailArrayList.add(postDetail);
                                 postDetailAdapter.notifyDataSetChanged();
                             }
@@ -578,8 +598,11 @@ public class PostDetailActivity extends AppCompatActivity {
             public void onResponse(Call<Detail> call, Response<Detail> response) {
                 try {
                     if (response.isSuccessful()) {
+                        // get the idComment
+                        int idComment = Integer.parseInt(response.body().getDetail());
+
                         // add comment to ListView
-                        PostDetail newComment = new PostDetail(ApplicationInfo.username, commentContent, System.currentTimeMillis() / 1000);
+                        PostDetail newComment = new PostDetail(idComment, ApplicationInfo.username, commentContent, System.currentTimeMillis() / 1000);
                         postDetailArrayList.add(0, newComment);
                         postDetailAdapter.notifyDataSetChanged();
 
@@ -588,6 +611,68 @@ public class PostDetailActivity extends AppCompatActivity {
 
                         // notify user that the comment is successfully posted
                         Toast.makeText(PostDetailActivity.this, "Comment successfully!", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR567: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(PostDetailActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void postIncreaseCommentNumber(int idPost) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postComment(idPost);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // do nothing
+                    } else {
+                        Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR567: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(PostDetailActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void postDecreaseCommentNumber(int idPost) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postUncomment(idPost);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // do nothing
                     } else {
                         Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
@@ -719,6 +804,37 @@ public class PostDetailActivity extends AppCompatActivity {
                 try {
                     if (response.isSuccessful()) {
                         // do nothing
+                    } else {
+                        Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(PostDetailActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void deleteComment(int idComment) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.deleteComment(idComment);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(PostDetailActivity.this, "Comment deleted successfully!", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }

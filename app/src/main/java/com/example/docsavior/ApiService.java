@@ -56,6 +56,10 @@ public interface ApiService {
     Call<FoundNewsfeeds> postPostLookUp(@Query("lookUpInfo") String lookUpInfo);
     @GET("/newsfeed/id")
     Call<NewsFeed> getNewsfeedById(@Query("id") Integer id);
+    @POST("/newsfeed/comment")
+    Call<Detail> postComment(@Query("id") Integer id);
+    @POST("/newsfeed/uncomment")
+    Call<Detail> postUncomment(@Query("id") Integer id);
 
 
 

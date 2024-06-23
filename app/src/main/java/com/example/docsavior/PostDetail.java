@@ -1,12 +1,14 @@
 package com.example.docsavior;
 
 public class PostDetail {
+    private int idComment;
     private String username;
     private String comment;
     private long time; // time in Unix in second
 
-    public PostDetail(String username, String comment, long time)
+    public PostDetail(int idComment, String username, String comment, long time)
     {
+        this.idComment = idComment;
         this.username = username;
         this.comment = comment;
         this.time = time;
@@ -30,5 +32,9 @@ public class PostDetail {
 
     public long getTime() {
         return time;
+    }
+
+    public int getIdComment() {
+        return idComment;
     }
 }
