@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -179,8 +180,7 @@ public class FriendFragment extends Fragment implements RecyclerViewInterface{
     private void assignRequestersToListView(Requester requesters) {
         try {
             for (int i = 0; i < requesters.getRequesters().length; i++) {
-                Friend friend = new Friend("", requesters.getRequesters()[i]);
-                friendArrayList.add(friend);
+                getAvatarDataThenAddToArrayList(requesters.getRequesters()[i]);
                 friendAdapter.notifyDataSetChanged();
             }
         } catch (Exception ex) {
@@ -194,5 +194,37 @@ public class FriendFragment extends Fragment implements RecyclerViewInterface{
         Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
         myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, friendArrayList.get(position).getUsername());
         startActivity(myIntent);
+    }
+
+    private void getAvatarDataThenAddToArrayList(String username) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.getAvatarData(username);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        Friend friend = new Friend(response.body().getDetail(), username);
+                        friendArrayList.add(friend);
+                    } else {
+                        Toast.makeText(getActivity(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

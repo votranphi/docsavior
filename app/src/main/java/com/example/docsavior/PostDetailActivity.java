@@ -65,6 +65,8 @@ public class PostDetailActivity extends AppCompatActivity {
 
     private NewsFeed newsFeed = null;
 
+    private TextView tvDateTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +96,7 @@ public class PostDetailActivity extends AppCompatActivity {
         isDisliked = false;
         imgPost = findViewById(R.id.imgPost);
         tvDocumentName = findViewById(R.id.tvDocumentName);
+        tvDateTime = findViewById(R.id.tvDateTime);
     }
 
     private void checkInteract()
@@ -492,6 +495,9 @@ public class PostDetailActivity extends AppCompatActivity {
 
                         // load the interact information
                         checkInteract();
+
+                        // set the post's datetime
+                        setPostDateTime(tvDateTime, newsFeed.getTime());
                     } else {
                         Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
