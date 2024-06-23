@@ -3,11 +3,13 @@ package com.example.docsavior;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,10 +17,10 @@ import java.util.ArrayList;
 
 public class ProfileDetailActivity extends AppCompatActivity {
 
-    private EditText etUsername, etEmail, etStatus, etGender, etBirthday, etPhone, etFullname;
+    private EditText etUsername, etEmail, etBirthday, etPhone, etFullname;
     private RelativeLayout rltEditProfile;
     private ImageButton btnClose;
-
+    private Spinner spGender;
     private ArrayList<String> userInfo = null;
 
     @Override
@@ -44,10 +46,8 @@ public class ProfileDetailActivity extends AppCompatActivity {
             etFullname.setClickable(false);
             etEmail.setFocusable(false);
             etEmail.setClickable(false);
-            etStatus.setFocusable(false);
-            etStatus.setClickable(false);
-            etGender.setFocusable(false);
-            etGender.setClickable(false);
+            spGender.setClickable(false);
+            spGender.setFocusable(false);
             etBirthday.setFocusable(false);
             etBirthday.setClickable(false);
             etPhone.setFocusable(false);
@@ -60,11 +60,9 @@ public class ProfileDetailActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etFullname = findViewById(R.id.etFullname);
         etEmail = findViewById(R.id.etEmail);
-        etStatus = findViewById(R.id.etStatus);
-        etGender = findViewById(R.id.etGender);
         etBirthday = findViewById(R.id.etBirthday);
         etPhone = findViewById(R.id.etPhone);
-
+        spGender = findViewById(R.id.spGender);
         //Button
         btnClose = findViewById(R.id.btnClose);
 
@@ -99,8 +97,18 @@ public class ProfileDetailActivity extends AppCompatActivity {
             etUsername.setText(userInfo.get(0));
             etFullname.setText(userInfo.get(1));
             etEmail.setText(userInfo.get(2));
-            etStatus.setText(Boolean.valueOf(userInfo.get(3)) ? "Online" : "Offline");
-            etGender.setText(Boolean.valueOf(userInfo.get(4)) ? "Male" : "Female");
+            if(userInfo.get(4).equals("Male"))
+            {
+                String[] items = new String[]{"Male", "Female"};
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+                spGender.setAdapter(adapter);
+            }
+            else
+            {
+                String[] items = new String[]{"Female", "Male"};
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+                spGender.setAdapter(adapter);
+            }
             etBirthday.setText(userInfo.get(5));
             etPhone.setText(userInfo.get(6));
         }

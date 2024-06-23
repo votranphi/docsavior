@@ -17,7 +17,7 @@
             android:id="@+id/rltTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/tvPersonalInformation"
@@ -26,7 +26,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="15dp"
                 android:text="@string/personal_information"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <ImageButton
@@ -34,7 +34,6 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/blue"
@@ -50,13 +49,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rltTop"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/tvUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
                 android:text="@string/username"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
@@ -64,13 +63,12 @@
             <EditText
                 android:id="@+id/etUsername"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="25dp"
-                android:layout_toEndOf="@id/tvUsername"
-                android:background="@drawable/edittext"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvUsername"
+                android:background="@drawable/bg_message_white_corner"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="@string/the_name"
                 android:textSize="20sp"
                 tools:ignore="LabelFor" />
@@ -81,29 +79,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rltUsername"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/tvFullname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginStart="5dp"
                 android:text="@string/fullname"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-
-                />
+                android:textSize="20sp"/>
 
             <EditText
                 android:id="@+id/etFullname"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="34dp"
-                android:layout_toEndOf="@id/tvFullname"
-                android:background="@drawable/edittext"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvFullname"
+                android:background="@drawable/bg_message_white_corner"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="@string/the_name"
                 android:textSize="20sp"
                 tools:ignore="LabelFor" />
@@ -114,64 +109,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rtlFullname"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginStart="5dp"
                 android:text="@string/email"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-
-                />
+                android:textSize="20sp"/>
 
             <EditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="66dp"
-                android:layout_toEndOf="@id/tvEmail"
-                android:background="@drawable/edittext"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvEmail"
+                android:background="@drawable/bg_message_white_corner"
                 android:importantForAutofill="no"
                 android:inputType="textEmailAddress"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="@string/_22521648_gm_uit_edu_vn"
-                android:textSize="20sp"
-                tools:ignore="LabelFor" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/rltStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rltEmail"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:id="@+id/tvStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:text="@string/status"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-
-                />
-
-            <EditText
-                android:id="@+id/etStatus"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="60dp"
-                android:layout_toEndOf="@id/tvStatus"
-                android:background="@drawable/edittext"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:padding="5dp"
-                android:text="@string/offline"
                 android:textSize="20sp"
                 tools:ignore="LabelFor" />
         </RelativeLayout>
@@ -181,33 +139,26 @@
             android:id="@+id/rltGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rltStatus"
-            android:layout_marginTop="20dp">
+            android:layout_below="@+id/rltEmail"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/tvGender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginStart="5dp"
                 android:text="@string/gender"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="20sp"/>
 
-                />
-
-            <EditText
-                android:id="@+id/etGender"
+            <Spinner
+                android:id="@+id/spGender"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="56dp"
-                android:layout_toEndOf="@id/tvGender"
-                android:background="@drawable/edittext"
-                android:importantForAutofill="no"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvGender"
+                android:background="@drawable/bg_message_white_corner"
                 android:inputType="text"
-                android:padding="5dp"
-                android:text="@string/nam"
-                android:textSize="20sp"
-                tools:ignore="LabelFor" />
+                tools:ignore="LabelFor"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -215,13 +166,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rltGender"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/tvBirthday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginStart="5dp"
                 android:text="@string/date_of_birth"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -229,13 +180,12 @@
             <EditText
                 android:id="@+id/etBirthday"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="10dp"
-                android:layout_toEndOf="@id/tvBirthday"
-                android:background="@drawable/edittext"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvBirthday"
+                android:background="@drawable/bg_message_white_corner"
                 android:importantForAutofill="no"
                 android:inputType="date"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="@string/_20_01_1999"
                 android:textSize="20sp"
                 tools:ignore="LabelFor" />
@@ -246,13 +196,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/rltBirthday"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/tvPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_marginStart="5dp"
                 android:text="@string/phone"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -260,13 +210,12 @@
             <EditText
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="65dp"
-                android:layout_toEndOf="@id/tvPhone"
-                android:background="@drawable/edittext"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvPhone"
+                android:background="@drawable/bg_message_white_corner"
                 android:importantForAutofill="no"
                 android:inputType="phone"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:text="@string/phone_number"
                 android:textSize="20sp"
                 tools:ignore="LabelFor" />
