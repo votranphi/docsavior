@@ -48,7 +48,7 @@ public class RecoveryPasswordActivity extends AppCompatActivity {
 
     private void postRecoverPasswordInfo(String username, String email, String phoneNumber) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.3.131:8080/")
+                .baseUrl(ApplicationInfo.apiPath)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
