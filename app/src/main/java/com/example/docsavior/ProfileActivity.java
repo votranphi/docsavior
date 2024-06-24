@@ -46,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView imgUserAvatar;
     private TextView tvFullname;
     private Button btnAddfriend;
+    private Button btnDecline;
     private Button btnMessage;
     private RecyclerView gvPosts;
     private NewsFeedAdapter newsFeedAdapter;
@@ -84,17 +85,23 @@ public class ProfileActivity extends AppCompatActivity {
         // get the user's posts then display it on the ListView
         getMyPost(username);
 
+        // init isMyProfile variable
+        isMyProfile = ApplicationInfo.username.equals(username);
+
         // check if this is my profile's view
-        if (ApplicationInfo.username.equals(username)) {
+        if (isMyProfile) {
             // if it's mine
             btnMessage.setVisibility(View.GONE);
             btnAddfriend.setVisibility(View.GONE);
-            isMyProfile = true;
+            btnDecline.setVisibility(View.GONE);
         } else {
             // if it isn't mine
             btnMessage.setVisibility(View.VISIBLE);
             btnAddfriend.setVisibility(View.VISIBLE);
-            isMyProfile = false;
+            btnDecline.setVisibility(View.VISIBLE);
+
+            // check and set the function of the btnAddFriend
+            checkAndSetTheBtnAddFriend();
         }
     }
 
@@ -102,6 +109,7 @@ public class ProfileActivity extends AppCompatActivity {
         imgUserAvatar = findViewById(R.id.imgUserAvatar);
         tvFullname = findViewById(R.id.tvFullname);
         btnAddfriend = findViewById(R.id.btnAddfriend);
+        btnDecline = findViewById(R.id.btnDecline);
         btnMessage = findViewById(R.id.btnMessage);
         gvPosts = findViewById(R.id.gvPosts);
         btnGoToDetails = findViewById(R.id.btnGoToDetails);
@@ -122,17 +130,55 @@ public class ProfileActivity extends AppCompatActivity {
         btnAddfriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // send the add friend signal via API to add a record to friend request table, then change the text of the button
-                if (!isMyProfile) {
+                String btnText = btnAddfriend.getText().toString();
+                if (btnText.equals("Accept")) {
+                    // call API to delete friend request from the database
+                    deleteFriendRequest(ApplicationInfo.username, username);
+                    // call API to add friend in the database
+                    postNewFriend(username);
+
+                    // call API to post notification
+                    postNotification(username, 4, -1, ApplicationInfo.username);
+
+                    btnDecline.setVisibility(View.GONE);
+                    btnAddfriend.setText("Unfriend");
+                } else if (btnText.equals("Cancel request")) {
+                    // call API to delete friend request from database
+                    deleteFriendRequest(username, ApplicationInfo.username);
+
+                    // delete notification from database
+                    deleteNotification(username, 3, -1, ApplicationInfo.username);
+
+                    btnAddfriend.setText("Add friend");
+                } else if (btnText.equals("Unfriend")) {
+                    // call API to delete friend
+                    deleteFriend(username, ApplicationInfo.username);
+
+                    btnAddfriend.setText("Add friend");
+                } else { // btnText.equals("Add friend")
                     // call API to post friend request
                     postFriendRequest(username);
 
-                    // set the text of the button
-                    btnAddfriend.setText("Cancel request");
-
                     // call API to post notification
                     postNotification(username, 3, -1, ApplicationInfo.username);
+
+                    btnAddfriend.setText("Cancel request");
                 }
+            }
+        });
+
+        btnDecline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // call API to delete friend request from the database
+                deleteFriendRequest(ApplicationInfo.username, username);
+
+                // call API to post notification
+                postNotification(username, 5, -1, ApplicationInfo.username);
+
+                btnDecline.setVisibility(View.GONE);
+
+                btnAddfriend.setText("Add friend");
             }
         });
 
@@ -411,6 +457,252 @@ public class ProfileActivity extends AppCompatActivity {
         ApiService apiService = retrofit.create(ApiService.class);
 
         Call<Detail> call = apiService.postNotification(username, type, idPost, interacter);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // do nothing
+                    } else {
+                        Toast.makeText(ProfileActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void checkAndSetTheBtnAddFriend() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Requester> call = apiService.getAllFriendRequests(ApplicationInfo.username);
+
+        call.enqueue(new Callback<Requester>() {
+            @Override
+            public void onResponse(Call<Requester> call, Response<Requester> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // check if this user sent "me" a friend request
+                        for (String i : response.body().getRequesters()) {
+                            if (username.equals(i)) {
+                                btnAddfriend.setText("Accept");
+                                btnDecline.setVisibility(View.VISIBLE);
+                                return;
+                            }
+                        }
+
+                        // check if I've sent this user a friend request
+                        check1();
+                    } else {
+                        Toast.makeText(ProfileActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR1: ", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Requester> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void check1() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Requester> call = apiService.getAllFriendRequests(username);
+
+        call.enqueue(new Callback<Requester>() {
+            @Override
+            public void onResponse(Call<Requester> call, Response<Requester> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // check if I've sent this user a friend request
+                        for (String i : response.body().getRequesters()) {
+                            if (ApplicationInfo.username.equals(i)) {
+                                btnAddfriend.setText("Cancel request");
+                                btnDecline.setVisibility(View.GONE);
+                                return;
+                            }
+                        }
+
+                        // check if both are friend
+                        check2();
+                    } else {
+                        Toast.makeText(ProfileActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR1: ", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Requester> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void check2() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Friends> call = apiService.getAllFriends(username);
+
+        call.enqueue(new Callback<Friends>() {
+            @Override
+            public void onResponse(Call<Friends> call, Response<Friends> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // check if both are friend
+                        for (String i : response.body().getFriends()) {
+                            if (ApplicationInfo.username.equals(i)) {
+                                btnAddfriend.setText("Unfriend");
+                                btnDecline.setVisibility(View.GONE);
+                                return;
+                            }
+                        }
+
+                        btnAddfriend.setText("Add friend");
+                    } else {
+                        Toast.makeText(ProfileActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR1: ", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Friends> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void deleteFriendRequest(String username, String requester) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.deleteFriendRequest(username, requester);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // do nothing
+                    } else {
+                        Toast.makeText(ProfileActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR1: ", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void postNewFriend(String username) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postNewFriend(ApplicationInfo.username, username);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(ProfileActivity.this, "Accepted " + username + " friend request!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ProfileActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR1: ", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void deleteNotification(String username, Integer type,  Integer idPost, String interacter) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.deleteNotification(username, type, idPost, interacter);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // do nothing
+                    } else {
+                        Toast.makeText(ProfileActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(ProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void deleteFriend(String username, String usernameFriend) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.deleteFriend(username, usernameFriend);
 
         call.enqueue(new Callback<Detail>() {
             @Override

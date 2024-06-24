@@ -84,9 +84,19 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:id="@+id/btnDecline"
+                android:text="@string/decline"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/blue"
+                android:layout_toEndOf="@+id/btnAddfriend"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/btnMessage"
                 android:text="@string/message"
-                android:layout_toEndOf="@id/btnAddfriend"
+                android:layout_toEndOf="@id/btnDecline"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/white"/>

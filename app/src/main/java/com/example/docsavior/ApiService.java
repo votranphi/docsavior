@@ -73,6 +73,10 @@ public interface ApiService {
 
     @POST("/friend/add")
     Call<Detail> postNewFriend(@Query("username") String username, @Query("usernameFriend") String usernameFriend);
+    @GET("/friend/all")
+    Call<Friends> getAllFriends(@Query("username") String username);
+    @DELETE("/friend/delete")
+    Call<Detail> deleteFriend(@Query("username") String username, @Query("usernameFriend") String usernameFriend);
 
 
 
