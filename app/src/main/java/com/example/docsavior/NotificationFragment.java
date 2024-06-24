@@ -41,8 +41,9 @@ public class NotificationFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public NotificationFragment() {
+    public NotificationFragment(FragmentNavigation fragmentNavigation) {
         // Required empty public constructor
+        this.fragmentNavigation = fragmentNavigation;
     }
 
     /**
@@ -55,7 +56,7 @@ public class NotificationFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static NotificationFragment newInstance(String param1, String param2) {
-        NotificationFragment fragment = new NotificationFragment();
+        NotificationFragment fragment = new NotificationFragment(fragmentNavigation);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -86,6 +87,8 @@ public class NotificationFragment extends Fragment {
     private ArrayList<Notification> notificationArrayList;
 
     private NotificationAdapter adapter;
+
+    private static FragmentNavigation fragmentNavigation;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -125,6 +128,28 @@ public class NotificationFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // TODO: jump to the Activity base on the type of the notification
+            }
+        });
+
+        lvNotification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int notiType = notificationArrayList.get(position).getType();
+                if (notiType >= 0 && notiType <= 2) {
+                    Intent myIntent = new Intent(getActivity(), PostDetailActivity.class);
+                    // put the id array list
+                    myIntent.putExtra(ApplicationInfo.KEY_TO_POST_DETAIL_ACTIVITY, notificationArrayList.get(position).getIdPost());
+                    startActivity(myIntent);
+                } else if (notiType == 3) {
+                    // go to friend fragment
+                    if (fragmentNavigation != null) {
+                        fragmentNavigation.goToFriendFragment();
+                    }
+                } else { // if (notiType >= 4 && notiType <= 5)
+                    Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
+                    myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, notificationArrayList.get(position).getInteracter());
+                    startActivity(myIntent);
+                }
             }
         });
     }

@@ -97,8 +97,6 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             // if it isn't mine
             btnMessage.setVisibility(View.VISIBLE);
-            btnAddfriend.setVisibility(View.VISIBLE);
-            btnDecline.setVisibility(View.VISIBLE);
 
             // check and set the function of the btnAddFriend
             checkAndSetTheBtnAddFriend();
@@ -163,6 +161,8 @@ public class ProfileActivity extends AppCompatActivity {
                     postNotification(username, 3, -1, ApplicationInfo.username);
 
                     btnAddfriend.setText("Cancel request");
+
+                    btnDecline.setVisibility(View.GONE);
                 }
             }
         });
@@ -497,8 +497,9 @@ public class ProfileActivity extends AppCompatActivity {
                         // check if this user sent "me" a friend request
                         for (String i : response.body().getRequesters()) {
                             if (username.equals(i)) {
-                                btnAddfriend.setText("Accept");
+                                btnAddfriend.setVisibility(View.VISIBLE);
                                 btnDecline.setVisibility(View.VISIBLE);
+                                btnAddfriend.setText("Accept");
                                 return;
                             }
                         }
@@ -538,8 +539,9 @@ public class ProfileActivity extends AppCompatActivity {
                         // check if I've sent this user a friend request
                         for (String i : response.body().getRequesters()) {
                             if (ApplicationInfo.username.equals(i)) {
-                                btnAddfriend.setText("Cancel request");
+                                btnAddfriend.setVisibility(View.VISIBLE);
                                 btnDecline.setVisibility(View.GONE);
+                                btnAddfriend.setText("Cancel request");
                                 return;
                             }
                         }
@@ -579,12 +581,15 @@ public class ProfileActivity extends AppCompatActivity {
                         // check if both are friend
                         for (String i : response.body().getFriends()) {
                             if (ApplicationInfo.username.equals(i)) {
-                                btnAddfriend.setText("Unfriend");
+                                btnAddfriend.setVisibility(View.VISIBLE);
                                 btnDecline.setVisibility(View.GONE);
+                                btnAddfriend.setText("Unfriend");
                                 return;
                             }
                         }
 
+                        btnAddfriend.setVisibility(View.VISIBLE);
+                        btnDecline.setVisibility(View.GONE);
                         btnAddfriend.setText("Add friend");
                     } else {
                         Toast.makeText(ProfileActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();

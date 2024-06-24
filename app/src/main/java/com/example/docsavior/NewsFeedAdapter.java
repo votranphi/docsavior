@@ -47,7 +47,6 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     private List<Boolean> isLiked = new ArrayList<>();
     private List<Boolean> isDisliked = new ArrayList<>();
 
-    public static String KEY_TO_POST_DETAIL_ACTIVITY = "id";
 
     public NewsFeedAdapter(Context context, List<NewsFeed> newsFeedList) {
         this.context = context;
@@ -136,6 +135,9 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             profileImg = itemView.findViewById(R.id.profileImg);
             imgPost = itemView.findViewById(R.id.imgPost);
             tvDateTime = itemView.findViewById(R.id.tvDateTime);
+
+            isLiked.add(false);
+            isDisliked.add(false);
         }
     }
 
@@ -388,7 +390,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                 // open the comment activity then let the user comment, code API to increase comment number of this post by 1 then call it in there if user really comment
                 Intent myIntent = new Intent(context, PostDetailActivity.class);
                 // put the id array list
-                myIntent.putExtra(NewsFeedAdapter.KEY_TO_POST_DETAIL_ACTIVITY, newsFeedList.get(position).getId());
+                myIntent.putExtra(ApplicationInfo.KEY_TO_POST_DETAIL_ACTIVITY, newsFeedList.get(position).getId());
                 // start activity
                 context.startActivity(myIntent);
             }

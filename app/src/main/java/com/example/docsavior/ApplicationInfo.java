@@ -7,6 +7,7 @@ public class ApplicationInfo {
 
     public static String KEY_TO_PROFILE_ACTIVITY = "username";
     public static String KEY_TO_LOOK_UP_POST_USER_ACTIVITY = "lookup_type";
+    public static String KEY_TO_POST_DETAIL_ACTIVITY = "id";
     public static int LOOK_UP_TYPE_POST = 0;
     public static int LOOK_UP_TYPE_CHAT = 1;
     public static int LOOK_UP_TYPE_USER = 2;

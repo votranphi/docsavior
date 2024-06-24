@@ -445,7 +445,7 @@ public class PostDetailActivity extends AppCompatActivity {
         // retrieve the post's id from NewsFeedAdapter
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
-            int postId = extras.getInt(NewsFeedAdapter.KEY_TO_POST_DETAIL_ACTIVITY);
+            int postId = extras.getInt(ApplicationInfo.KEY_TO_POST_DETAIL_ACTIVITY);
 
             // call API to get the newsfeed info again, because cannot put from previous activity
             getNewsfeedById(postId);

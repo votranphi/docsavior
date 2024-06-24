@@ -27,7 +27,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NewsFeedActivity extends AppCompatActivity {
+public class NewsFeedActivity extends AppCompatActivity implements FragmentNavigation {
+    ViewPager2 viewPager2 = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +41,11 @@ public class NewsFeedActivity extends AppCompatActivity {
     // move all the code lines that deal with ViewPager2 in onCreate() to this function
     private void initViewPager2() {
         // Khởi tạo ViewPager2 cho 5 fragment, khởi tạo thanh điều hướng bottomNavigation
-        ViewPager2 viewPager2 = findViewById(R.id.viewPager);
+        viewPager2 = findViewById(R.id.viewPager);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
 
         //Gắn adapter cho ViewPager2
-        ViewPager2Adapter viewPager2Adapter = new ViewPager2Adapter(this);
+        ViewPager2Adapter viewPager2Adapter = new ViewPager2Adapter(NewsFeedActivity.this, this);
         viewPager2.setAdapter(viewPager2Adapter);
 
         // Chức năng cho ViewPager2 mỗi khi lướt tới 1 viewpager nào đó sẽ đồng bộ với thanh điều hướng tuương ứng
@@ -92,5 +94,10 @@ public class NewsFeedActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void goToFriendFragment() {
+        viewPager2.setCurrentItem(2);
     }
 }

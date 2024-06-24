@@ -6,8 +6,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class ViewPager2Adapter extends FragmentStateAdapter {
-    public ViewPager2Adapter(@NonNull FragmentActivity fragmentActivity) {
+
+    private FragmentNavigation fragmentNavigation;
+
+    public ViewPager2Adapter(@NonNull FragmentActivity fragmentActivity, FragmentNavigation fragmentNavigation) {
         super(fragmentActivity);
+        this.fragmentNavigation = fragmentNavigation;
     }
 
     @NonNull
@@ -23,7 +27,7 @@ public class ViewPager2Adapter extends FragmentStateAdapter {
             case 2:
                 return new FriendFragment();
             case 3:
-                return new NotificationFragment();
+                return new NotificationFragment(fragmentNavigation);
             case 4:
                 return new SettingFragment();
         }
