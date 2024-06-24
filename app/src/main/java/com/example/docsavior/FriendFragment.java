@@ -35,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Use the {@link FriendFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FriendFragment extends Fragment implements RecyclerViewInterface{
+public class FriendFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -134,7 +134,7 @@ public class FriendFragment extends Fragment implements RecyclerViewInterface{
 
     private void initVariables() {
         friendArrayList = new ArrayList<>();
-        friendAdapter = new FriendAdapter(getActivity(), friendArrayList, this);
+        friendAdapter = new FriendAdapter(getActivity(), friendArrayList);
         lvRequest.setAdapter(friendAdapter);
         lvRequest.setLayoutManager(new LinearLayoutManager(getContext()));
     }
@@ -185,14 +185,6 @@ public class FriendFragment extends Fragment implements RecyclerViewInterface{
         } catch (Exception ex) {
             Log.e("ERROR2: ", ex.getMessage());
         }
-    }
-
-    @Override
-    public void startProfileActivity(int position) {
-        // start ProfileActivity and display user's info
-        Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
-        myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, friendArrayList.get(position).getUsername());
-        startActivity(myIntent);
     }
 
     private void getAvatarDataThenAddToArrayList(String username) {

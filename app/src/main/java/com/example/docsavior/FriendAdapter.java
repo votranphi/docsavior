@@ -32,14 +32,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder> {
     private Context context;
-    private RecyclerViewInterface recyclerViewInterface;
 
     private List<Friend> friendList;
 
-    public FriendAdapter(Context context, List<Friend> friendList, RecyclerViewInterface recyclerViewInterface) {
+    public FriendAdapter(Context context, List<Friend> friendList) {
         this.context = context;
         this.friendList = friendList;
-        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
@@ -92,15 +90,6 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             btnAddFriend.setVisibility(View.GONE);
             btnAccept.setVisibility(View.GONE);
             btnDecline.setVisibility(View.GONE);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (recyclerViewInterface != null) {
-                        recyclerViewInterface.startProfileActivity(getAdapterPosition());
-                    }
-                }
-            });
         }
     }
 

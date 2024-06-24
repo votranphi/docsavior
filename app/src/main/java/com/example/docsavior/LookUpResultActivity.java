@@ -30,7 +30,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LookUpResultActivity extends AppCompatActivity implements RecyclerViewInterface {
+public class LookUpResultActivity extends AppCompatActivity {
 
     private ImageButton btnClose;
     private EditText tvLookUpContent;
@@ -95,7 +95,7 @@ public class LookUpResultActivity extends AppCompatActivity implements RecyclerV
             // TODO: initialize the Conversation Adapter and ArrayList of Conversation
         } else {
             friendArrayList = new ArrayList<>();
-            friendAdapter = new FriendAdapter(this, friendArrayList, this);
+            friendAdapter = new FriendAdapter(this, friendArrayList);
             lvResult.setAdapter(friendAdapter);
         }
         lvResult.setLayoutManager(new LinearLayoutManager(LookUpResultActivity.this));
@@ -209,13 +209,5 @@ public class LookUpResultActivity extends AppCompatActivity implements RecyclerV
             friendArrayList.add(friend);
             friendAdapter.notifyDataSetChanged();
         }
-    }
-
-    @Override
-    public void startProfileActivity(int position) {
-        // start ProfileActivity and display user's info
-        Intent myIntent = new Intent(LookUpResultActivity.this, ProfileActivity.class);
-        myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, friendArrayList.get(position).getUsername());
-        startActivity(myIntent);
     }
 }
