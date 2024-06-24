@@ -36,13 +36,10 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
     private List<Friend> friendList;
 
-    private int displayType = 0; // 0 is friend request (FriendFragment), 1 is found user (InUserLookUp), 2 is my friend (MyFriend)
-
-    public FriendAdapter(Context context, List<Friend> friendList, RecyclerViewInterface recyclerViewInterface, int displayType) {
+    public FriendAdapter(Context context, List<Friend> friendList, RecyclerViewInterface recyclerViewInterface) {
         this.context = context;
         this.friendList = friendList;
         this.recyclerViewInterface = recyclerViewInterface;
-        this.displayType = displayType;
     }
 
     @NonNull
@@ -67,6 +64,9 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
         // set avatar
         setAvatar(holder.profileImg, fr.getAvatarData());
+
+        // check and set the button
+        checkAndSetTheBtnAddFriend(ApplicationInfo.username, holder.tvUsername.getText().toString(), holder);
     }
 
     @Override
@@ -85,24 +85,13 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             super(itemView);
             profileImg = itemView.findViewById(R.id.profileImg);
             tvUsername = itemView.findViewById(R.id.tvUsername);
+            btnAddFriend = itemView.findViewById(R.id.btnAddFriend);
+            btnAccept = itemView.findViewById(R.id.btnAccept);
+            btnDecline = itemView.findViewById(R.id.btnDecline);
 
-            if (displayType == 1) {
-                btnAddFriend = itemView.findViewById(R.id.btnAddFriend);
-
-                // set VISIBILITY of btnAccept and btnDeclines to GONE
-                itemView.findViewById(R.id.btnAccept).setVisibility(View.GONE);
-                itemView.findViewById(R.id.btnDecline).setVisibility(View.GONE);
-            } else if (displayType == 0) {
-                btnAccept = itemView.findViewById(R.id.btnAccept);
-                btnDecline = itemView.findViewById(R.id.btnDecline);
-
-                // set VISIBILITY of btnAddFriend to GONE
-                itemView.findViewById(R.id.btnAddFriend).setVisibility(View.GONE);
-            } else {
-                itemView.findViewById(R.id.btnAccept).setVisibility(View.GONE);
-                itemView.findViewById(R.id.btnDecline).setVisibility(View.GONE);
-                itemView.findViewById(R.id.btnAddFriend).setVisibility(View.GONE);
-            }
+            btnAddFriend.setVisibility(View.GONE);
+            btnAccept.setVisibility(View.GONE);
+            btnDecline.setVisibility(View.GONE);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -116,53 +105,63 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
     }
 
     private void setOnClickListeners(ViewHolder holder, int position) {
-        if (displayType == 1) {
-            holder.btnAddFriend.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        holder.btnAddFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String btnText = holder.btnAddFriend.getText().toString();
+                if (btnText.equals("Add friend")) {
                     // call API to post the friend request to database
                     postFriendRequest(holder.tvUsername.getText().toString());
 
-                    // set the text of the button to "Cancel request"
-                    holder.btnAddFriend.setText("Cancel request");
-
                     // call API to post notification
                     postNotification(holder.tvUsername.getText().toString(), 3, -1, ApplicationInfo.username);
+
+                    // set the text of the button to "Cancel request"
+                    holder.btnAddFriend.setText("Cancel request");
+                } else { // btnText.equals("Cancel request")
+                    // call API to delete friend request from database
+                    deleteFriendRequest(holder.tvUsername.getText().toString(), ApplicationInfo.username, false);
+
+                    // delete notification from database
+                    deleteNotification(holder.tvUsername.getText().toString(), 3, -1, ApplicationInfo.username);
+
+                    // set the text of the button to "Add friend"
+                    holder.btnAddFriend.setText("Add friend");
                 }
-            });
-        } else if (displayType == 0) {
-            holder.btnAccept.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // remove the Friend and its attribute base on the position
-                    friendList.remove(position);
-                    notifyDataSetChanged();
+            }
+        });
 
-                    // call API to delete friend request from the database
-                    deleteFriendRequest(holder.tvUsername.getText().toString(), false);
-                    // call API to add friend in the database
-                    postNewFriend(holder.tvUsername.getText().toString());
+        holder.btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // remove the Friend and its attribute base on the position
+                friendList.remove(position);
+                notifyDataSetChanged();
 
-                    // call API to post notification
-                    postNotification(holder.tvUsername.getText().toString(), 4, -1, ApplicationInfo.username);
-                }
-            });
+                // call API to delete friend request from the database
+                deleteFriendRequest(ApplicationInfo.username, holder.tvUsername.getText().toString(), false);
+                // call API to add friend in the database
+                postNewFriend(holder.tvUsername.getText().toString());
 
-            holder.btnDecline.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // remove the Friend and its attribute base on the position
-                    friendList.remove(position);
-                    notifyDataSetChanged();
+                // call API to post notification
+                postNotification(holder.tvUsername.getText().toString(), 4, -1, ApplicationInfo.username);
+            }
+        });
 
-                    // call API to delete friend request from the database
-                    deleteFriendRequest(holder.tvUsername.getText().toString(), true);
+        holder.btnDecline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // remove the Friend and its attribute base on the position
+                friendList.remove(position);
+                notifyDataSetChanged();
 
-                    // call API to post notification
-                    postNotification(holder.tvUsername.getText().toString(), 5, -1, ApplicationInfo.username);
-                }
-            });
-        }
+                // call API to delete friend request from the database
+                deleteFriendRequest(ApplicationInfo.username, holder.tvUsername.getText().toString(), true);
+
+                // call API to post notification
+                postNotification(holder.tvUsername.getText().toString(), 5, -1, ApplicationInfo.username);
+            }
+        });
 
         holder.tvUsername.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,7 +241,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         });
     }
 
-    private void deleteFriendRequest(String requester, boolean isDeclined) {
+    private void deleteFriendRequest(String username, String requester, boolean isDeclined) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApplicationInfo.apiPath)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -250,7 +249,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<Detail> call = apiService.deleteFriendRequest(ApplicationInfo.username, requester);
+        Call<Detail> call = apiService.deleteFriendRequest(username, requester);
 
         call.enqueue(new Callback<Detail>() {
             @Override
@@ -315,6 +314,166 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         ApiService apiService = retrofit.create(ApiService.class);
 
         Call<Detail> call = apiService.postNotification(username, type, idPost, interacter);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // do nothing
+                    } else {
+                        Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void checkAndSetTheBtnAddFriend(String myUsername, String itemUsername, ViewHolder holder) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Requester> call = apiService.getAllFriendRequests(myUsername);
+
+        call.enqueue(new Callback<Requester>() {
+            @Override
+            public void onResponse(Call<Requester> call, Response<Requester> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // check if this user sent "me" a friend request
+                        for (String i : response.body().getRequesters()) {
+                            if (itemUsername.equals(i)) {
+                                holder.btnAddFriend.setVisibility(View.GONE);
+                                holder.btnAccept.setVisibility(View.VISIBLE);
+                                holder.btnDecline.setVisibility(View.VISIBLE);
+                                return;
+                            }
+                        }
+
+                        // check if I've sent this user a friend request
+                        check1(myUsername, itemUsername, holder);
+                    } else {
+                        Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR1: ", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Requester> call, Throwable t) {
+                Toast.makeText(context, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void check1(String myUsername, String itemUsername, ViewHolder holder) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Requester> call = apiService.getAllFriendRequests(itemUsername);
+
+        call.enqueue(new Callback<Requester>() {
+            @Override
+            public void onResponse(Call<Requester> call, Response<Requester> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // check if I've sent this user a friend request
+                        for (String i : response.body().getRequesters()) {
+                            if (myUsername.equals(i)) {
+                                holder.btnAddFriend.setVisibility(View.VISIBLE);
+                                holder.btnAccept.setVisibility(View.GONE);
+                                holder.btnDecline.setVisibility(View.GONE);
+                                holder.btnAddFriend.setText("Cancel request");
+                                return;
+                            }
+                        }
+
+                        // check if both are friend
+                        check2(myUsername, itemUsername, holder);
+                    } else {
+                        Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR1: ", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Requester> call, Throwable t) {
+                Toast.makeText(context, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void check2(String myUsername, String itemUsername, ViewHolder holder) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Friends> call = apiService.getAllFriends(itemUsername);
+
+        call.enqueue(new Callback<Friends>() {
+            @Override
+            public void onResponse(Call<Friends> call, Response<Friends> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // check if both are friend
+                        for (String i : response.body().getFriends()) {
+                            if (myUsername.equals(i)) {
+                                holder.btnAddFriend.setVisibility(View.GONE);
+                                holder.btnAccept.setVisibility(View.GONE);
+                                holder.btnDecline.setVisibility(View.GONE);
+                                return;
+                            }
+                        }
+
+                        holder.btnAddFriend.setVisibility(View.VISIBLE);
+                        holder.btnAddFriend.setText("Add friend");
+                        holder.btnAccept.setVisibility(View.GONE);
+                        holder.btnDecline.setVisibility(View.GONE);
+                    } else {
+                        Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR1: ", String.valueOf(response.code()));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Friends> call, Throwable t) {
+                Toast.makeText(context, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void deleteNotification(String username, Integer type, Integer idPost, String interacter) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.deleteNotification(username, type, idPost, interacter);
 
         call.enqueue(new Callback<Detail>() {
             @Override

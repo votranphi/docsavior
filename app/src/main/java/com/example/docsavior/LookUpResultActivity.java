@@ -95,7 +95,7 @@ public class LookUpResultActivity extends AppCompatActivity implements RecyclerV
             // TODO: initialize the Conversation Adapter and ArrayList of Conversation
         } else {
             friendArrayList = new ArrayList<>();
-            friendAdapter = new FriendAdapter(this, friendArrayList, this, 1);
+            friendAdapter = new FriendAdapter(this, friendArrayList, this);
             lvResult.setAdapter(friendAdapter);
         }
         lvResult.setLayoutManager(new LinearLayoutManager(LookUpResultActivity.this));

@@ -134,7 +134,7 @@ public class FriendFragment extends Fragment implements RecyclerViewInterface{
 
     private void initVariables() {
         friendArrayList = new ArrayList<>();
-        friendAdapter = new FriendAdapter(getActivity(), friendArrayList, this, 0);
+        friendAdapter = new FriendAdapter(getActivity(), friendArrayList, this);
         lvRequest.setAdapter(friendAdapter);
         lvRequest.setLayoutManager(new LinearLayoutManager(getContext()));
     }
