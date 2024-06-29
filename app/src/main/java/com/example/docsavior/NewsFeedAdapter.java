@@ -453,7 +453,6 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
             // create the file if it is not existed
             String fileFullName = fileName + "." + fileExtension;
-            Log.e("HEHEHE", String.valueOf(file.exists()));
             if (file.exists()) {
                 int i = 1;
                 // Loop until the file is not exist
