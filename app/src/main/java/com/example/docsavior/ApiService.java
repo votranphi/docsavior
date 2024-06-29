@@ -41,6 +41,8 @@ public interface ApiService {
 
     @GET("/newsfeed/all")
     Call<List<NewsFeed>> getAllPosts();
+    @GET("/newsfeed/post")
+    Call<List<NewsFeed>> getSequenceOfPost(@Query("page") Integer page, @Query("pageSize") Integer pageSize);
     @POST("/newsfeed/add")
     Call<Detail> postNewsfeed(@Query("username") String username, @Query("postDescription") String postDescription, @Query("postContent") String postContent, @Query("fileData") String fileData, @Query("fileName") String fileName, @Query("fileExtension") String fileExtension);
     @POST("/newsfeed/like")

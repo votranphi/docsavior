@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -91,6 +92,8 @@ public class NewsFeedFragment extends Fragment {
     private ArrayList<NewsFeed> newsFeedArrayList;
     private TextView tvNothing;
 
+    private NewsfeedLoader newsfeedLoader;
+
     // this function is the same as onCreate() in Activity
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -100,7 +103,7 @@ public class NewsFeedFragment extends Fragment {
 
         setOnClickListeners();
 
-        getAllPost();
+        newsfeedLoader.start();
     }
 
     private void findViewByIds() {
@@ -145,49 +148,7 @@ public class NewsFeedFragment extends Fragment {
         newsFeedAdapter = new NewsFeedAdapter(getActivity(), newsFeedArrayList);
         lvPost.setAdapter(newsFeedAdapter);
         lvPost.setLayoutManager(new LinearLayoutManager(getContext()));
-    }
 
-    private void getAllPost() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationInfo.apiPath)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiService apiService = retrofit.create(ApiService.class);
-
-        Call<List<NewsFeed>> call = apiService.getAllPosts();
-
-        call.enqueue(new Callback<List<NewsFeed>>() {
-            @Override
-            public void onResponse(Call<List<NewsFeed>> call, Response<List<NewsFeed>> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        List<NewsFeed> responseList = response.body();
-
-                        // add the elements in responseList to newsFeedArrayList
-                        for (NewsFeed i : responseList) {
-                            newsFeedArrayList.add(i);
-                            // update the ListView every one post
-                            newsFeedAdapter.notifyDataSetChanged();
-                        }
-
-                        // set the visibility of "NOTHING TO SHOW" to GONE
-                        tvNothing.setVisibility(View.GONE);
-                    } else if (response.code() == 600) {
-                        // set the visibility of "NOTHING TO SHOW" to VISIBLE
-                        tvNothing.setVisibility(View.VISIBLE);
-                    } else {
-                        Toast.makeText(getActivity(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
-                    }
-                } catch (Exception ex) {
-                    Log.e("ERROR100: ", ex.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<NewsFeed>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        newsfeedLoader = new NewsfeedLoader(getActivity(), lvPost, newsFeedArrayList, newsFeedAdapter, tvNothing);
     }
 }
