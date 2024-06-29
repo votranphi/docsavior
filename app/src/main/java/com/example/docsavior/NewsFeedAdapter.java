@@ -142,7 +142,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     }
 
     private void setOnClickListeners(ViewHolder holder, int position) {
-        holder.documentName.setOnClickListener(new View.OnClickListener() {
+        holder.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -395,13 +395,6 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                 context.startActivity(myIntent);
             }
         });
-
-        holder.btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: save the post to see later
-            }
-        });
     }
 
     private void checkInteract(ViewHolder holder, int position)
@@ -460,9 +453,8 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
             // create the file if it is not existed
             String fileFullName = fileName + "." + fileExtension;
-            if (!file.exists()) {
-                file.createNewFile();
-            } else {
+            Log.e("HEHEHE", String.valueOf(file.exists()));
+            if (file.exists()) {
                 int i = 1;
                 // Loop until the file is not exist
                 do {
@@ -472,6 +464,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                     i++;
                 } while (file.exists());
             }
+            file.createNewFile();
 
             // write the file from byte array
             FileOutputStream stream = new FileOutputStream(pathToFile);

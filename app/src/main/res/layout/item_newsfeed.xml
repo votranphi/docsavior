@@ -111,7 +111,6 @@
                 android:id="@+id/tvDocumentName"
                 android:text="@string/document_url"
                 android:textAlignment="center"
-                android:clickable="true"
                 android:layout_gravity="center" />
         </LinearLayout>
 

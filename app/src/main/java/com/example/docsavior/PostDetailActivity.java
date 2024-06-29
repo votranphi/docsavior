@@ -728,9 +728,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
             // create the file if it is not existed
             String fileFullName = fileName + "." + fileExtension;
-            if (!file.exists()) {
-                file.createNewFile();
-            } else {
+            if (file.exists()) {
                 int i = 1;
                 // Loop until the file is not exist
                 do {
@@ -740,6 +738,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     i++;
                 } while (file.exists());
             }
+            file.createNewFile();
 
             // write the file from byte array
             FileOutputStream stream = new FileOutputStream(pathToFile);
