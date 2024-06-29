@@ -80,6 +80,8 @@
     <string name="hyphen">" - "</string>
     <string name="notification1">Notification</string>
     <string name="decline">Decline</string>
+    <string name="ok_fine">Ok, fine</string>
+    <string name="online">Online</string>
 
     full_name
 </resources>

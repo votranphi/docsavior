@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:backgroundTint="@color/white">
@@ -47,22 +48,35 @@
                 android:scaleType="centerInside"/>
 
 
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/btnFriendProfile"
-                android:contentDescription="@string/todo"
-                android:src="@drawable/user_icon_black"
-                android:background="@drawable/circlebtn"
-                android:backgroundTint="@color/white"
-                android:scaleType="centerCrop"
-                android:padding="15dp"/>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rlBtnFriendProfile"
+                android:layout_centerVertical="true">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:cardCornerRadius="250dp"
+                    android:id="@+id/cardview"
+                    android:layout_gravity="center_vertical">
+                    <ImageView
+                        android:id="@+id/btnFriendProfile"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/user_icon_black"
+                        android:clickable="true"/>
+                </androidx.cardview.widget.CardView>
+
+            </RelativeLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvFriendUsername"
                 android:text="Username"
-                android:layout_toEndOf="@+id/btnFriendProfile"
+                android:layout_toEndOf="@+id/rlBtnFriendProfile"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginStart="10dp"
@@ -70,10 +84,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvLastSeen"
+                android:id="@+id/tvStatus"
                 android:layout_below="@+id/tvFriendUsername"
-                android:text="@string/last_seen_11_44am"
-                android:layout_toEndOf="@+id/btnFriendProfile"
+                android:text="@string/online"
+                android:layout_toEndOf="@+id/rlBtnFriendProfile"
                 android:textSize="15sp"
                 android:layout_marginStart="10dp"/>
 
@@ -115,6 +129,17 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/post_icon" />
         </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/there_is_nothing_to_show"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:id="@+id/tvNothing"/>
 
     </RelativeLayout>
 </RelativeLayout>

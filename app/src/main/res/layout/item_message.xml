@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/llMy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/tvDateTimeMy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_12_12_2012_12_12_12"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvMessageMy"
+            android:text="@string/this_is_a_message"
+            android:background="@drawable/bg_message_corner"
+            android:textColor="@color/light_blue"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:layout_marginRight="10dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:cardCornerRadius="250dp"
+            android:id="@+id/cardviewMy"
+            android:layout_gravity="center_vertical">
+            <ImageView
+                android:id="@+id/imgProfileMy"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_icon_black"
+                android:clickable="true"/>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llFriend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:cardCornerRadius="250dp"
+            android:id="@+id/cardviewFriend"
+            android:layout_gravity="center_vertical">
+            <ImageView
+                android:id="@+id/imgProfileFriend"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_icon_black"
+                android:clickable="true"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvMessageFriend"
+            android:text="@string/this_is_a_message"
+            android:background="@drawable/bg_message_white_corner"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/tvDateTimeFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_12_12_2012_12_12_12"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -12,19 +12,6 @@
         android:layout_marginTop="15dp">
 
 
-        <ImageButton
-            android:id="@+id/btnMakeGroup"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/make_group"
-            android:scaleType="centerCrop"
-            android:layout_toStartOf="@id/btnLookupConversation"
-            android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/light_blue"
-            android:padding="10dp"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,18 +24,6 @@
             tools:ignore="RelativeOverlap" />
 
 
-        <ImageButton
-            android:id="@+id/btnLookupConversation"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/lookup_icon_black"
-            android:scaleType="centerCrop"
-            android:layout_toStartOf="@id/btnProfile"
-            android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/light_blue"
-            android:padding="10dp"/>
         <ImageButton
             android:id="@+id/btnProfile"
             android:layout_width="50dp"
@@ -68,7 +43,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/rltTitleBarConversation">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <ListView
             android:id="@+id/rcvConversationList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

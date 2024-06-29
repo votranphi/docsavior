@@ -30,6 +30,9 @@ public interface ApiService {
     Call<Detail> getAvatarData(@Query("username") String username);
     @POST("/user/update_user_info")
     Call<Detail> postUserInfo(@Query("username") String username, @Query("fullName") String fullName, @Query("email") String email, @Query("gender") Boolean gender, @Query("birthDate") String birthDate, @Query("phoneNumber") String phoneNumber);
+    @GET("/user/status")
+    Call<Detail> getUserStatus(@Query("username") String username);
+
 
 
     @POST("/otp/create_or_refresh")
@@ -117,4 +120,15 @@ public interface ApiService {
     Call<List<Comment>> getPostComment(@Query("idPost") Integer idPost);
     @DELETE("/comment/delete")
     Call<Detail> deleteComment(@Query("idComment") Integer idComment);
+
+
+
+    @GET("/message/all")
+    Call<List<Message>> getAllMyMessage(@Query("username") String username, @Query("sender") String sender);
+    @POST("/message/add")
+    Call<Detail> postMessage(@Query("username") String username, @Query("sender") String sender, @Query("content") String content);
+    @GET("/message/messaged_user")
+    Call<MessagedUsernames> getMessagedUsernames(@Query("username") String username);
+    @GET("/message/latest")
+    Call<Message> getLatestMessage(@Query("username") String username, @Query("sender") String sender);
 }
