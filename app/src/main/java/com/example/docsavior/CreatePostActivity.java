@@ -120,14 +120,15 @@ public class CreatePostActivity extends AppCompatActivity {
         btnPictureVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: the same as btnFile but need to let user choose only video, image file type
+                // the same as btnFile but need to let user choose only video, image file type
+                openFileChooser(false);
             }
         });
 
         btnFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFileChooser();
+                openFileChooser(true);
             }
         });
     }
@@ -173,11 +174,22 @@ public class CreatePostActivity extends AppCompatActivity {
         });
     }
 
-    private void openFileChooser() {
+    private void openFileChooser(boolean isFile) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");
+
+        if (isFile) {
+            intent.setType("*/*");
+        } else {
+            intent.setType("image/*");
+        }
+
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), REQUEST_CODE_OPEN_DOCUMENT);
+
+        if (isFile) {
+            startActivityForResult(Intent.createChooser(intent, "Select a File to Upload"), REQUEST_CODE_OPEN_DOCUMENT);
+        } else {
+            startActivityForResult(Intent.createChooser(intent, "Select a Image"), REQUEST_CODE_OPEN_DOCUMENT);
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
