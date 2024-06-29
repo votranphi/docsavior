@@ -80,19 +80,41 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             // set post's datetime
             setPostDateTime(holder.tvDateTime, nf.getTime());
 
-            // set user's avatar
-            getUserInfoAndSetAvatar(holder.profileImg, nf.getUsername());
+            ((Activity)context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    // set user's avatar
+                    getUserInfoAndSetAvatar(holder.profileImg, nf.getUsername());
+                }
+            });
 
-            // set the post's image if the file is image type (jpg, png, jpeg,...)
-            if (nf.getFileExtension().equals("jpg") || nf.getFileExtension().equals("png") || nf.getFileExtension().equals("jpeg")) {
-                setImage(holder.imgPost, nf.getFileData());
-            } else {
-                holder.imgPost.setVisibility(View.GONE);
-            }
 
-            setOnClickListeners(holder, position);
+            ((Activity)context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    // set the post's image if the file is image type (jpg, png, jpeg,...)
+                    if (nf.getFileExtension().equals("jpg") || nf.getFileExtension().equals("png") || nf.getFileExtension().equals("jpeg")) {
+                        setImage(holder.imgPost, nf.getFileData());
+                    } else {
+                        holder.imgPost.setVisibility(View.GONE);
+                    }
+                }
+            });
 
-            checkInteract(holder, position);
+
+            ((Activity)context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    setOnClickListeners(holder, position);
+                }
+            });
+
+            ((Activity)context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    checkInteract(holder, position);
+                }
+            });
         }
     }
 
@@ -338,7 +360,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                             try {
                                 if (response.isSuccessful())
                                 {
-                                    //Toast.makeText(context, "Disike successfully!", Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(context, "Dislike successfully!", Toast.LENGTH_LONG).show();
                                 }
                                 else {
                                     Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
