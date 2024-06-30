@@ -82,6 +82,7 @@
     <string name="decline">Decline</string>
     <string name="ok_fine">Ok, fine</string>
     <string name="online">Online</string>
+    <string name="friend_list"> Friend list</string>
 
-    full_name
+
 </resources>

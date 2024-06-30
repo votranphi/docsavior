@@ -77,6 +77,13 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/btnListFriend"
+                android:text="@string/friend_list"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/blue"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/btnAddfriend"
                 android:text="@string/add_friend"
                 android:textColor="@color/black"
