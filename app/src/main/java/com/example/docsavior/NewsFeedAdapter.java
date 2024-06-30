@@ -31,7 +31,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import retrofit2.Call;
@@ -43,7 +45,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHolder> {
     private Context context;
     private List<NewsFeed> newsFeedList;
-
+    private Map<String, String> avatarCache = new HashMap<>();
+    private Map<Integer, Boolean> likedCache = new HashMap<>();
+    private Map<Integer, Boolean> dislikedCache = new HashMap<>();
+    private Map<Integer, Boolean> noInteractCache = new HashMap<>();
     private List<Boolean> isLiked = new ArrayList<>();
     private List<Boolean> isDisliked = new ArrayList<>();
 
@@ -67,7 +72,6 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     {
         // Get item
         NewsFeed nf = newsFeedList.get(position);
-
         if (nf != null) {
             holder.username.setText(nf.getUsername());
             holder.postDescription.setText(nf.getPostDescription());
@@ -76,45 +80,35 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             holder.likeNumber.setText(String.valueOf(nf.getLikeNumber()));
             holder.dislikeNumber.setText(String.valueOf(nf.getDislikeNumber()));
             holder.commentNumber.setText(String.valueOf(nf.getCommentNumber()));
-
-            // set post's datetime
             setPostDateTime(holder.tvDateTime, nf.getTime());
 
-            ((Activity)context).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    // set user's avatar
-                    getUserInfoAndSetAvatar(holder.profileImg, nf.getUsername());
-                }
-            });
+            // Set user's avatar
+            if (avatarCache.containsKey(nf.getUsername())) {
+                setImage(holder.profileImg,avatarCache.get(nf.getUsername()));
+            } else {
+                getUserInfoAndSetAvatar(holder.profileImg, nf.getUsername());
+            }
 
+            // Set post's image if the file is an image type
+            if (nf.getFileExtension().equals("jpg") || nf.getFileExtension().equals("png") || nf.getFileExtension().equals("jpeg")) {
+                setImage(holder.imgPost, nf.getFileData());
+            } else {
+                holder.imgPost.setVisibility(View.GONE);
+            }
 
-            ((Activity)context).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    // set the post's image if the file is image type (jpg, png, jpeg,...)
-                    if (nf.getFileExtension().equals("jpg") || nf.getFileExtension().equals("png") || nf.getFileExtension().equals("jpeg")) {
-                        setImage(holder.imgPost, nf.getFileData());
-                    } else {
-                        holder.imgPost.setVisibility(View.GONE);
-                    }
-                }
-            });
-
-
-            ((Activity)context).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    setOnClickListeners(holder, position);
-                }
-            });
-
-            ((Activity)context).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    checkInteract(holder, position);
-                }
-            });
+            setOnClickListeners(holder, position);
+            if (Boolean.TRUE.equals(likedCache.get(nf.getId())))
+            {
+                holder.btnLike.setImageResource(R.drawable.like_icon_red);
+            } else if (Boolean.TRUE.equals(dislikedCache.get(nf.getId()))) {
+                holder.btnDislike.setImageResource(R.drawable.dislike_icon_red);
+            } else if (Boolean.TRUE.equals(noInteractCache.get(nf.getId()))) {
+                //do nothing
+            }
+            else
+            {
+                checkInteract(holder, position);
+            }
         }
     }
 
@@ -435,12 +429,24 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                         {
                             holder.btnLike.setImageResource(R.drawable.like_icon_red);
                             isLiked.set(position, true);
+                            likedCache.put(newsFeedList.get(position).getId(), true);
+                            dislikedCache.put(newsFeedList.get(position).getId(), false);
+                            noInteractCache.put(newsFeedList.get(position).getId(), false);
                             // add animation change from like to unlike
                         } else if (res.equals("dislike"))
                         {
                             holder.btnDislike.setImageResource(R.drawable.dislike_icon_red);
                             isDisliked.set(position, true);
+                            dislikedCache.put(newsFeedList.get(position).getId(), true);
+                            likedCache.put(newsFeedList.get(position).getId(), false);
+                            noInteractCache.put(newsFeedList.get(position).getId(), false);
                             // add animation change from dislike to undislike
+                        }
+                        else
+                        {
+                            noInteractCache.put(newsFeedList.get(position).getId(), true);
+                            dislikedCache.put(newsFeedList.get(position).getId(), false);
+                            likedCache.put(newsFeedList.get(position).getId(), false);
                         }
                     }
                     else {
@@ -516,6 +522,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                     if (response.isSuccessful()) {
                         // after getting the user's info, set the avatar
                         setImage(imageView, response.body().getDetail());
+                        avatarCache.put(username, response.body().getDetail().toString());
                     } else {
                         Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
@@ -550,7 +557,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                 imageView.post(new Runnable() {
                     @Override
                     public void run() {
-                        imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(), imageView.getHeight(), false));
+                        imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 20, 20, false));
                     }
                 });
             }

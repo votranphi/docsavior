@@ -10,7 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,6 +27,8 @@ public class NewsfeedLoader extends Thread {
     private ArrayList<NewsFeed> newsFeedArrayList;
     private NewsFeedAdapter newsFeedAdapter;
     private TextView tvNothing;
+    private Map<Integer, NewsFeed> postCache = new HashMap<>();
+    private int numberOfPost;
     private int page; // current page (start from 0)
     private final int PAGE_SIZE = 1; // page size (load PAGE_SIZE post after scroll to the bottom of the ListView)
     private final int NUMBER_OF_POST_LOADED_FIRST = 3; // the number of posts will be loaded to the screen first time user enters the newsfeed screen
@@ -41,6 +45,8 @@ public class NewsfeedLoader extends Thread {
 
     @Override
     public void run() {
+        getNumberOfPosts();
+
         loadPostForTheFirstTime();
 
         setOnClickListeners();
@@ -52,21 +58,8 @@ public class NewsfeedLoader extends Thread {
         }
     }
 
-    private void setOnClickListeners() {
-        lvPost.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-                if (newState == RecyclerView.SCROLL_STATE_DRAGGING) {
-                    getAPost(page, PAGE_SIZE);
-                    page++;
-                }
-            }
-        });
-    }
-
-    private void getAPost(int page, int pageSize) {
+    private void getNumberOfPosts()
+    {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApplicationInfo.apiPath)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -74,7 +67,63 @@ public class NewsfeedLoader extends Thread {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<List<NewsFeed>> call = apiService.getSequenceOfPost(page, pageSize);
+        Call<Integer> call = apiService.getNumberOfPosts();
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                try{
+                    if(response.isSuccessful())
+                    {
+                        numberOfPost = response.body().intValue();
+                    }
+                }
+                catch (Exception t)
+                {
+                    Log.d("Error: ", t.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private int lastScrollY = 0;
+    private boolean isScrollingUp = false;
+
+    private void setOnClickListeners() {
+        lvPost.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                // Update the scroll direction
+                isScrollingUp = dy < 0;
+                lastScrollY += dy;
+            }
+
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING && isScrollingUp && page < numberOfPost) {
+                    getAPost(page, PAGE_SIZE);
+                }
+            }
+        });
+    }
+
+
+    private void getAPost(int number, int pageSize) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<List<NewsFeed>> call = apiService.getSequenceOfPost(number, pageSize);
 
         call.enqueue(new Callback<List<NewsFeed>>() {
             @Override
@@ -85,9 +134,14 @@ public class NewsfeedLoader extends Thread {
 
                         // add the elements in responseList to newsFeedArrayList
                         for (NewsFeed i : responseList) {
-                            newsFeedArrayList.add(i);
-                            // update the ListView every one post
-                            newsFeedAdapter.notifyDataSetChanged();
+                            if(!postCache.containsKey(i.getId()))
+                            {
+                                newsFeedArrayList.add(i);
+                                // update the ListView every one post
+                                newsFeedAdapter.notifyDataSetChanged();
+                                page++;
+                                postCache.put(i.getId(), i);
+                            }
                         }
 
                         // set the visibility of "NOTHING TO SHOW" to GONE

@@ -66,7 +66,8 @@ public interface ApiService {
     Call<Detail> postComment(@Query("id") Integer id);
     @POST("/newsfeed/uncomment")
     Call<Detail> postUncomment(@Query("id") Integer id);
-
+    @GET("/newsfeed/size")
+    Call<Integer> getNumberOfPosts();
 
 
     @POST("/user_interact/interact")
