@@ -131,4 +131,8 @@ public interface ApiService {
     Call<MessagedUsernames> getMessagedUsernames(@Query("username") String username);
     @GET("/message/latest")
     Call<Message> getLatestMessage(@Query("username") String username, @Query("sender") String sender);
+    @GET("/message/unseen")
+    Call<List<Message>> getUnseenMessage(@Query("username") String username, @Query("sender") String sender);
+    @POST("/message/seen_to_true")
+    Call<Detail> postSeenToTrue(@Query("id") Integer id);
 }

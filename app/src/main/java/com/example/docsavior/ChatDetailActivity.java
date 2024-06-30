@@ -50,6 +50,8 @@ public class ChatDetailActivity extends AppCompatActivity {
 
     private String username;
 
+    private MessageLoader messageLoader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,6 +138,8 @@ public class ChatDetailActivity extends AppCompatActivity {
             tvFriendUsername.setText(username);
 
             getAndSetFriendAvatar(btnFriendProfile, username);
+
+            messageLoader = new MessageLoader(this, messageAdapter, messageArrayList, username);
         }
     }
 
@@ -216,8 +220,9 @@ public class ChatDetailActivity extends AppCompatActivity {
                         } else {
                             tvNothing.setVisibility(View.GONE);
 
-                            for (Message i : messages) {
-                                messageArrayList.add(i);
+                            for (int i = 0; i < messages.size(); i++) {
+                                postSeenToTrue(messages.get(i).getId(), i == messages.size() - 1);
+                                messageArrayList.add(messages.get(i));
                                 messageAdapter.notifyDataSetChanged();
                             }
                         }
@@ -306,5 +311,38 @@ public class ChatDetailActivity extends AppCompatActivity {
         Message message = new Message(username, sender, content);
         messageArrayList.add(message);
         messageAdapter.notifyDataSetChanged();
+    }
+
+    private void postSeenToTrue(Integer id, boolean isLastMessage) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postSeenToTrue(id);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        if (isLastMessage) {
+                            messageLoader.start();
+                        }
+                    } else {
+                        Toast.makeText(ChatDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(ChatDetailActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
