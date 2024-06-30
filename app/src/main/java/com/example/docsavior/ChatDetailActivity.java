@@ -50,6 +50,7 @@ public class ChatDetailActivity extends AppCompatActivity {
 
     ImageView btnFriendProfile;
     ZegoSendCallInvitationButton btnVideoCall;
+    ZegoSendCallInvitationButton btnVoiceCall;
     ImageButton btnClose;
     TextView tvFriendUsername;
     TextView tvStatus;
@@ -86,6 +87,7 @@ public class ChatDetailActivity extends AppCompatActivity {
     private void findViewByIds() {
         btnFriendProfile = findViewById(R.id.btnFriendProfile);
         btnVideoCall = findViewById(R.id.btnVideoCall);
+        btnVoiceCall = findViewById(R.id.btnVoiceCall);
         btnClose = findViewById(R.id.btnClose);
         tvFriendUsername = findViewById(R.id.tvFriendUsername);
         tvStatus = findViewById(R.id.tvStatus);
@@ -135,6 +137,24 @@ public class ChatDetailActivity extends AppCompatActivity {
         btnVideoCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // start calling this user
+                if (tvStatus.getText().toString().equals("Offline")) {
+                    Toast.makeText(ChatDetailActivity.this, "This user is offline!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                setVideoCall(username);
+            }
+        });
+
+        btnVoiceCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tvStatus.getText().toString().equals("Offline")) {
+                    Toast.makeText(ChatDetailActivity.this, "This user is offline!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 // start calling this user
                 setVoiceCall(username);
             }
@@ -363,10 +383,10 @@ public class ChatDetailActivity extends AppCompatActivity {
     }
 
     private void startService(String userID) {
-        Application application = getApplication(); // Android's application context
-        long appID = 1163686136;   // yourAppID
-        String appSign = "156dec21df7edd3436628ad0f31184bbc64ec1804ea73bf9fa93c4fa49c5f8ad";  // yourAppSign
-        String userName = userID;   // yourUserName
+        Application application = getApplication();
+        long appID = 1163686136;
+        String appSign = "156dec21df7edd3436628ad0f31184bbc64ec1804ea73bf9fa93c4fa49c5f8ad";
+        String userName = userID;
 
         ZegoUIKitPrebuiltCallInvitationConfig callInvitationConfig = new ZegoUIKitPrebuiltCallInvitationConfig();
 
@@ -375,13 +395,13 @@ public class ChatDetailActivity extends AppCompatActivity {
 
     private void setVoiceCall(String targetUserID) {
         btnVideoCall.setIsVideoCall(false);
-        btnVideoCall.setResourceID("zego_uikit_call"); // Please fill in the resource ID name that has been configured in the ZEGOCLOUD's console here.
+        btnVideoCall.setResourceID("zego_uikit_call");
         btnVideoCall.setInvitees(Collections.singletonList(new ZegoUIKitUser(targetUserID)));
     }
 
     private void setVideoCall(String targetUserID) {
         btnVideoCall.setIsVideoCall(true);
-        btnVideoCall.setResourceID("zego_uikit_call"); // Please fill in the resource ID name that has been configured in the ZEGOCLOUD's console here.
+        btnVideoCall.setResourceID("zego_uikit_call");
         btnVideoCall.setInvitees(Collections.singletonList(new ZegoUIKitUser(targetUserID)));
     }
 

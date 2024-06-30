@@ -32,6 +32,8 @@ public interface ApiService {
     Call<Detail> postUserInfo(@Query("username") String username, @Query("fullName") String fullName, @Query("email") String email, @Query("gender") Boolean gender, @Query("birthDate") String birthDate, @Query("phoneNumber") String phoneNumber);
     @GET("/user/status")
     Call<Detail> getUserStatus(@Query("username") String username);
+    @POST("/user/login_to_true")
+    Call<Detail> postLoginToTrue(@Query("username") String username);
 
 
 
