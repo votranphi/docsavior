@@ -1,5 +1,6 @@
 package com.example.docsavior;
 
+import android.app.Application;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,9 +24,20 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.permissionx.guolindev.PermissionX;
+import com.permissionx.guolindev.callback.ExplainReasonCallback;
+import com.permissionx.guolindev.callback.RequestCallback;
+import com.permissionx.guolindev.request.ExplainScope;
+import com.zegocloud.uikit.prebuilt.call.ZegoUIKitPrebuiltCallService;
+import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationConfig;
+import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationService;
+import com.zegocloud.uikit.prebuilt.call.invite.widget.ZegoSendCallInvitationButton;
+import com.zegocloud.uikit.service.defines.ZegoUIKitUser;
+
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -36,7 +49,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ChatDetailActivity extends AppCompatActivity {
 
     ImageView btnFriendProfile;
-    ImageButton btnVideoCall;
+    ZegoSendCallInvitationButton btnVideoCall;
     ImageButton btnClose;
     TextView tvFriendUsername;
     TextView tvStatus;
@@ -66,6 +79,8 @@ public class ChatDetailActivity extends AppCompatActivity {
         loadMessages(ApplicationInfo.username, username);
 
         getAndSetUserStatus(username);
+
+        startService(ApplicationInfo.username);
     }
 
     private void findViewByIds() {
@@ -120,7 +135,8 @@ public class ChatDetailActivity extends AppCompatActivity {
         btnVideoCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: start calling this user
+                // start calling this user
+                setVoiceCall(username);
             }
         });
     }
@@ -344,5 +360,29 @@ public class ChatDetailActivity extends AppCompatActivity {
                 Toast.makeText(ChatDetailActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void startService(String userID) {
+        Application application = getApplication(); // Android's application context
+        long appID = 1163686136;   // yourAppID
+        String appSign = "156dec21df7edd3436628ad0f31184bbc64ec1804ea73bf9fa93c4fa49c5f8ad";  // yourAppSign
+        String userName = userID;   // yourUserName
+
+        ZegoUIKitPrebuiltCallInvitationConfig callInvitationConfig = new ZegoUIKitPrebuiltCallInvitationConfig();
+
+        ZegoUIKitPrebuiltCallService.init(getApplication(), appID, appSign, userID, userName,callInvitationConfig);
+    }
+
+    private void setVoiceCall(String targetUserID) {
+        btnVideoCall.setIsVideoCall(false);
+        btnVideoCall.setResourceID("zego_uikit_call"); // Please fill in the resource ID name that has been configured in the ZEGOCLOUD's console here.
+        btnVideoCall.setInvitees(Collections.singletonList(new ZegoUIKitUser(targetUserID)));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        ZegoUIKitPrebuiltCallInvitationService.unInit();
     }
 }

@@ -31,7 +31,7 @@ public class MessageLoader extends Thread {
     public void run() {
         try {
             while (true) {
-                getUnseedMessage();
+                getUnseenMessage();
 
                 // get unseen message after every 2s
                 Thread.sleep(2000);
@@ -41,7 +41,7 @@ public class MessageLoader extends Thread {
         }
     }
 
-    private void getUnseedMessage() {
+    private void getUnseenMessage() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApplicationInfo.apiPath)
                 .addConverterFactory(GsonConverterFactory.create())

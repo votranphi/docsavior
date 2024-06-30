@@ -34,7 +34,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/close_icon" />
 
-            <ImageButton
+            <com.zegocloud.uikit.prebuilt.call.invite.widget.ZegoSendCallInvitationButton
                 android:id="@+id/btnVideoCall"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
