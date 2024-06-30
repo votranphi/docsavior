@@ -379,6 +379,12 @@ public class ChatDetailActivity extends AppCompatActivity {
         btnVideoCall.setInvitees(Collections.singletonList(new ZegoUIKitUser(targetUserID)));
     }
 
+    private void setVideoCall(String targetUserID) {
+        btnVideoCall.setIsVideoCall(true);
+        btnVideoCall.setResourceID("zego_uikit_call"); // Please fill in the resource ID name that has been configured in the ZEGOCLOUD's console here.
+        btnVideoCall.setInvitees(Collections.singletonList(new ZegoUIKitUser(targetUserID)));
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

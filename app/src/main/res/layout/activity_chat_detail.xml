@@ -35,10 +35,23 @@
                 android:src="@drawable/close_icon" />
 
             <com.zegocloud.uikit.prebuilt.call.invite.widget.ZegoSendCallInvitationButton
-                android:id="@+id/btnVideoCall"
+                android:id="@+id/btnVoiceCall"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_toStartOf="@id/btnClose"
+                android:background="@drawable/circlebtn"
+                android:backgroundTint="@color/blue"
+                android:importantForAccessibility="no"
+                android:src="@drawable/call"
+                android:padding="15dp"
+                android:layout_marginRight="10dp"
+                android:scaleType="centerInside"/>
+
+            <com.zegocloud.uikit.prebuilt.call.invite.widget.ZegoSendCallInvitationButton
+                android:id="@+id/btnVideoCall"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_toStartOf="@id/btnVoiceCall"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/blue"
                 android:importantForAccessibility="no"
