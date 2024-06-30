@@ -383,7 +383,6 @@ public class ChatDetailActivity extends AppCompatActivity {
     }
 
     private void startService(String userID) {
-        Application application = getApplication();
         long appID = 1163686136;
         String appSign = "156dec21df7edd3436628ad0f31184bbc64ec1804ea73bf9fa93c4fa49c5f8ad";
         String userName = userID;
@@ -394,9 +393,9 @@ public class ChatDetailActivity extends AppCompatActivity {
     }
 
     private void setVoiceCall(String targetUserID) {
-        btnVideoCall.setIsVideoCall(false);
-        btnVideoCall.setResourceID("zego_uikit_call");
-        btnVideoCall.setInvitees(Collections.singletonList(new ZegoUIKitUser(targetUserID)));
+        btnVoiceCall.setIsVideoCall(false);
+        btnVoiceCall.setResourceID("zego_uikit_call");
+        btnVoiceCall.setInvitees(Collections.singletonList(new ZegoUIKitUser(targetUserID)));
     }
 
     private void setVideoCall(String targetUserID) {
