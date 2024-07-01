@@ -91,7 +91,7 @@
                         android:id="@+id/btnFriendProfile"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:scaleType="centerCrop"
+                        android:scaleType="fitCenter"
                         android:src="@drawable/user_icon_black"
                         android:clickable="true"/>
                 </androidx.cardview.widget.CardView>
@@ -133,7 +133,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/rltMessage"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

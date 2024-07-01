@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_message_white_blue_corner"
-    android:layout_marginTop="5dp"
+    android:layout_margin="5dp"
+    android:padding="3dp"
     android:id="@+id/rltUsernameConversation">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/rlBtnFriendProfile"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="40dp"
@@ -23,7 +25,7 @@
                 android:id="@+id/btnFriendProfile"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@drawable/user_icon_black"
                 android:clickable="true"/>
         </androidx.cardview.widget.CardView>

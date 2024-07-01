@@ -11,8 +11,7 @@
         android:id="@+id/rltVideoCall"
         android:layout_marginBottom="0dp"
         android:background="@drawable/screen_bounding"
-        android:backgroundTint="@color/light_blue"
-        android:layout_marginTop="30dp">
+        android:backgroundTint="@color/light_blue">
 
         <ImageButton
             android:layout_width="50dp"
@@ -61,7 +60,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/bg_message_corner"
             android:id="@+id/rltNotification"
-            android:padding="10dp">
+            android:padding="5dp">
 
             <ImageButton
                 android:layout_width="50dp"
@@ -94,7 +93,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_message_corner"
             android:id="@+id/rltDeleteMessage"
-            android:padding="10dp">
+            android:padding="5dp">
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -124,7 +123,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_message_corner"
             android:id="@+id/rltBlockUser"
-            android:padding="10dp">
+            android:padding="5dp">
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"

@@ -80,7 +80,7 @@
                         android:layout_height="40dp"
                         android:id="@+id/profileImg"
                         android:src="@drawable/user_icon_black"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="fitCenter"/>
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
 

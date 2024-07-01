@@ -7,7 +7,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="3dp"
+        android:layout_margin="5dp"
+        android:padding="3dp"
         android:background="@drawable/edittext"
         android:backgroundTint="@color/light_blue"
         android:orientation="horizontal">
@@ -22,7 +23,7 @@
                 android:id="@+id/profileImg"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 android:src="@drawable/user_icon_black"
                 android:clickable="true"/>
         </androidx.cardview.widget.CardView>

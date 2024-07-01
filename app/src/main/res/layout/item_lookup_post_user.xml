@@ -17,7 +17,7 @@
             android:layout_height="40dp"
             android:src="@drawable/lookup_history_icon"
             android:background="@drawable/circlebtn"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/light_blue"
             android:layout_marginLeft="5dp"
             android:scaleType="fitCenter"
             android:padding="8dp"
@@ -34,7 +34,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Look up history" />
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:text="@string/look_up_history" />
 
         </LinearLayout>
 
