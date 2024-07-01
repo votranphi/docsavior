@@ -119,6 +119,7 @@ public class FriendFragment extends Fragment {
                 Intent myIntent = new Intent(getActivity(), LookUpPostUserActivity.class);
                 myIntent.putExtra(ApplicationInfo.KEY_TO_LOOK_UP_POST_USER_ACTIVITY, ApplicationInfo.LOOK_UP_TYPE_USER);
                 startActivity(myIntent);
+                getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_right);
             }
         });
 
@@ -128,6 +129,7 @@ public class FriendFragment extends Fragment {
                 Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, ApplicationInfo.username);
                 startActivity(myIntent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }

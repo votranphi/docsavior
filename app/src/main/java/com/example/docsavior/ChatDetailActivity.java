@@ -107,6 +107,7 @@ public class ChatDetailActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(ChatDetailActivity.this, ProfileActivity.class);
                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, username);
                 startActivity(myIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -114,6 +115,7 @@ public class ChatDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
             }
         });
 
