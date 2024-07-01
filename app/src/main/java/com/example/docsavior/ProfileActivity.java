@@ -178,7 +178,9 @@ public class ProfileActivity extends AppCompatActivity {
         btnListFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: open FriendListActivity then show the FriendList
+                // open FriendListActivity then show the FriendList
+                Intent myIntent = new Intent(ProfileActivity.this, FriendListActivity.class);
+                startActivity(myIntent);
             }
         });
 
