@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,7 +11,8 @@
         android:padding="3dp"
         android:background="@drawable/edittext"
         android:backgroundTint="@color/light_blue"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="UselessParent">
 
         <ImageView
             android:id="@+id/profileImg"
@@ -19,17 +21,18 @@
             android:src="@drawable/user_icon_black"
             android:background="@drawable/circlebtn"
             android:backgroundTint="@color/white"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:scaleType="fitCenter"
             android:padding="8dp"
             android:clickable="false"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/todo" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:orientation="vertical"
-            android:layout_marginLeft="10dp">
+            android:layout_marginStart="10dp">
 
             <TextView
                 android:id="@+id/tvUsername"
@@ -48,7 +51,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:id="@+id/lnSendRequest"
                 android:layout_centerVertical="true">
                 <Button

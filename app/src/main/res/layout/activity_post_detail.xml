@@ -13,7 +13,8 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp">
+        android:layout_marginBottom="15dp"
+        tools:ignore="UselessParent">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -27,16 +28,17 @@
                 android:backgroundTint="@color/blue"
                 android:scaleType="centerInside"
                 android:src="@drawable/close_icon"
-                android:padding="8dp"/>
+                android:padding="8dp"
+                android:contentDescription="@string/todo" />
             <TextView
                 android:id="@+id/tvPostDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/btnClose"
-                android:text="Post detail"
-                android:textSize="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/btnClose"
+                android:text="@string/post_detail"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -80,7 +82,8 @@
                         android:layout_height="40dp"
                         android:id="@+id/profileImg"
                         android:src="@drawable/user_icon_black"
-                        android:scaleType="fitCenter"/>
+                        android:scaleType="fitCenter"
+                        android:contentDescription="@string/todo" />
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
 
@@ -141,7 +144,6 @@
                 android:id="@+id/llPost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
                 android:orientation="vertical"
                 android:background="@color/white"
                 android:layout_below="@+id/postInfo">
@@ -151,7 +153,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/loading" />
+                    android:src="@drawable/loading"
+                    android:contentDescription="@string/todo" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -161,8 +164,7 @@
                     android:text="@string/document_url"
                     android:textAlignment="center"
                     android:clickable="true"
-                    android:layout_gravity="center"
-                    />
+                    android:layout_gravity="center" />
 
             </LinearLayout>
 
@@ -176,33 +178,36 @@
                 android:backgroundTint="@color/white"
                 android:src="@drawable/like_icon"
                 android:padding="10dp"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside"
+                android:contentDescription="@string/todo" />
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:id="@+id/btnDislike"
                 android:layout_below="@+id/llPost"
-                android:layout_toRightOf="@+id/btnLike"
-                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/btnLike"
+                android:layout_marginStart="10dp"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/white"
                 android:src="@drawable/dislike_icon"
                 android:padding="10dp"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside"
+                android:contentDescription="@string/todo" />
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:id="@+id/btnDownload"
                 android:layout_below="@+id/llPost"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="10dp"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/white"
                 android:src="@drawable/download_icon_2"
                 android:padding="10dp"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside"
+                android:contentDescription="@string/todo" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -240,17 +245,20 @@
                 android:id="@+id/edComment"
                 android:background="@drawable/screen_bounding"
                 android:padding="10dp"
-                android:hint="Write a comment"/>
+                android:hint="@string/write_a_comment"
+                android:autofillHints="string"
+                android:inputType="text" />
             <ImageButton
                 android:id="@+id/btnPost"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:background="@drawable/circlebtn"
                 android:backgroundTint="@color/blue"
                 android:scaleType="centerInside"
                 android:src="@drawable/post_icon"
-                android:padding="10dp"/>
+                android:padding="10dp"
+                android:contentDescription="@string/todo" />
         </RelativeLayout>
 
     </RelativeLayout>

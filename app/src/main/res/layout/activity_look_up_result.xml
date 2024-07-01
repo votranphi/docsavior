@@ -34,7 +34,9 @@
                 android:background="@drawable/edittext"
                 android:layout_toEndOf="@+id/btnClose"
                 android:layout_marginStart="5dp"
-                android:editable="false"/>
+                android:inputType="text"
+                android:autofillHints="string"
+                tools:ignore="LabelFor" />
         </RelativeLayout>
 
         <RelativeLayout

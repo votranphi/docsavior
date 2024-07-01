@@ -22,14 +22,14 @@
         android:layout_marginTop="30dp"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginStart="20dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvTitleNote"
         android:layout_below="@+id/title"
         android:text="@string/account_name_note"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:textSize="13sp"/>
 
 
@@ -51,14 +51,15 @@
         android:background="@drawable/edittext"
         android:hint="@string/full_name"
         android:inputType="text"
-        android:padding="15dp" />
+        android:padding="15dp"
+        android:autofillHints="name" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvAccountNameNote"
         android:layout_below="@+id/edAccountName"
         android:text="@string/sign_up_note"
-        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
         android:textSize="13sp"/>
 
     <TextView
@@ -69,7 +70,7 @@
         android:id="@+id/tvDateOfBirth"
         android:textSize="20sp"
         android:layout_below="@id/tvAccountNameNote"
-        android:layout_marginLeft="20dp"/>
+        android:layout_marginStart="20dp"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -88,7 +89,7 @@
         android:id="@+id/tvGender"
         android:text="@string/gender"
         android:layout_below="@+id/edDateOfBirth"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:textSize="20sp"/>
     <CheckBox
@@ -97,7 +98,7 @@
         android:text="@string/male"
         android:id="@+id/cbMale"
         android:layout_below="@+id/tvGender"
-        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:textSize="15sp"/>
     <CheckBox
         android:layout_width="wrap_content"
@@ -105,8 +106,8 @@
         android:text="@string/female"
         android:id="@+id/cbFemale"
         android:layout_below="@+id/tvGender"
-        android:layout_toRightOf="@id/cbMale"
-        android:layout_marginLeft="20dp"
+        android:layout_toEndOf="@id/cbMale"
+        android:layout_marginStart="20dp"
         android:textSize="15sp"/>
     <Button
         android:layout_width="200dp"

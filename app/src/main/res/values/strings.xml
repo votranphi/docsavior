@@ -29,7 +29,7 @@
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
-    <string name="user_information">User infomation</string>
+    <string name="user_information">User information</string>
     <string name="account_name">Account name</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="gender">Gender</string>
@@ -80,10 +80,13 @@
     <string name="hyphen">" - "</string>
     <string name="notification1">Notification</string>
     <string name="decline">Decline</string>
-    <string name="ok_fine">Ok, fine</string>
+    <string name="ok_fine">OK, fine</string>
     <string name="online">Online</string>
     <string name="friend_list"> Friend list</string>
     <string name="look_up_history">Look up history</string>
-
+    <string name="picture_video">Picture/Video</string>
+    <string name="post_detail">Post detail</string>
+    <string name="write_a_comment">Write a comment</string>
+    <string name="recover_your_password">Recover your password</string>
 
 </resources>

@@ -35,7 +35,8 @@
         android:background="@drawable/edittext"
         android:hint="@string/username"
         android:inputType="text"
-        android:padding="15dp" />
+        android:padding="15dp"
+        android:autofillHints="username" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,7 +48,8 @@
         android:background="@drawable/edittext"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
-        android:padding="15dp"/>
+        android:padding="15dp"
+        android:autofillHints="emailAddress" />
 
     <EditText
         android:layout_width="match_parent"
@@ -60,7 +62,8 @@
         android:background="@drawable/edittext"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:padding="15dp"/>
+        android:padding="15dp"
+        android:autofillHints="password" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,7 +75,8 @@
         android:background="@drawable/edittext"
         android:hint="@string/password_confirm"
         android:inputType="textPassword"
-        android:padding="15dp"/>
+        android:padding="15dp"
+        android:autofillHints="password" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,7 +88,8 @@
         android:background="@drawable/edittext"
         android:hint="@string/phone_number"
         android:inputType="phone"
-        android:padding="15dp"/>
+        android:padding="15dp"
+        android:autofillHints="phone" />
 
     <Button
         android:layout_width="200dp"

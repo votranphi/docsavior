@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/logo"
-        android:text="Logo here"
+        android:text="@string/logo_here"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
@@ -58,7 +58,9 @@
             android:maxLength="1"
             android:textAlignment="center"
             android:background="@color/white"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="LabelFor,MissingConstraints"
+            android:autofillHints="password"
+            android:inputType="numberPassword" />
 
         <EditText
             android:id="@+id/edOtp2"
@@ -69,7 +71,9 @@
             app:layout_constraintRight_toRightOf="@+id/edOtp3"
             android:background="@color/white"
             android:textAlignment="center"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="LabelFor,MissingConstraints"
+            android:autofillHints="password"
+            android:inputType="numberPassword"/>
 
         <EditText
             android:id="@+id/edOtp3"
@@ -80,7 +84,9 @@
             app:layout_constraintRight_toRightOf="@+id/edOtp4"
             android:background="@color/white"
             android:textAlignment="center"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="LabelFor,MissingConstraints"
+            android:autofillHints="password"
+            android:inputType="numberPassword" />
 
         <EditText
             android:id="@+id/edOtp4"
@@ -91,7 +97,9 @@
             app:layout_constraintRight_toRightOf="parent"
             android:background="@color/white"
             android:textAlignment="center"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="LabelFor,MissingConstraints"
+            android:autofillHints="password"
+            android:inputType="numberPassword" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

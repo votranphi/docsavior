@@ -11,7 +11,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        tools:ignore="UselessParent">
 
         <RelativeLayout
             android:id="@+id/rltTop"
@@ -27,7 +28,8 @@
                 android:layout_marginStart="15dp"
                 android:text="@string/personal_information"
                 android:textSize="25sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="RelativeOverlap" />
 
             <ImageButton
                 android:id="@+id/btnClose"

@@ -11,7 +11,8 @@
         android:layout_margin="5dp"
         android:weightSum="3"
         android:background="@color/light_blue"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +34,8 @@
                         android:layout_height="40dp"
                         android:id="@+id/profileImg"
                         android:src="@drawable/user_icon_black"
-                        android:scaleType="fitCenter"/>
+                        android:scaleType="fitCenter"
+                        android:contentDescription="@string/todo" />
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
 
@@ -102,7 +104,8 @@
                 android:id="@+id/imgPost"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:contentDescription="@string/todo"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -129,7 +132,8 @@
                android:backgroundTint="@color/white"
                android:scaleType="fitCenter"
                android:padding="5dp"
-               tools:ignore="MissingConstraints" />
+               tools:ignore="MissingConstraints"
+               android:contentDescription="@string/todo"/>
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -151,7 +155,8 @@
                android:backgroundTint="@color/white"
                android:scaleType="fitCenter"
                android:padding="5dp"
-               tools:ignore="MissingConstraints" />
+               tools:ignore="MissingConstraints"
+               android:contentDescription="@string/todo" />
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -172,7 +177,8 @@
                android:backgroundTint="@color/white"
                android:scaleType="fitCenter"
                android:padding="10dp"
-               tools:ignore="MissingConstraints" />
+               tools:ignore="MissingConstraints"
+               android:contentDescription="@string/todo" />
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
@@ -194,7 +200,8 @@
                android:backgroundTint="@color/white"
                android:scaleType="fitCenter"
                android:padding="8dp"
-               tools:ignore="MissingConstraints" />
+               tools:ignore="MissingConstraints"
+               android:contentDescription="@string/todo" />
 
 
        </androidx.constraintlayout.widget.ConstraintLayout>

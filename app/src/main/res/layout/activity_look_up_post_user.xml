@@ -37,7 +37,8 @@
                 android:layout_toEndOf="@+id/btnClose"
                 android:layout_marginStart="5dp"
                 android:hint="@string/type_to_look_up"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                android:inputType="text" />
             <ImageButton
                 android:id="@+id/btnFind"
                 android:layout_width="50dp"
