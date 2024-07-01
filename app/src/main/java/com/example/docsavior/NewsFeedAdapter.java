@@ -2,6 +2,7 @@ package com.example.docsavior;
 
 import static com.example.docsavior.ApplicationInfo.username;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -67,6 +68,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         return viewHolder;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
@@ -76,7 +78,6 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             holder.username.setText(nf.getUsername());
             holder.postDescription.setText(nf.getPostDescription());
             holder.postContent.setText(nf.getPostContent());
-            holder.documentName.setText(nf.getFileName() + "." + nf.getFileExtension());
             holder.likeNumber.setText(String.valueOf(nf.getLikeNumber()));
             holder.dislikeNumber.setText(String.valueOf(nf.getDislikeNumber()));
             holder.commentNumber.setText(String.valueOf(nf.getCommentNumber()));
@@ -92,8 +93,10 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             // Set post's image if the file is an image type
             if (nf.getFileExtension().equals("jpg") || nf.getFileExtension().equals("png") || nf.getFileExtension().equals("jpeg")) {
                 setImage(holder.imgPost, nf.getFileData());
+                holder.documentName.setVisibility(View.GONE);
             } else {
                 holder.imgPost.setVisibility(View.GONE);
+                holder.documentName.setText(nf.getFileName() + "." + nf.getFileExtension());
             }
 
             setOnClickListeners(holder, position);

@@ -60,7 +60,7 @@
     <string name="personal_information">Personal information</string>
     <string name="topic">Topic</string>
     <string name="description">description</string>
-    <string name="document_url">document URL</string>
+    <string name="document_url">Document name</string>
     <string name="gi_i_t_nh">Giới tính</string>
     <string name="ng_y_sinh">Ngày sinh</string>
     <string name="i_n_tho_i">Điện thoại</string>
