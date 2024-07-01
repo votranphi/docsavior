@@ -2,6 +2,7 @@ package com.example.docsavior;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -42,6 +43,10 @@ public class NewsFeedActivity extends AppCompatActivity implements FragmentNavig
         initViewPager2();
 
         startService(ApplicationInfo.username);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            registerActivityLifecycleCallbacks(ApplicationInfo.activityLifecycleManager);
+        }
     }
 
     // move all the code lines that deal with ViewPager2 in onCreate() to this function
@@ -108,94 +113,10 @@ public class NewsFeedActivity extends AppCompatActivity implements FragmentNavig
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        postLogin();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        postLogout();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        postLogout();
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        postLogout();
         ZegoUIKitPrebuiltCallService.unInit();
-    }
-
-    private void postLogin() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationInfo.apiPath)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiService apiService = retrofit.create(ApiService.class);
-
-        Call<Detail> call = apiService.postLoginToTrue(ApplicationInfo.username);
-
-        call.enqueue(new Callback<Detail>() {
-            @Override
-            public void onResponse(Call<Detail> call, Response<Detail> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        // Toast.makeText(NewsFeedActivity.this, "Logout successfully!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(NewsFeedActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
-                    }
-                } catch (Exception ex) {
-                    Log.e("ERROR1: ", String.valueOf(response.code()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Detail> call, Throwable t) {
-                Toast.makeText(NewsFeedActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
-    private void postLogout() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationInfo.apiPath)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiService apiService = retrofit.create(ApiService.class);
-
-        Call<Detail> call = apiService.postLogout(ApplicationInfo.username);
-
-        call.enqueue(new Callback<Detail>() {
-            @Override
-            public void onResponse(Call<Detail> call, Response<Detail> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        // Toast.makeText(NewsFeedActivity.this, "Logout successfully!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(NewsFeedActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
-                    }
-                } catch (Exception ex) {
-                    Log.e("ERROR1: ", String.valueOf(response.code()));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Detail> call, Throwable t) {
-                Toast.makeText(NewsFeedActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     private void startService(String userID) {

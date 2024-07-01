@@ -2,6 +2,7 @@ package com.example.docsavior;
 
 import static com.example.docsavior.ApplicationInfo.username;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -63,6 +64,10 @@ public class ProfileDetailActivity extends AppCompatActivity {
             etBirthday.setClickable(false);
             etPhone.setFocusable(false);
             etPhone.setClickable(false);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            registerActivityLifecycleCallbacks(ApplicationInfo.activityLifecycleManager);
         }
     }
 

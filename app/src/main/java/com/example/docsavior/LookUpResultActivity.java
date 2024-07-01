@@ -1,6 +1,7 @@
 package com.example.docsavior;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -68,6 +69,10 @@ public class LookUpResultActivity extends AppCompatActivity {
             // TODO: call the API to load found conversations
         } else {
             loadUserLookUpResult();
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            registerActivityLifecycleCallbacks(ApplicationInfo.activityLifecycleManager);
         }
     }
 

@@ -2,6 +2,7 @@ package com.example.docsavior;
 
 import android.content.Intent;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,6 +54,10 @@ public class LookUpPostUserActivity extends AppCompatActivity {
         setOnClickListeners();
 
         loadLookUpHistory();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            registerActivityLifecycleCallbacks(ApplicationInfo.activityLifecycleManager);
+        }
     }
 
     private void findViewByIds() {

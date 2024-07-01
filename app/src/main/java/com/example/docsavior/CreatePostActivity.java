@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -75,6 +76,10 @@ public class CreatePostActivity extends AppCompatActivity {
         setOnClickListeners();
 
         initVariables();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            registerActivityLifecycleCallbacks(ApplicationInfo.activityLifecycleManager);
+        }
     }
 
     private void findViewByIds() {

@@ -13,4 +13,5 @@ public class ApplicationInfo {
     public static int LOOK_UP_TYPE_CHAT = 1;
     public static int LOOK_UP_TYPE_USER = 2;
 
+    public static ActivityLifecycleManager activityLifecycleManager = new ActivityLifecycleManager();
 }

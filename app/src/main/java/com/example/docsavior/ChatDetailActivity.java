@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -78,6 +79,10 @@ public class ChatDetailActivity extends AppCompatActivity {
         initVariables();
 
         loadMessages(ApplicationInfo.username, username);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            registerActivityLifecycleCallbacks(ApplicationInfo.activityLifecycleManager);
+        }
     }
 
     private void findViewByIds() {

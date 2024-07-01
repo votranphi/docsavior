@@ -1,6 +1,7 @@
 package com.example.docsavior;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +40,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
         findViewByIds();
 
         setOnClickListeners();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            registerActivityLifecycleCallbacks(ApplicationInfo.activityLifecycleManager);
+        }
     }
 
     private void findViewByIds() {

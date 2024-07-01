@@ -5,6 +5,7 @@ import static com.example.docsavior.ApplicationInfo.username;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -77,6 +78,10 @@ public class PostDetailActivity extends AppCompatActivity {
         setOnClickListeners();
 
         initVariables();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            registerActivityLifecycleCallbacks(ApplicationInfo.activityLifecycleManager);
+        }
     }
 
     private void findViewByIds() {
