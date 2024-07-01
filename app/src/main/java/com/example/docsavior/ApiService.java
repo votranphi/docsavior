@@ -85,6 +85,8 @@ public interface ApiService {
     Call<Friends> getAllFriends(@Query("username") String username);
     @DELETE("/friend/delete")
     Call<Detail> deleteFriend(@Query("username") String username, @Query("usernameFriend") String usernameFriend);
+    @POST("/friend/look_up")
+    Call<FoundFriends> postLookUpFriend(@Query("username") String username, @Query("lookUpInfo") String lookUpInfo);
 
 
 
@@ -110,6 +112,8 @@ public interface ApiService {
     Call<Detail> postLookUpHistory(@Query("username") String username, @Query("lookUpInfo") String lookUpInfo, @Query("lookUpType") Integer lookUpType);
     @GET("/look_up_history/me/post")
     Call<LookUpInfos> getPostLookUpHistory(@Query("username") String username);
+    @GET("/look_up_history/me/chat")
+    Call<LookUpInfos> getChatLookUpHistory(@Query("username") String username);
     @GET("/look_up_history/me/friend")
     Call<LookUpInfos> getFriendLookUpHistory(@Query("username") String username);
     @DELETE("/look_up_history/delete")

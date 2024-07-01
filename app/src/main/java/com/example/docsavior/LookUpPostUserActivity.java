@@ -258,7 +258,7 @@ public class LookUpPostUserActivity extends AppCompatActivity {
         if (lookupType == 0) {
             call = apiService.getPostLookUpHistory(ApplicationInfo.username);
         } else if (lookupType == 1) {
-            // TODO: look up for my own conversation
+            call = apiService.getChatLookUpHistory(ApplicationInfo.username);
         } else {
             call = apiService.getFriendLookUpHistory(ApplicationInfo.username);
         }

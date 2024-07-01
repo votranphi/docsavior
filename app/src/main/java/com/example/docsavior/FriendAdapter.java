@@ -35,9 +35,12 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
     private List<Friend> friendList;
 
-    public FriendAdapter(Context context, List<Friend> friendList) {
+    private int activityStartOnClickType = 0; // 0 is start ProfileActivity, 1 is start ChatDetailActivity
+
+    public FriendAdapter(Context context, List<Friend> friendList, int activityStartOnClickType) {
         this.context = context;
         this.friendList = friendList;
+        this.activityStartOnClickType = activityStartOnClickType;
     }
 
     @NonNull
@@ -155,18 +158,30 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         holder.tvUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 Intent myIntent = new Intent(context, ProfileActivity.class);
-                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, holder.tvUsername.getText().toString());
-                 context.startActivity(myIntent);
+                if (activityStartOnClickType == 0) {
+                    Intent myIntent = new Intent(context, ProfileActivity.class);
+                    myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, holder.tvUsername.getText().toString());
+                    context.startActivity(myIntent);
+                } else { // if (activityStartOnClickType == 1)
+                    Intent myIntent = new Intent(context, ChatDetailActivity.class);
+                    myIntent.putExtra(ApplicationInfo.KEY_TO_CHAT_DETAIL_ACTIVITY, holder.tvUsername.getText().toString());
+                    context.startActivity(myIntent);
+                }
             }
         });
 
         holder.profileImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(context, ProfileActivity.class);
-                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, holder.tvUsername.getText().toString());
-                context.startActivity(myIntent);
+                if (activityStartOnClickType == 0) {
+                    Intent myIntent = new Intent(context, ProfileActivity.class);
+                    myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, holder.tvUsername.getText().toString());
+                    context.startActivity(myIntent);
+                } else { // if (activityStartOnClickType == 1)
+                    Intent myIntent = new Intent(context, ChatDetailActivity.class);
+                    myIntent.putExtra(ApplicationInfo.KEY_TO_CHAT_DETAIL_ACTIVITY, holder.tvUsername.getText().toString());
+                    context.startActivity(myIntent);
+                }
             }
         });
     }

@@ -42,9 +42,7 @@ public class LookUpResultActivity extends AppCompatActivity {
     private NewsFeedAdapter newsFeedAdapter;
     private ArrayList<NewsFeed> newsFeedArrayList;
 
-    // TODO: variables to use when user looks for chat conversation
-
-    // use two variables below if user looks for friend
+    // use two variables below if user looks for friend or chat conversation
     private FriendAdapter friendAdapter;
     private ArrayList<Friend> friendArrayList;
 
@@ -66,7 +64,7 @@ public class LookUpResultActivity extends AppCompatActivity {
         if (itemType == 0) {
             loadPostLookUpResult();
         } else if (itemType == 1) {
-            // TODO: call the API to load found conversations
+            loadChatLookUpResult();
         } else {
             loadUserLookUpResult();
         }
@@ -97,10 +95,12 @@ public class LookUpResultActivity extends AppCompatActivity {
             newsFeedAdapter = new NewsFeedAdapter(this, newsFeedArrayList);
             lvResult.setAdapter(newsFeedAdapter);
         } else if (itemType == 1) {
-            // TODO: initialize the Conversation Adapter and ArrayList of Conversation
+            friendArrayList = new ArrayList<>();
+            friendAdapter = new FriendAdapter(this, friendArrayList, 1);
+            lvResult.setAdapter(friendAdapter);
         } else {
             friendArrayList = new ArrayList<>();
-            friendAdapter = new FriendAdapter(this, friendArrayList);
+            friendAdapter = new FriendAdapter(this, friendArrayList, 0);
             lvResult.setAdapter(friendAdapter);
         }
         lvResult.setLayoutManager(new LinearLayoutManager(LookUpResultActivity.this));
@@ -117,6 +117,7 @@ public class LookUpResultActivity extends AppCompatActivity {
         });
     }
 
+    /* POST LOOK UP FROM HERE */
     private void loadPostLookUpResult() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApplicationInfo.apiPath)
@@ -166,6 +167,91 @@ public class LookUpResultActivity extends AppCompatActivity {
         }
     }
 
+    /* CHAT LOOK UP FROM HERE */
+    private void loadChatLookUpResult() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<FoundFriends> call = apiService.postLookUpFriend(ApplicationInfo.username, lookUpInfo);
+
+        call.enqueue(new Callback<FoundFriends>() {
+            @Override
+            public void onResponse(Call<FoundFriends> call, Response<FoundFriends> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        FoundFriends foundFriends = response.body();
+
+                        if (foundFriends.getFoundFriends().length == 0) {
+                            tvNothing.setVisibility(View.VISIBLE);
+                        } else {
+                            tvNothing.setVisibility(View.GONE);
+
+                            assignFoundFriendsToListView(foundFriends);
+                        }
+                    } else {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        Toast.makeText(LookUpResultActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR601: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FoundFriends> call, Throwable t) {
+                Toast.makeText(LookUpResultActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void assignFoundFriendsToListView(FoundFriends foundFriends) {
+        try {
+            for (int i = 0; i < foundFriends.getFoundFriends().length; i++) {
+                getAvatarDataThenAddToArrayList(foundFriends.getFoundFriends()[i]);
+            }
+        } catch (Exception ex) {
+            Log.e("ERROR2: ", ex.getMessage());
+        }
+    }
+
+    private void getAvatarDataThenAddToArrayList(String username) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.getAvatarData(username);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        Friend friend = new Friend(response.body().getDetail(), username);
+                        friendArrayList.add(friend);
+                        friendAdapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(LookUpResultActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(LookUpResultActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /* USER LOOK UP FROM HERE */
     private void loadUserLookUpResult() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApplicationInfo.apiPath)

@@ -1,6 +1,7 @@
 package com.example.docsavior;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -86,6 +87,7 @@ public class ConversationFragment extends Fragment {
     private ImageButton btnProfile;
     private ListView rcvConversationList;
     private TextView tvNothing;
+    private ImageButton btnLookup;
 
     private ArrayList<Conversation> conversationArrayList;
     private ConversationAdapter conversationAdapter;
@@ -105,6 +107,7 @@ public class ConversationFragment extends Fragment {
         btnProfile = getView().findViewById(R.id.btnProfile);
         rcvConversationList = getView().findViewById(R.id.rcvConversationList);
         tvNothing = getView().findViewById(R.id.tvNothing);
+        btnLookup = getView().findViewById(R.id.btnLookup);
     }
 
     public void setOnClickListeners() {
@@ -123,6 +126,15 @@ public class ConversationFragment extends Fragment {
                 // start ChatDetailActivity then do things
                 Intent myIntent = new Intent(getActivity(), ChatDetailActivity.class);
                 myIntent.putExtra(ApplicationInfo.KEY_TO_CHAT_DETAIL_ACTIVITY, conversationArrayList.get(position).getUsername());
+                startActivity(myIntent);
+            }
+        });
+
+        btnLookup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), LookUpPostUserActivity.class);
+                myIntent.putExtra(ApplicationInfo.KEY_TO_LOOK_UP_POST_USER_ACTIVITY, ApplicationInfo.LOOK_UP_TYPE_CHAT);
                 startActivity(myIntent);
             }
         });
