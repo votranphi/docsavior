@@ -78,10 +78,6 @@ public class ChatDetailActivity extends AppCompatActivity {
         initVariables();
 
         loadMessages(ApplicationInfo.username, username);
-
-        getAndSetUserStatus(username);
-
-        startService(ApplicationInfo.username);
     }
 
     private void findViewByIds() {
@@ -175,7 +171,7 @@ public class ChatDetailActivity extends AppCompatActivity {
 
             getAndSetFriendAvatar(btnFriendProfile, username);
 
-            messageLoader = new MessageLoader(this, messageAdapter, messageArrayList, username);
+            messageLoader = new MessageLoader(this, messageAdapter, messageArrayList, username, tvStatus);
         }
     }
 
@@ -277,41 +273,6 @@ public class ChatDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void getAndSetUserStatus(String username) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationInfo.apiPath)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiService apiService = retrofit.create(ApiService.class);
-
-        Call<Detail> call = apiService.getUserStatus(username);
-
-        call.enqueue(new Callback<Detail>() {
-            @Override
-            public void onResponse(Call<Detail> call, Response<Detail> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        if (response.body().getDetail().equals("true")) {
-                            tvStatus.setText("Online");
-                        } else {
-                            tvStatus.setText("Offline");
-                        }
-                    } else {
-                        Toast.makeText(ChatDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
-                    }
-                } catch (Exception ex) {
-                    Log.e("ERROR106: ", ex.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Detail> call, Throwable t) {
-                Toast.makeText(ChatDetailActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
     private void postMessage(String username, String sender, String content) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApplicationInfo.apiPath)
@@ -382,16 +343,6 @@ public class ChatDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void startService(String userID) {
-        long appID = 1163686136;
-        String appSign = "156dec21df7edd3436628ad0f31184bbc64ec1804ea73bf9fa93c4fa49c5f8ad";
-        String userName = userID;
-
-        ZegoUIKitPrebuiltCallInvitationConfig callInvitationConfig = new ZegoUIKitPrebuiltCallInvitationConfig();
-
-        ZegoUIKitPrebuiltCallService.init(getApplication(), appID, appSign, userID, userName,callInvitationConfig);
-    }
-
     private void setVoiceCall(String targetUserID) {
         btnVoiceCall.setIsVideoCall(false);
         btnVoiceCall.setResourceID("zego_uikit_call");
@@ -402,12 +353,5 @@ public class ChatDetailActivity extends AppCompatActivity {
         btnVideoCall.setIsVideoCall(true);
         btnVideoCall.setResourceID("zego_uikit_call");
         btnVideoCall.setInvitees(Collections.singletonList(new ZegoUIKitUser(targetUserID)));
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        ZegoUIKitPrebuiltCallInvitationService.unInit();
     }
 }

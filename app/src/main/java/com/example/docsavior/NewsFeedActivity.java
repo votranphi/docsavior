@@ -16,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.zegocloud.uikit.prebuilt.call.ZegoUIKitPrebuiltCallService;
+import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationConfig;
+import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationService;
 
 import org.json.JSONObject;
 
@@ -37,6 +40,8 @@ public class NewsFeedActivity extends AppCompatActivity implements FragmentNavig
         setContentView(R.layout.navigation_newsfeed);
 
         initViewPager2();
+
+        startService(ApplicationInfo.username);
     }
 
     // move all the code lines that deal with ViewPager2 in onCreate() to this function
@@ -123,12 +128,13 @@ public class NewsFeedActivity extends AppCompatActivity implements FragmentNavig
 //        postLogout();
 //    }
 //
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//
-//        postLogout();
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        postLogout();
+        ZegoUIKitPrebuiltCallInvitationService.unInit();
+    }
 
     private void postLogin() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -190,5 +196,15 @@ public class NewsFeedActivity extends AppCompatActivity implements FragmentNavig
                 Toast.makeText(NewsFeedActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void startService(String userID) {
+        long appID = 1163686136;
+        String appSign = "156dec21df7edd3436628ad0f31184bbc64ec1804ea73bf9fa93c4fa49c5f8ad";
+        String userName = userID;
+
+        ZegoUIKitPrebuiltCallInvitationConfig callInvitationConfig = new ZegoUIKitPrebuiltCallInvitationConfig();
+
+        ZegoUIKitPrebuiltCallService.init(getApplication(), appID, appSign, userID, userName,callInvitationConfig);
     }
 }

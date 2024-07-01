@@ -2,6 +2,7 @@ package com.example.docsavior;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,13 +19,15 @@ public class MessageLoader extends Thread {
     private Context context;
     MessageAdapter messageAdapter;
     ArrayList<Message> messageArrayList;
+    TextView tvStatus;
     private String username;
 
-    public MessageLoader(Context context, MessageAdapter messageAdapter, ArrayList<Message> messageArrayList, String username) {
+    public MessageLoader(Context context, MessageAdapter messageAdapter, ArrayList<Message> messageArrayList, String username, TextView tvStatus) {
         this.context = context;
         this.messageAdapter = messageAdapter;
         this.messageArrayList = messageArrayList;
         this.username = username;
+        this.tvStatus = tvStatus;
     }
 
     @Override
@@ -32,6 +35,7 @@ public class MessageLoader extends Thread {
         try {
             while (true) {
                 getUnseenMessage();
+                getAndSetUserStatus(username);
 
                 // get unseen message after every 2s
                 Thread.sleep(2000);
@@ -100,6 +104,41 @@ public class MessageLoader extends Thread {
                 try {
                     if (response.isSuccessful()) {
                         // do thing
+                    } else {
+                        Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getAndSetUserStatus(String username) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.getUserStatus(username);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        if (response.body().getDetail().equals("true")) {
+                            tvStatus.setText("Online");
+                        } else {
+                            tvStatus.setText("Offline");
+                        }
                     } else {
                         Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
