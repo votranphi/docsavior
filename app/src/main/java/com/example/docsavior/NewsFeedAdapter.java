@@ -94,9 +94,12 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             if (nf.getFileExtension().equals("jpg") || nf.getFileExtension().equals("png") || nf.getFileExtension().equals("jpeg")) {
                 setImage(holder.imgPost, nf.getFileData());
                 holder.documentName.setVisibility(View.GONE);
+                holder.documentIcon.setVisibility(View.GONE);
             } else {
                 holder.imgPost.setVisibility(View.GONE);
                 holder.documentName.setText(nf.getFileName() + "." + nf.getFileExtension());
+                holder.documentIcon.setVisibility(View.GONE);
+                holder.documentName.setVisibility(View.VISIBLE);
             }
 
             setOnClickListeners(holder, position);
@@ -132,7 +135,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         TextView likeNumber;
         TextView dislikeNumber;
         TextView commentNumber;
-
+        ImageView documentIcon;
         ImageView profileImg;
         ImageView imgPost;
         TextView tvDateTime;
@@ -150,7 +153,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             likeNumber = itemView.findViewById(R.id.tvLikeNumber);
             dislikeNumber = itemView.findViewById(R.id.tvDislikeNumber);
             commentNumber = itemView.findViewById(R.id.tvCommentNumber);
-
+            documentIcon = itemView.findViewById(R.id.documentIcon);
             profileImg = itemView.findViewById(R.id.profileImg);
             imgPost = itemView.findViewById(R.id.imgPost);
             tvDateTime = itemView.findViewById(R.id.tvDateTime);

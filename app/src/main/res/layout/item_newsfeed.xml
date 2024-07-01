@@ -114,8 +114,11 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:id="@+id/documentIcon"
                     android:src="@drawable/file_icon"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/todo" />
+
                 <TextView
                     android:id="@+id/tvDocumentName"
                     android:layout_width="match_parent"
@@ -124,7 +127,7 @@
                     android:layout_marginStart="5dp"
                     android:backgroundTint="@color/white"
                     android:text="@string/document_url"
-                    android:textSize="30sp"/>
+                    android:textSize="25sp" />
             </LinearLayout>
 
         </LinearLayout>

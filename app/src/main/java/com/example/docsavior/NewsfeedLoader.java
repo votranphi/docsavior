@@ -31,7 +31,7 @@ public class NewsfeedLoader extends Thread {
     private Map<Integer, NewsFeed> postCache = new HashMap<>();
     private Boolean isLoading = false; // check if app is calling api
     private int numberOfPost; // total posts in database
-    private int page; // current page (start from 0)
+    private int page;
     private final int PAGE_SIZE = 5; // page size (load PAGE_SIZE post after scroll to the bottom of the ListView)
     private final int NUMBER_OF_POST_LOADED_FIRST = 5; // the number of posts will be loaded to the screen first time user enters the newsfeed screen
 
@@ -42,7 +42,7 @@ public class NewsfeedLoader extends Thread {
         this.newsFeedArrayList = newsFeedArrayList;
         this.newsFeedAdapter = newsFeedAdapter;
         this.tvNothing = tvNothing;
-        this.page = 0; // start from 0
+        this.page = 1;
     }
 
     @Override
