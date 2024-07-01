@@ -107,33 +107,33 @@ public class NewsFeedActivity extends AppCompatActivity implements FragmentNavig
         viewPager2.setCurrentItem(2);
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//
-//        postLogin();
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//
-//        postLogout();
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//
-//        postLogout();
-//    }
-//
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        postLogin();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        postLogout();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        postLogout();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
         postLogout();
-        ZegoUIKitPrebuiltCallInvitationService.unInit();
+        ZegoUIKitPrebuiltCallService.unInit();
     }
 
     private void postLogin() {

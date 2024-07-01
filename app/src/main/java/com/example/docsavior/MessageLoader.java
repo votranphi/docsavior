@@ -37,8 +37,8 @@ public class MessageLoader extends Thread {
                 getUnseenMessage();
                 getAndSetUserStatus(username);
 
-                // get unseen message after every 2s
-                Thread.sleep(2000);
+                // get unseen message after every 5s
+                Thread.sleep(5000);
             }
         } catch (Exception ex) {
             Log.e("ERROR285: ", ex.getMessage());
