@@ -47,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView imgUserAvatar;
     private TextView tvFullname;
     private Button btnAddfriend;
+    private Button btnListFriend;
     private Button btnDecline;
     private Button btnMessage;
     private RecyclerView gvPosts;
@@ -95,9 +96,10 @@ public class ProfileActivity extends AppCompatActivity {
             btnMessage.setVisibility(View.GONE);
             btnAddfriend.setVisibility(View.GONE);
             btnDecline.setVisibility(View.GONE);
+            btnListFriend.setVisibility(View.VISIBLE);
         } else {
             // if it isn't mine
-            btnMessage.setVisibility(View.VISIBLE);
+            btnListFriend.setVisibility(View.GONE);
 
             // check and set the function of the btnAddFriend
             checkAndSetTheBtnAddFriend();
@@ -112,6 +114,7 @@ public class ProfileActivity extends AppCompatActivity {
         imgUserAvatar = findViewById(R.id.imgUserAvatar);
         tvFullname = findViewById(R.id.tvFullname);
         btnAddfriend = findViewById(R.id.btnAddfriend);
+        btnListFriend = findViewById(R.id.btnListFriend);
         btnDecline = findViewById(R.id.btnDecline);
         btnMessage = findViewById(R.id.btnMessage);
         gvPosts = findViewById(R.id.gvPosts);
@@ -172,6 +175,13 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        btnListFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: open FriendListActivity then show the FriendList
+            }
+        });
+
         btnDecline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,7 +200,10 @@ public class ProfileActivity extends AppCompatActivity {
         btnMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: open ChatDetailActivity then do the things
+                // open ChatDetailActivity then do the things
+                Intent myIntent = new Intent(ProfileActivity.this, ChatDetailActivity.class);
+                myIntent.putExtra(ApplicationInfo.KEY_TO_CHAT_DETAIL_ACTIVITY, username);
+                startActivity(myIntent);
             }
         });
 
@@ -504,6 +517,7 @@ public class ProfileActivity extends AppCompatActivity {
                             if (username.equals(i)) {
                                 btnAddfriend.setVisibility(View.VISIBLE);
                                 btnDecline.setVisibility(View.VISIBLE);
+                                btnMessage.setVisibility(View.GONE);
                                 btnAddfriend.setText("Accept");
                                 return;
                             }
@@ -546,6 +560,7 @@ public class ProfileActivity extends AppCompatActivity {
                             if (ApplicationInfo.username.equals(i)) {
                                 btnAddfriend.setVisibility(View.VISIBLE);
                                 btnDecline.setVisibility(View.GONE);
+                                btnMessage.setVisibility(View.GONE);
                                 btnAddfriend.setText("Cancel request");
                                 return;
                             }
@@ -588,6 +603,7 @@ public class ProfileActivity extends AppCompatActivity {
                             if (ApplicationInfo.username.equals(i)) {
                                 btnAddfriend.setVisibility(View.VISIBLE);
                                 btnDecline.setVisibility(View.GONE);
+                                btnMessage.setVisibility(View.VISIBLE);
                                 btnAddfriend.setText("Unfriend");
                                 return;
                             }
@@ -595,6 +611,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                         btnAddfriend.setVisibility(View.VISIBLE);
                         btnDecline.setVisibility(View.GONE);
+                        btnMessage.setVisibility(View.GONE);
                         btnAddfriend.setText("Add friend");
                     } else {
                         Toast.makeText(ProfileActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();

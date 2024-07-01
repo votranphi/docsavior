@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,9 @@ public class ConversationAdapter extends ArrayAdapter<Conversation> {
         tvFriendUsername.setText(conversation.getUsername());
 
         tvLastMessage.setText(conversation.getLastMessage());
+        if (!conversation.getIsSeen()) {
+            tvLastMessage.setTypeface(Typeface.DEFAULT_BOLD);
+        }
 
         btnFriendProfile.setOnClickListener(new View.OnClickListener() {
             @Override

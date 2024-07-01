@@ -200,9 +200,9 @@ public class ConversationFragment extends Fragment {
 
                         Conversation conversation = null;
                         if (latestMessage.getUsername().equals(ApplicationInfo.username)) {
-                            conversation = new Conversation(sender, latestMessage.getContent());
+                            conversation = new Conversation(sender, latestMessage.getContent(), latestMessage.getIsSeen());
                         } else {
-                            conversation = new Conversation(sender, "You: " + latestMessage.getContent());
+                            conversation = new Conversation(sender, "You: " + latestMessage.getContent(), true);
                         }
                         conversationArrayList.add(conversation);
                         conversationAdapter.notifyDataSetChanged();
