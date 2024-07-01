@@ -67,6 +67,7 @@ public class SignUpActivity extends AppCompatActivity {
                         if (!edPassword.getText().toString().equals(edPasswordConfirm.getText().toString()))
                         {
                             Toast.makeText(SignUpActivity.this, "Confirm password is incorrect!", Toast.LENGTH_LONG).show();
+                            return;
                         }
                         // create intent to start SignUpUserInfoActivity
                         Intent myIntent = new Intent(SignUpActivity.this, SignUpUserInfoActivity.class);
