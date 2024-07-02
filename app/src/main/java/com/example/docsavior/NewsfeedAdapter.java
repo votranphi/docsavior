@@ -96,7 +96,7 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
             } else {
                 holder.imgPost.setVisibility(View.GONE);
                 holder.documentName.setText(nf.getFileName() + "." + nf.getFileExtension());
-                holder.documentIcon.setVisibility(View.GONE);
+                holder.documentIcon.setVisibility(View.VISIBLE);
                 holder.documentName.setVisibility(View.VISIBLE);
             }
 
