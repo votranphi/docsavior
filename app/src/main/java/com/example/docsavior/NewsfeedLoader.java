@@ -45,6 +45,8 @@ public class NewsfeedLoader extends Thread {
     public void run() {
         getNumberOfPosts(); // get total posts
 
+        loadPostForTheFirstTime();
+
         setOnClickListeners();
     }
 
@@ -69,7 +71,6 @@ public class NewsfeedLoader extends Thread {
                     if(response.isSuccessful())
                     {
                         numberOfPost = response.body().intValue();
-                        loadPostForTheFirstTime();
                     }
                 }
                 catch (Exception t)
