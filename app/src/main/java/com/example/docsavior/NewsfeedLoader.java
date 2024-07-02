@@ -27,12 +27,10 @@ public class NewsfeedLoader extends Thread {
     private ArrayList<Newsfeed> newsfeedArrayList;
     private NewsfeedAdapter newsFeedAdapter;
     private TextView tvNothing;
-    private Map<Integer, Newsfeed> postCache = new HashMap<>();
     private Boolean isLoading = false; // check if app is calling api
     private int numberOfPost; // total posts in database
     private int page = 0;
     private final int PAGE_SIZE = 5; // page size (load PAGE_SIZE post after scroll to the bottom of the ListView)
-    private final int NUMBER_OF_POST_LOADED_FIRST = 5; // the number of posts will be loaded to the screen first time user enters the newsfeed screen
 
     public NewsfeedLoader(Context context, RecyclerView lvPost, ArrayList<Newsfeed> newsfeedArrayList, NewsfeedAdapter newsFeedAdapter, TextView tvNothing) {
         super();
@@ -47,15 +45,11 @@ public class NewsfeedLoader extends Thread {
     public void run() {
         getNumberOfPosts(); // get total posts
 
-        loadPostForTheFirstTime();
-
         setOnClickListeners();
     }
 
     private void loadPostForTheFirstTime() {
-        for (int i = 0; i < NUMBER_OF_POST_LOADED_FIRST; i++) {
-            getSequenceOfPost(i, PAGE_SIZE);
-        }
+        getSequenceOfPost(0, PAGE_SIZE);
     }
 
     private void getNumberOfPosts()
@@ -75,6 +69,7 @@ public class NewsfeedLoader extends Thread {
                     if(response.isSuccessful())
                     {
                         numberOfPost = response.body().intValue();
+                        loadPostForTheFirstTime();
                     }
                 }
                 catch (Exception t)
@@ -96,7 +91,7 @@ public class NewsfeedLoader extends Thread {
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                if (!recyclerView.canScrollVertically(0) && !isLoading && page <= (numberOfPost / PAGE_SIZE) + 1 && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                if (/*!recyclerView.canScrollVertically(0) &&*/ !isLoading && page <= (numberOfPost / PAGE_SIZE) + 1 && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
                     isLoading = true; // app is calling api
                     getSequenceOfPost(page, PAGE_SIZE);
                 }
@@ -124,13 +119,9 @@ public class NewsfeedLoader extends Thread {
                         page++; // if response successfully, page increase one more
                         // add the elements in responseList to newsfeedArrayList
                         for (Newsfeed i : responseList) {
-                            if(!postCache.containsKey(i.getId())) // check if this post already load
-                            {
-                                newsfeedArrayList.add(i);
-                                // update the ListView every one post
-                                newsFeedAdapter.notifyDataSetChanged();
-                                postCache.put(i.getId(), i); // put post into cache
-                            }
+                            newsfeedArrayList.add(i);
+                            // update the ListView every one post
+                            newsFeedAdapter.notifyItemInserted(newsfeedArrayList.size() - 1);
                         }
 
                         // set the visibility of "NOTHING TO SHOW" to GONE
