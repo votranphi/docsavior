@@ -123,6 +123,11 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
         return  newsfeedList.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return newsfeedList.get(position).hashCode();
+    }
+
     // Bên trong class adapter
 
     public class ViewHolder extends RecyclerView.ViewHolder {
