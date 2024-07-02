@@ -23,7 +23,7 @@ public interface ApiService {
     @GET("/user/me")
     Call<User> getUserInfo(@Query("username") String username);
     @POST("/user/avatar")
-    Call<Detail> postAvatar(@Query("username") String username, @Query("avatarData") String avatarData, @Query("avatarName") String avatarName, @Query("avatarExtension") String avatarExtension);
+    Call<Detail> postAvatar(@Body User user);
     @POST("/user/look_up")
     Call<List<User>> postUserLookUp(@Query("lookUpInfo") String lookUpInfo);
     @GET("/user/avatar_data")

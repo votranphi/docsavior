@@ -34,6 +34,13 @@ public class User {
         this.avatarExtension = avatarExtension;
     }
 
+    public User(String username, String avatarData, String avatarName, String avatarExtension) {
+        this.username = username;
+        this.avatarData = avatarData;
+        this.avatarName = avatarName;
+        this.avatarExtension = avatarExtension;
+    }
+
     public User() {
         username = "";
         email = "";

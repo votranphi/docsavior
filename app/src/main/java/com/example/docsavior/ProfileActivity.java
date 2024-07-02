@@ -360,7 +360,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<Detail> call = apiService.postAvatar(ApplicationInfo.username, fileData, fileName, fileExtension);
+        User user = new User(ApplicationInfo.username, fileData, fileName, fileExtension);
+
+        Call<Detail> call = apiService.postAvatar(user);
 
         call.enqueue(new Callback<Detail>() {
             @Override
