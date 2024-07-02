@@ -83,14 +83,14 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
 
             // Set user's avatar
             if (avatarCache.containsKey(nf.getUsername())) {
-                setImage(holder.profileImg,avatarCache.get(nf.getUsername()));
+                setImage(holder.profileImg, avatarCache.get(nf.getUsername()), false);
             } else {
                 getUserInfoAndSetAvatar(holder.profileImg, nf.getUsername());
             }
 
             // Set post's image if the file is an image type
             if (nf.getFileExtension().equals("jpg") || nf.getFileExtension().equals("png") || nf.getFileExtension().equals("jpeg")) {
-                setImage(holder.imgPost, nf.getFileData());
+                setImage(holder.imgPost, nf.getFileData(), true);
                 holder.documentName.setVisibility(View.GONE);
                 holder.documentIcon.setVisibility(View.GONE);
             } else {
@@ -525,7 +525,7 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
                 try {
                     if (response.isSuccessful()) {
                         // after getting the user's info, set the avatar
-                        setImage(imageView, response.body().getDetail());
+                        setImage(imageView, response.body().getDetail(), false);
                         avatarCache.put(username, response.body().getDetail().toString());
                     } else {
                         Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
@@ -542,7 +542,7 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
         });
     }
 
-    private void setImage(ImageView imageView, String avatarData) {
+    private void setImage(ImageView imageView, String avatarData, boolean isPostImage) {
         try {
             if (!avatarData.isEmpty()) {
                 // create jsonArray to store avatarData
@@ -555,8 +555,11 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
                     byteArray[i] = (byte)temp;
                 }
 
-
-                Glide.with(context).load(byteArray).placeholder(R.drawable.loading).into(imageView);
+                if (isPostImage) {
+                    Glide.with(context).load(byteArray).placeholder(R.drawable.loading).into(imageView);
+                } else {
+                    Glide.with(context).load(byteArray).placeholder(R.drawable.user_icon_black).into(imageView);
+                }
 
 //                // convert byteArray to bitmap
 //                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
