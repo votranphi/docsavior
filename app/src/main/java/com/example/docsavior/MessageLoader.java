@@ -34,8 +34,8 @@ public class MessageLoader extends Thread {
     public void run() {
         try {
             while (true) {
-                getUnseenMessage();
                 getAndSetUserStatus(username);
+                getUnseenMessage();
 
                 // get unseen message after every 5s
                 Thread.sleep(5000);

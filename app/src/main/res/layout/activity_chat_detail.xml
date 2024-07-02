@@ -114,7 +114,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tvStatus"
                 android:layout_below="@+id/tvFriendUsername"
-                android:text="@string/online"
                 android:layout_toEndOf="@+id/rlBtnFriendProfile"
                 android:textSize="15sp"
                 android:layout_marginStart="10dp"/>

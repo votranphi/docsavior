@@ -143,7 +143,7 @@ public class ChatDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // start calling this user
-                if (tvStatus.getText().toString().equals("Offline")) {
+                if (tvStatus.getText().toString().equals("Offline") || tvStatus.getText().toString().isEmpty()) {
                     Toast.makeText(ChatDetailActivity.this, "This user is offline!", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -155,7 +155,7 @@ public class ChatDetailActivity extends AppCompatActivity {
         btnVoiceCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (tvStatus.getText().toString().equals("Offline")) {
+                if (tvStatus.getText().toString().equals("Offline") || tvStatus.getText().toString().isEmpty()) {
                     Toast.makeText(ChatDetailActivity.this, "This user is offline!", Toast.LENGTH_SHORT).show();
                     return;
                 }
