@@ -7,7 +7,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -25,21 +24,21 @@ public class NewsfeedLoader extends Thread {
 
     private Context context;
     private RecyclerView lvPost;
-    private ArrayList<NewsFeed> newsFeedArrayList;
-    private NewsFeedAdapter newsFeedAdapter;
+    private ArrayList<Newsfeed> newsfeedArrayList;
+    private NewsfeedAdapter newsFeedAdapter;
     private TextView tvNothing;
-    private Map<Integer, NewsFeed> postCache = new HashMap<>();
+    private Map<Integer, Newsfeed> postCache = new HashMap<>();
     private Boolean isLoading = false; // check if app is calling api
     private int numberOfPost; // total posts in database
     private int page;
     private final int PAGE_SIZE = 5; // page size (load PAGE_SIZE post after scroll to the bottom of the ListView)
     private final int NUMBER_OF_POST_LOADED_FIRST = 5; // the number of posts will be loaded to the screen first time user enters the newsfeed screen
 
-    public NewsfeedLoader(Context context, RecyclerView lvPost, ArrayList<NewsFeed> newsFeedArrayList, NewsFeedAdapter newsFeedAdapter, TextView tvNothing) {
+    public NewsfeedLoader(Context context, RecyclerView lvPost, ArrayList<Newsfeed> newsfeedArrayList, NewsfeedAdapter newsFeedAdapter, TextView tvNothing) {
         super();
         this.context = context;
         this.lvPost = lvPost;
-        this.newsFeedArrayList = newsFeedArrayList;
+        this.newsfeedArrayList = newsfeedArrayList;
         this.newsFeedAdapter = newsFeedAdapter;
         this.tvNothing = tvNothing;
         this.page = 1;
@@ -115,20 +114,20 @@ public class NewsfeedLoader extends Thread {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<List<NewsFeed>> call = apiService.getSequenceOfPost(number, pageSize);
+        Call<List<Newsfeed>> call = apiService.getSequenceOfPost(number, pageSize);
 
-        call.enqueue(new Callback<List<NewsFeed>>() {
+        call.enqueue(new Callback<List<Newsfeed>>() {
             @Override
-            public void onResponse(Call<List<NewsFeed>> call, Response<List<NewsFeed>> response) {
+            public void onResponse(Call<List<Newsfeed>> call, Response<List<Newsfeed>> response) {
                 try {
                     if (response.isSuccessful()) {
-                        List<NewsFeed> responseList = response.body();
+                        List<Newsfeed> responseList = response.body();
                         page++; // if response successfully, page increase one more
-                        // add the elements in responseList to newsFeedArrayList
-                        for (NewsFeed i : responseList) {
+                        // add the elements in responseList to newsfeedArrayList
+                        for (Newsfeed i : responseList) {
                             if(!postCache.containsKey(i.getId())) // check if this post already load
                             {
-                                newsFeedArrayList.add(i);
+                                newsfeedArrayList.add(i);
                                 // update the ListView every one post
                                 newsFeedAdapter.notifyDataSetChanged();
                                 postCache.put(i.getId(), i); // put post into cache
@@ -151,7 +150,7 @@ public class NewsfeedLoader extends Thread {
             }
 
             @Override
-            public void onFailure(Call<List<NewsFeed>> call, Throwable t) {
+            public void onFailure(Call<List<Newsfeed>> call, Throwable t) {
                 Toast.makeText(context, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 isLoading = false; // after calling api, set isLoading to false
             }

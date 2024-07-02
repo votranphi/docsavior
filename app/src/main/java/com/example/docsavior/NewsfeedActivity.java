@@ -1,16 +1,9 @@
 package com.example.docsavior;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,20 +12,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.zegocloud.uikit.prebuilt.call.ZegoUIKitPrebuiltCallService;
 import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationConfig;
-import com.zegocloud.uikit.prebuilt.call.invite.ZegoUIKitPrebuiltCallInvitationService;
 
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
-public class NewsFeedActivity extends AppCompatActivity implements FragmentNavigation {
+public class NewsfeedActivity extends AppCompatActivity implements FragmentNavigation {
     ViewPager2 viewPager2 = null;
 
     @Override
@@ -56,7 +37,7 @@ public class NewsFeedActivity extends AppCompatActivity implements FragmentNavig
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
 
         //Gắn adapter cho ViewPager2
-        ViewPager2Adapter viewPager2Adapter = new ViewPager2Adapter(NewsFeedActivity.this, this);
+        ViewPager2Adapter viewPager2Adapter = new ViewPager2Adapter(NewsfeedActivity.this, this);
         viewPager2.setAdapter(viewPager2Adapter);
 
         // Chức năng cho ViewPager2 mỗi khi lướt tới 1 viewpager nào đó sẽ đồng bộ với thanh điều hướng tuương ứng

@@ -21,7 +21,7 @@ public class ViewPager2Adapter extends FragmentStateAdapter {
         // Khi lướt tới vị trí nào là sẽ hiển thị fragment của page đó
         switch (position) {
             case 0:
-                return new NewsFeedFragment();
+                return new NewsfeedFragment();
             case 1:
                 return new ConversationFragment();
             case 2:

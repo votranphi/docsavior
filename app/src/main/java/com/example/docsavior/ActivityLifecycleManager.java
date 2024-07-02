@@ -69,9 +69,9 @@ public class ActivityLifecycleManager implements Application.ActivityLifecycleCa
             public void onResponse(Call<Detail> call, Response<Detail> response) {
                 try {
                     if (response.isSuccessful()) {
-                        // Toast.makeText(NewsFeedActivity.this, "Logout successfully!", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(NewsfeedActivity.this, "Logout successfully!", Toast.LENGTH_SHORT).show();
                     } else {
-                        // Toast.makeText(NewsFeedActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                        // Toast.makeText(NewsfeedActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
                     Log.e("ERROR1: ", String.valueOf(response.code()));
@@ -80,7 +80,7 @@ public class ActivityLifecycleManager implements Application.ActivityLifecycleCa
 
             @Override
             public void onFailure(Call<Detail> call, Throwable t) {
-                // Toast.makeText(NewsFeedActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                // Toast.makeText(NewsfeedActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -100,9 +100,9 @@ public class ActivityLifecycleManager implements Application.ActivityLifecycleCa
             public void onResponse(Call<Detail> call, Response<Detail> response) {
                 try {
                     if (response.isSuccessful()) {
-                        // Toast.makeText(NewsFeedActivity.this, "Logout successfully!", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(NewsfeedActivity.this, "Logout successfully!", Toast.LENGTH_SHORT).show();
                     } else {
-                        // Toast.makeText(NewsFeedActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                        // Toast.makeText(NewsfeedActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception ex) {
                     Log.e("ERROR1: ", String.valueOf(response.code()));
@@ -111,7 +111,7 @@ public class ActivityLifecycleManager implements Application.ActivityLifecycleCa
 
             @Override
             public void onFailure(Call<Detail> call, Throwable t) {
-                // Toast.makeText(NewsFeedActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
+                // Toast.makeText(NewsfeedActivity.this, "FAILURE: " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }

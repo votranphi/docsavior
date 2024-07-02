@@ -1,29 +1,22 @@
 package com.example.docsavior;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,8 +32,8 @@ public class LookUpResultActivity extends AppCompatActivity {
     private RecyclerView lvResult;
 
     // use two variables below if user looks for post
-    private NewsFeedAdapter newsFeedAdapter;
-    private ArrayList<NewsFeed> newsFeedArrayList;
+    private NewsfeedAdapter newsFeedAdapter;
+    private ArrayList<Newsfeed> newsfeedArrayList;
 
     // use two variables below if user looks for friend or chat conversation
     private FriendAdapter friendAdapter;
@@ -91,8 +84,8 @@ public class LookUpResultActivity extends AppCompatActivity {
         }
 
         if (itemType == 0) {
-            newsFeedArrayList = new ArrayList<>();
-            newsFeedAdapter = new NewsFeedAdapter(this, newsFeedArrayList);
+            newsfeedArrayList = new ArrayList<>();
+            newsFeedAdapter = new NewsfeedAdapter(this, newsfeedArrayList);
             lvResult.setAdapter(newsFeedAdapter);
         } else if (itemType == 1) {
             friendArrayList = new ArrayList<>();
@@ -127,16 +120,16 @@ public class LookUpResultActivity extends AppCompatActivity {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<FoundNewsfeeds> call = apiService.postPostLookUp(lookUpInfo);
+        Call<List<Newsfeed>> call = apiService.postPostLookUp(lookUpInfo);
 
-        call.enqueue(new Callback<FoundNewsfeeds>() {
+        call.enqueue(new Callback<List<Newsfeed>>() {
             @Override
-            public void onResponse(Call<FoundNewsfeeds> call, Response<FoundNewsfeeds> response) {
+            public void onResponse(Call<List<Newsfeed>> call, Response<List<Newsfeed>> response) {
                 try {
                     if (response.isSuccessful()) {
-                        FoundNewsfeeds foundNewsfeeds = response.body();
+                        List<Newsfeed> foundNewsfeeds = response.body();
 
-                        if (foundNewsfeeds.getFoundNewsfeeds().length == 0) {
+                        if (foundNewsfeeds.size() == 0) {
                             tvNothing.setVisibility(View.VISIBLE);
                         } else {
                             tvNothing.setVisibility(View.GONE);
@@ -153,17 +146,15 @@ public class LookUpResultActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<FoundNewsfeeds> call, Throwable t) {
+            public void onFailure(Call<List<Newsfeed>> call, Throwable t) {
                 Toast.makeText(LookUpResultActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void assignFoundNewsfeedsToListView(FoundNewsfeeds foundNewsfeeds) {
-        NewsFeed[] newsFeeds = foundNewsfeeds.getFoundNewsfeeds();
-
-        for (int i = 0; i < newsFeeds.length; i++) {
-            newsFeedArrayList.add(newsFeeds[i]);
+    private void assignFoundNewsfeedsToListView(List<Newsfeed> foundNewsfeeds) {
+        for (int i = 0; i < foundNewsfeeds.size(); i++) {
+            newsfeedArrayList.add(foundNewsfeeds.get(i));
             newsFeedAdapter.notifyDataSetChanged();
         }
     }
@@ -261,16 +252,16 @@ public class LookUpResultActivity extends AppCompatActivity {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<FoundUsers> call = apiService.postUserLookUp(lookUpInfo);
+        Call<List<User>> call = apiService.postUserLookUp(lookUpInfo);
 
-        call.enqueue(new Callback<FoundUsers>() {
+        call.enqueue(new Callback<List<User>>() {
             @Override
-            public void onResponse(Call<FoundUsers> call, Response<FoundUsers> response) {
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 try {
                     if (response.isSuccessful()) {
-                        FoundUsers foundUsers = response.body();
+                        List<User> foundUsers = response.body();
 
-                        if (foundUsers.getFoundUsers().length == 0) {
+                        if (foundUsers.size() == 0) {
                             tvNothing.setVisibility(View.VISIBLE);
                         } else {
                             tvNothing.setVisibility(View.GONE);
@@ -287,17 +278,15 @@ public class LookUpResultActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<FoundUsers> call, Throwable t) {
+            public void onFailure(Call<List<User>> call, Throwable t) {
                 Toast.makeText(LookUpResultActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void assignFoundUsersToListView(FoundUsers foundUsers) {
-        User[] users = foundUsers.getFoundUsers();
-
-        for (int i = 0; i < users.length; i++) {
-            Friend friend = new Friend(users[i].getAvatarData(), users[i].getUsername());
+    private void assignFoundUsersToListView(List<User> foundUsers) {
+        for (int i = 0; i < foundUsers.size(); i++) {
+            Friend friend = new Friend(foundUsers.get(i).getAvatarData(), foundUsers.get(i).getUsername());
             friendArrayList.add(friend);
             friendAdapter.notifyDataSetChanged();
         }

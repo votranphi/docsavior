@@ -18,11 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import org.json.JSONArray;
 
@@ -64,7 +60,7 @@ public class PostDetailActivity extends AppCompatActivity {
     private ImageView imgPost;
     private TextView tvDocumentName;
 
-    private NewsFeed newsFeed = null;
+    private Newsfeed newsFeed = null;
 
     private TextView tvDateTime;
 
@@ -447,7 +443,7 @@ public class PostDetailActivity extends AppCompatActivity {
         postDetailAdapter = new PostDetailAdapter(this, R.layout.item_post_detail, postDetailArrayList);
         lvComment.setAdapter(postDetailAdapter);
 
-        // retrieve the post's id from NewsFeedAdapter
+        // retrieve the post's id from NewsfeedAdapter
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             int postId = extras.getInt(ApplicationInfo.KEY_TO_POST_DETAIL_ACTIVITY);
@@ -483,11 +479,11 @@ public class PostDetailActivity extends AppCompatActivity {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<NewsFeed> call = apiService.getNewsfeedById(id);
+        Call<Newsfeed> call = apiService.getNewsfeedById(id);
 
-        call.enqueue(new Callback<NewsFeed>() {
+        call.enqueue(new Callback<Newsfeed>() {
             @Override
-            public void onResponse(Call<NewsFeed> call, Response<NewsFeed> response) {
+            public void onResponse(Call<Newsfeed> call, Response<Newsfeed> response) {
                 try {
                     if (response.isSuccessful()) {
                         newsFeed = response.body();
@@ -512,7 +508,7 @@ public class PostDetailActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<NewsFeed> call, Throwable t) {
+            public void onFailure(Call<Newsfeed> call, Throwable t) {
                 Toast.makeText(PostDetailActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

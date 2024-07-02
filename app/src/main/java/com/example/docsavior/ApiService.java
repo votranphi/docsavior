@@ -1,9 +1,9 @@
 package com.example.docsavior;
 
-import java.sql.Blob;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -25,7 +25,7 @@ public interface ApiService {
     @POST("/user/avatar")
     Call<Detail> postAvatar(@Query("username") String username, @Query("avatarData") String avatarData, @Query("avatarName") String avatarName, @Query("avatarExtension") String avatarExtension);
     @POST("/user/look_up")
-    Call<FoundUsers> postUserLookUp(@Query("lookUpInfo") String lookUpInfo);
+    Call<List<User>> postUserLookUp(@Query("lookUpInfo") String lookUpInfo);
     @GET("/user/avatar_data")
     Call<Detail> getAvatarData(@Query("username") String username);
     @POST("/user/update_user_info")
@@ -45,11 +45,11 @@ public interface ApiService {
 
 
     @GET("/newsfeed/all")
-    Call<List<NewsFeed>> getAllPosts();
+    Call<List<Newsfeed>> getAllPosts();
     @GET("/newsfeed/post")
-    Call<List<NewsFeed>> getSequenceOfPost(@Query("page") Integer page, @Query("pageSize") Integer pageSize);
+    Call<List<Newsfeed>> getSequenceOfPost(@Query("page") Integer page, @Query("pageSize") Integer pageSize);
     @POST("/newsfeed/add")
-    Call<Detail> postNewsfeed(@Query("username") String username, @Query("postDescription") String postDescription, @Query("postContent") String postContent, @Query("fileData") String fileData, @Query("fileName") String fileName, @Query("fileExtension") String fileExtension);
+    Call<Detail> postNewsfeed(@Body Newsfeed newsfeed);
     @POST("/newsfeed/like")
     Call<Detail> postLike(@Query("id") Integer id);
     @POST("/newsfeed/unlike")
@@ -59,11 +59,11 @@ public interface ApiService {
     @POST("/newsfeed/undislike")
     Call<Detail> postUndislike(@Query("id") Integer id);
     @GET("/newsfeed/me")
-    Call<List<NewsFeed>> getMyPost(@Query("username") String username);
+    Call<List<Newsfeed>> getMyPost(@Query("username") String username);
     @POST("/newsfeed/look_up")
-    Call<FoundNewsfeeds> postPostLookUp(@Query("lookUpInfo") String lookUpInfo);
+    Call<List<Newsfeed>> postPostLookUp(@Query("lookUpInfo") String lookUpInfo);
     @GET("/newsfeed/id")
-    Call<NewsFeed> getNewsfeedById(@Query("id") Integer id);
+    Call<Newsfeed> getNewsfeedById(@Query("id") Integer id);
     @POST("/newsfeed/comment")
     Call<Detail> postComment(@Query("id") Integer id);
     @POST("/newsfeed/uncomment")

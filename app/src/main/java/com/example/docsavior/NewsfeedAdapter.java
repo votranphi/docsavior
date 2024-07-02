@@ -3,18 +3,15 @@ package com.example.docsavior;
 import static com.example.docsavior.ApplicationInfo.username;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,7 +24,6 @@ import org.json.JSONArray;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,9 +39,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHolder> {
+public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHolder> {
     private Context context;
-    private List<NewsFeed> newsFeedList;
+    private List<Newsfeed> newsfeedList;
     private Map<String, String> avatarCache = new HashMap<>();
     private Map<Integer, Boolean> likedCache = new HashMap<>();
     private Map<Integer, Boolean> dislikedCache = new HashMap<>();
@@ -54,9 +50,9 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     private List<Boolean> isDisliked = new ArrayList<>();
 
 
-    public NewsFeedAdapter(Context context, List<NewsFeed> newsFeedList) {
+    public NewsfeedAdapter(Context context, List<Newsfeed> newsfeedList) {
         this.context = context;
-        this.newsFeedList = newsFeedList;
+        this.newsfeedList = newsfeedList;
     }
 
     @NonNull
@@ -73,7 +69,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         // Get item
-        NewsFeed nf = newsFeedList.get(position);
+        Newsfeed nf = newsfeedList.get(position);
         if (nf != null) {
             holder.username.setText(nf.getUsername());
             holder.postDescription.setText(nf.getPostDescription());
@@ -120,7 +116,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return  newsFeedList.size();
+        return  newsfeedList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -169,7 +165,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             public void onClick(View v) {
                 try {
                     // get the post first
-                    NewsFeed post = newsFeedList.get(position);
+                    Newsfeed post = newsfeedList.get(position);
 
                     // create jsonArray to store fileData
                     JSONArray jsonArray = new JSONArray(post.getFileData());
@@ -207,11 +203,11 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                 if(isLiked.get(position)) // if already liked
                 {
                     // call api to delete the like notification
-                    deleteNotification(newsFeedList.get(position).getUsername(), 0, newsFeedList.get(position).getId(), username);
+                    deleteNotification(newsfeedList.get(position).getUsername(), 0, newsfeedList.get(position).getId(), username);
 
                     isLiked.set(position, false);
                     holder.btnLike.setImageResource(R.drawable.like_icon);
-                    Call<Detail> callNewsfeed = apiService.postUnlike(newsFeedList.get(position).getId());
+                    Call<Detail> callNewsfeed = apiService.postUnlike(newsfeedList.get(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
                         public void onResponse(Call<Detail> call, Response<Detail> response) {
@@ -245,11 +241,11 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                     }
 
                     // call api to post the like notification
-                    postNotification(newsFeedList.get(position).getUsername(), 0, newsFeedList.get(position).getId(), username);
+                    postNotification(newsfeedList.get(position).getUsername(), 0, newsfeedList.get(position).getId(), username);
 
                     holder.btnLike.setImageResource(R.drawable.like_icon_red);
                     isLiked.set(position, true);
-                    Call<Detail> callNewsfeed = apiService.postLike(newsFeedList.get(position).getId());
+                    Call<Detail> callNewsfeed = apiService.postLike(newsfeedList.get(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
                         public void onResponse(Call<Detail> call, Response<Detail> response) {
@@ -275,7 +271,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                     });
                 }
 
-                Call<Detail> callUserInteract = apiService.postInteract(username, newsFeedList.get(position).getId(), true);
+                Call<Detail> callUserInteract = apiService.postInteract(username, newsfeedList.get(position).getId(), true);
                 callUserInteract.enqueue(new Callback<Detail>() {
                     @Override
                     public void onResponse(Call<Detail> call, Response<Detail> response) {
@@ -312,11 +308,11 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                 if(isDisliked.get(position))
                 {
                     // call api to delete the dislike notification
-                    deleteNotification(newsFeedList.get(position).getUsername(), 1, newsFeedList.get(position).getId(), username);
+                    deleteNotification(newsfeedList.get(position).getUsername(), 1, newsfeedList.get(position).getId(), username);
 
                     isDisliked.set(position, false);
                     holder.btnDislike.setImageResource(R.drawable.dislike_icon);
-                    Call<Detail> callNewsfeed = apiService.postUndislike(newsFeedList.get(position).getId());
+                    Call<Detail> callNewsfeed = apiService.postUndislike(newsfeedList.get(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
                         public void onResponse(Call<Detail> call, Response<Detail> response) {
@@ -349,11 +345,11 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                     }
 
                     // call api to post the dislike notification
-                    postNotification(newsFeedList.get(position).getUsername(), 1, newsFeedList.get(position).getId(), username);
+                    postNotification(newsfeedList.get(position).getUsername(), 1, newsfeedList.get(position).getId(), username);
 
                     isDisliked.set(position, true);
                     holder.btnDislike.setImageResource(R.drawable.dislike_icon_red);
-                    Call<Detail> callNewsfeed = apiService.postDislike(newsFeedList.get(position).getId());
+                    Call<Detail> callNewsfeed = apiService.postDislike(newsfeedList.get(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
                         @Override
                         public void onResponse(Call<Detail> call, Response<Detail> response) {
@@ -379,7 +375,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                     });
 
                 }
-                Call<Detail> callUserInteract = apiService.postInteract(username, newsFeedList.get(position).getId(), false);
+                Call<Detail> callUserInteract = apiService.postInteract(username, newsfeedList.get(position).getId(), false);
                 callUserInteract.enqueue(new Callback<Detail>() {
                     @Override
                     public void onResponse(Call<Detail> call, Response<Detail> response) {
@@ -412,7 +408,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                 // open the comment activity then let the user comment, code API to increase comment number of this post by 1 then call it in there if user really comment
                 Intent myIntent = new Intent(context, PostDetailActivity.class);
                 // put the id array list
-                myIntent.putExtra(ApplicationInfo.KEY_TO_POST_DETAIL_ACTIVITY, newsFeedList.get(position).getId());
+                myIntent.putExtra(ApplicationInfo.KEY_TO_POST_DETAIL_ACTIVITY, newsfeedList.get(position).getId());
                 // start activity
                 context.startActivity(myIntent);
             }
@@ -423,7 +419,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     {
         Retrofit retrofit = new Retrofit.Builder().baseUrl(ApplicationInfo.apiPath).addConverterFactory(GsonConverterFactory.create()).build();
         ApiService apiService = retrofit.create(ApiService.class);
-        Call<Detail> call = apiService.getInteract(username, newsFeedList.get(position).getId());
+        Call<Detail> call = apiService.getInteract(username, newsfeedList.get(position).getId());
         call.enqueue(new Callback<Detail>() {
             @Override
             public void onResponse(Call<Detail> call, Response<Detail> response) {
@@ -435,24 +431,24 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                         {
                             holder.btnLike.setImageResource(R.drawable.like_icon_red);
                             isLiked.set(position, true);
-                            likedCache.put(newsFeedList.get(position).getId(), true);
-                            dislikedCache.put(newsFeedList.get(position).getId(), false);
-                            noInteractCache.put(newsFeedList.get(position).getId(), false);
+                            likedCache.put(newsfeedList.get(position).getId(), true);
+                            dislikedCache.put(newsfeedList.get(position).getId(), false);
+                            noInteractCache.put(newsfeedList.get(position).getId(), false);
                             // add animation change from like to unlike
                         } else if (res.equals("dislike"))
                         {
                             holder.btnDislike.setImageResource(R.drawable.dislike_icon_red);
                             isDisliked.set(position, true);
-                            dislikedCache.put(newsFeedList.get(position).getId(), true);
-                            likedCache.put(newsFeedList.get(position).getId(), false);
-                            noInteractCache.put(newsFeedList.get(position).getId(), false);
+                            dislikedCache.put(newsfeedList.get(position).getId(), true);
+                            likedCache.put(newsfeedList.get(position).getId(), false);
+                            noInteractCache.put(newsfeedList.get(position).getId(), false);
                             // add animation change from dislike to undislike
                         }
                         else
                         {
-                            noInteractCache.put(newsFeedList.get(position).getId(), true);
-                            dislikedCache.put(newsFeedList.get(position).getId(), false);
-                            likedCache.put(newsFeedList.get(position).getId(), false);
+                            noInteractCache.put(newsfeedList.get(position).getId(), true);
+                            dislikedCache.put(newsfeedList.get(position).getId(), false);
+                            likedCache.put(newsfeedList.get(position).getId(), false);
                         }
                     }
                     else {

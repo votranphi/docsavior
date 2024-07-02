@@ -2,39 +2,25 @@ package com.example.docsavior;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link NewsFeedFragment#newInstance} factory method to
+ * Use the {@link NewsfeedFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewsFeedFragment extends Fragment {
+public class NewsfeedFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,7 +31,7 @@ public class NewsFeedFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public NewsFeedFragment() {
+    public NewsfeedFragment() {
         // Required empty public constructor
     }
 
@@ -58,8 +44,8 @@ public class NewsFeedFragment extends Fragment {
      * @return A new instance of fragment NewFeedFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewsFeedFragment newInstance(String param1, String param2) {
-        NewsFeedFragment fragment = new NewsFeedFragment();
+    public static NewsfeedFragment newInstance(String param1, String param2) {
+        NewsfeedFragment fragment = new NewsfeedFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -88,8 +74,8 @@ public class NewsFeedFragment extends Fragment {
     private ImageButton btnLookup;
     private ImageButton btnProfile;
     private RecyclerView lvPost;
-    private NewsFeedAdapter newsFeedAdapter;
-    private ArrayList<NewsFeed> newsFeedArrayList;
+    private NewsfeedAdapter newsFeedAdapter;
+    private ArrayList<Newsfeed> newsfeedArrayList;
     private TextView tvNothing;
 
     private NewsfeedLoader newsfeedLoader;
@@ -144,11 +130,11 @@ public class NewsFeedFragment extends Fragment {
     }
 
     private void initVariables() {
-        newsFeedArrayList = new ArrayList<>();
-        newsFeedAdapter = new NewsFeedAdapter(getActivity(), newsFeedArrayList);
+        newsfeedArrayList = new ArrayList<>();
+        newsFeedAdapter = new NewsfeedAdapter(getActivity(), newsfeedArrayList);
         lvPost.setAdapter(newsFeedAdapter);
         lvPost.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        newsfeedLoader = new NewsfeedLoader(getActivity(), lvPost, newsFeedArrayList, newsFeedAdapter, tvNothing);
+        newsfeedLoader = new NewsfeedLoader(getActivity(), lvPost, newsfeedArrayList, newsFeedAdapter, tvNothing);
     }
 }

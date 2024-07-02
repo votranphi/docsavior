@@ -1,6 +1,5 @@
 package com.example.docsavior;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,23 +8,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,8 +41,8 @@ public class ProfileActivity extends AppCompatActivity {
     private Button btnDecline;
     private Button btnMessage;
     private RecyclerView gvPosts;
-    private NewsFeedAdapter newsFeedAdapter;
-    private ArrayList<NewsFeed> newsFeedArrayList;
+    private NewsfeedAdapter newsFeedAdapter;
+    private ArrayList<Newsfeed> newsfeedArrayList;
 
     private ImageButton btnGoToDetails;
     private ImageButton btnClose;
@@ -238,12 +228,12 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initVariables() {
-        newsFeedArrayList = new ArrayList<>();
-        newsFeedAdapter = new NewsFeedAdapter(this, newsFeedArrayList);
+        newsfeedArrayList = new ArrayList<>();
+        newsFeedAdapter = new NewsfeedAdapter(this, newsfeedArrayList);
         gvPosts.setAdapter(newsFeedAdapter);
         gvPosts.setLayoutManager(new LinearLayoutManager(this));
 
-        // retrieve the isMyInfo from NewsFeedFragment
+        // retrieve the isMyInfo from NewsfeedFragment
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             username = extras.getString(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY);
@@ -401,18 +391,18 @@ public class ProfileActivity extends AppCompatActivity {
 
         ApiService apiService = retrofit.create(ApiService.class);
 
-        Call<List<NewsFeed>> call = apiService.getMyPost(username);
+        Call<List<Newsfeed>> call = apiService.getMyPost(username);
 
-        call.enqueue(new Callback<List<NewsFeed>>() {
+        call.enqueue(new Callback<List<Newsfeed>>() {
             @Override
-            public void onResponse(Call<List<NewsFeed>> call, Response<List<NewsFeed>> response) {
+            public void onResponse(Call<List<Newsfeed>> call, Response<List<Newsfeed>> response) {
                 try {
                     if (response.isSuccessful()) {
-                        List<NewsFeed> responseList = response.body();
+                        List<Newsfeed> responseList = response.body();
 
-                        // add the elements in responseList to newsFeedArrayList
-                        for (NewsFeed i : responseList) {
-                            newsFeedArrayList.add(i);
+                        // add the elements in responseList to newsfeedArrayList
+                        for (Newsfeed i : responseList) {
+                            newsfeedArrayList.add(i);
                             // update the ListView every one post
                             newsFeedAdapter.notifyDataSetChanged();
                         }
@@ -431,7 +421,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<NewsFeed>> call, Throwable t) {
+            public void onFailure(Call<List<Newsfeed>> call, Throwable t) {
                 Toast.makeText(ProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
