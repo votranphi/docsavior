@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -107,6 +108,7 @@ public class NewsfeedFragment extends Fragment {
                 // open the CreatePostActivity when user click the button
                 Intent myIntent = new Intent(getActivity(), CreatePostActivity.class);
                 startActivity(myIntent);
+                requireActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
             }
         });
 
@@ -116,6 +118,7 @@ public class NewsfeedFragment extends Fragment {
                 Intent myIntent = new Intent(getActivity(), LookUpPostUserActivity.class);
                 myIntent.putExtra(ApplicationInfo.KEY_TO_LOOK_UP_POST_USER_ACTIVITY, ApplicationInfo.LOOK_UP_TYPE_POST);
                 startActivity(myIntent);
+                requireActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
             }
         });
 
@@ -125,6 +128,7 @@ public class NewsfeedFragment extends Fragment {
                 Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, ApplicationInfo.username);
                 startActivity(myIntent);
+                requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }

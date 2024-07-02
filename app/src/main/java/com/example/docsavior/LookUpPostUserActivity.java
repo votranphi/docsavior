@@ -123,7 +123,7 @@ public class LookUpPostUserActivity extends AppCompatActivity {
                 myIntent.putStringArrayListExtra(KEY_TO_LOOK_UP_RESULT_ACTIVITY, arrayToPut);
                 // start activity
                 startActivity(myIntent);
-
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
                 // clear the EditText after looking up
                 edLookup.setText("");
             }
@@ -154,6 +154,7 @@ public class LookUpPostUserActivity extends AppCompatActivity {
                 myIntent.putStringArrayListExtra(KEY_TO_LOOK_UP_RESULT_ACTIVITY, arrayToPut);
                 // start activity
                 startActivity(myIntent);
+                //overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
             }
         });
 

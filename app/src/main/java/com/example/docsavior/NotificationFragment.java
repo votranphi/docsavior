@@ -121,6 +121,7 @@ public class NotificationFragment extends Fragment {
                 Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, ApplicationInfo.username);
                 startActivity(myIntent);
+                requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -140,6 +141,7 @@ public class NotificationFragment extends Fragment {
                     // put the id array list
                     myIntent.putExtra(ApplicationInfo.KEY_TO_POST_DETAIL_ACTIVITY, notificationArrayList.get(position).getIdPost());
                     startActivity(myIntent);
+                    requireActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
                 } else if (notiType == 3) {
                     // go to friend fragment
                     if (fragmentNavigation != null) {
@@ -149,6 +151,7 @@ public class NotificationFragment extends Fragment {
                     Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
                     myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, notificationArrayList.get(position).getInteracter());
                     startActivity(myIntent);
+                    requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             }
         });

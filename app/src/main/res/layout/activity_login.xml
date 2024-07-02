@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvDescription"
             android:layout_alignParentBottom="true"
-            android:visibility="gone"
+
             android:id="@+id/relay">
 
             <EditText
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="200dp"
                 android:id="@+id/btnLogin"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_below="@+id/tvRecoveryPassword"
                 android:layout_centerHorizontal="true"
                 android:text="@string/login"
@@ -111,7 +111,7 @@
                 android:clickable="true"
                 android:layout_below="@+id/btnLogin"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:textStyle="italic"
                 android:layout_marginEnd="15dp"/>
         </RelativeLayout>

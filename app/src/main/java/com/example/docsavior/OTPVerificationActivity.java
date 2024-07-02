@@ -132,7 +132,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
                         Intent myIntent = new Intent(OTPVerificationActivity.this, MainActivity.class);
                         Toast.makeText(OTPVerificationActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
                         OTPVerificationActivity.this.startActivity(myIntent);
-
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         Toast.makeText(OTPVerificationActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
                     } else {
                         JSONObject jsonObject = new JSONObject(response.errorBody().string());
