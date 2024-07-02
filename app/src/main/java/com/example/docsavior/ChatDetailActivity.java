@@ -133,6 +133,8 @@ public class ChatDetailActivity extends AppCompatActivity {
 
                 addMessageToRecyclerView(username, ApplicationInfo.username, edMessageBody.getText().toString());
 
+                tvNothing.setVisibility(View.GONE);
+
                 edMessageBody.setText("");
             }
         });

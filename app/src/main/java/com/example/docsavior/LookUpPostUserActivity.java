@@ -85,6 +85,8 @@ public class LookUpPostUserActivity extends AppCompatActivity {
                     return;
                 }
 
+                tvNothing.setVisibility(View.GONE);
+
                 // flag the check if the lookup content is in the ListView
                 boolean isExisted = false;
                 int position = -1;
