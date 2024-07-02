@@ -72,47 +72,49 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
     {
         // Get item
         Newsfeed nf = newsfeedList.get(position);
-        if (nf != null) {
-            holder.username.setText(nf.getUsername());
-            holder.postDescription.setText(nf.getPostDescription());
-            holder.postContent.setText(nf.getPostContent());
-            holder.likeNumber.setText(String.valueOf(nf.getLikeNumber()));
-            holder.dislikeNumber.setText(String.valueOf(nf.getDislikeNumber()));
-            holder.commentNumber.setText(String.valueOf(nf.getCommentNumber()));
-            setPostDateTime(holder.tvDateTime, nf.getTime());
+        if (nf == null) {
+            return;
+        }
 
-            // Set user's avatar
-            if (avatarCache.containsKey(nf.getUsername())) {
-                setImage(holder.profileImg, avatarCache.get(nf.getUsername()), false);
-            } else {
-                getUserInfoAndSetAvatar(holder.profileImg, nf.getUsername());
-            }
+        holder.username.setText(nf.getUsername());
+        holder.postDescription.setText(nf.getPostDescription());
+        holder.postContent.setText(nf.getPostContent());
+        holder.likeNumber.setText(String.valueOf(nf.getLikeNumber()));
+        holder.dislikeNumber.setText(String.valueOf(nf.getDislikeNumber()));
+        holder.commentNumber.setText(String.valueOf(nf.getCommentNumber()));
+        setPostDateTime(holder.tvDateTime, nf.getTime());
 
-            // Set post's image if the file is an image type
-            if (nf.getFileExtension().equals("jpg") || nf.getFileExtension().equals("png") || nf.getFileExtension().equals("jpeg")) {
-                setImage(holder.imgPost, nf.getFileData(), true);
-                holder.documentName.setVisibility(View.GONE);
-                holder.documentIcon.setVisibility(View.GONE);
-            } else {
-                holder.imgPost.setVisibility(View.GONE);
-                holder.documentName.setText(nf.getFileName() + "." + nf.getFileExtension());
-                holder.documentIcon.setVisibility(View.VISIBLE);
-                holder.documentName.setVisibility(View.VISIBLE);
-            }
+        // Set user's avatar
+        if (avatarCache.containsKey(nf.getUsername())) {
+            setImage(holder.profileImg, avatarCache.get(nf.getUsername()), false);
+        } else {
+            getUserInfoAndSetAvatar(holder.profileImg, nf.getUsername());
+        }
 
-            setOnClickListeners(holder, position);
-            if (Boolean.TRUE.equals(likedCache.get(nf.getId())))
-            {
-                holder.btnLike.setImageResource(R.drawable.like_icon_red);
-            } else if (Boolean.TRUE.equals(dislikedCache.get(nf.getId()))) {
-                holder.btnDislike.setImageResource(R.drawable.dislike_icon_red);
-            } else if (Boolean.TRUE.equals(noInteractCache.get(nf.getId()))) {
-                //do nothing
-            }
-            else
-            {
-                checkInteract(holder, position);
-            }
+        // Set post's image if the file is an image type
+        if (nf.getFileExtension().equals("jpg") || nf.getFileExtension().equals("png") || nf.getFileExtension().equals("jpeg")) {
+            setImage(holder.imgPost, nf.getFileData(), true);
+            holder.documentName.setVisibility(View.GONE);
+            holder.documentIcon.setVisibility(View.GONE);
+        } else {
+            holder.imgPost.setVisibility(View.GONE);
+            holder.documentName.setText(nf.getFileName() + "." + nf.getFileExtension());
+            holder.documentIcon.setVisibility(View.VISIBLE);
+            holder.documentName.setVisibility(View.VISIBLE);
+        }
+
+        setOnClickListeners(holder, position);
+        if (Boolean.TRUE.equals(likedCache.get(nf.getId())))
+        {
+            holder.btnLike.setImageResource(R.drawable.like_icon_red);
+        } else if (Boolean.TRUE.equals(dislikedCache.get(nf.getId()))) {
+            holder.btnDislike.setImageResource(R.drawable.dislike_icon_red);
+        } else if (Boolean.TRUE.equals(noInteractCache.get(nf.getId()))) {
+            //do nothing
+        }
+        else
+        {
+            checkInteract(holder, position);
         }
     }
 
