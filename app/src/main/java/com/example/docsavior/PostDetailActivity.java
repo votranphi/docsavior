@@ -147,6 +147,7 @@ public class PostDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
             }
         });
 
@@ -156,6 +157,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(PostDetailActivity.this, ProfileActivity.class);
                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, newsFeed.getUsername());
                 startActivity(myIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 

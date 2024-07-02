@@ -171,6 +171,7 @@ public class ProfileActivity extends AppCompatActivity {
                 // open FriendListActivity then show the FriendList
                 Intent myIntent = new Intent(ProfileActivity.this, FriendListActivity.class);
                 startActivity(myIntent);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
             }
         });
 
@@ -196,6 +197,7 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(ProfileActivity.this, ChatDetailActivity.class);
                 myIntent.putExtra(ApplicationInfo.KEY_TO_CHAT_DETAIL_ACTIVITY, username);
                 startActivity(myIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -216,6 +218,7 @@ public class ProfileActivity extends AppCompatActivity {
                 myIntent.putStringArrayListExtra(KEY_TO_PROFILE_DETAIL_ACTIVITY, arrayToPut);
                 // start activity
                 startActivity(myIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -223,6 +226,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
     }

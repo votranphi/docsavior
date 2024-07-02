@@ -106,6 +106,7 @@ public class SettingFragment extends Fragment {
                 Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, ApplicationInfo.username);
                 startActivity(myIntent);
+                requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -121,6 +122,7 @@ public class SettingFragment extends Fragment {
             public void onClick(View v) {
                 Intent myIntent = new Intent(getActivity(), ChangePasswordActivity.class);
                 startActivity(myIntent);
+                requireActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
             }
         });
 
@@ -134,6 +136,7 @@ public class SettingFragment extends Fragment {
                 // start MainActivity and clear all other activities
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(myIntent);
+                requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
     }
