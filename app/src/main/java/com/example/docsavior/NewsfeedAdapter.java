@@ -20,6 +20,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.json.JSONArray;
 
 import java.io.File;
@@ -553,15 +555,18 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
                     byteArray[i] = (byte)temp;
                 }
 
-                // convert byteArray to bitmap
-                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                // set the avatar
-                imageView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 20, 20, false));
-                    }
-                });
+
+                Glide.with(context).load(byteArray).placeholder(R.drawable.loading).into(imageView);
+
+//                // convert byteArray to bitmap
+//                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+//                // set the avatar
+//                imageView.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 20, 20, false));
+//                    }
+//                });
             }
         } catch (Exception ex) {
             Log.e("ERROR111: ", ex.getMessage());
