@@ -123,6 +123,8 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
         return  newsfeedList.size();
     }
 
+    // Bên trong class adapter
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView username;
         TextView postDescription;
