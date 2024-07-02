@@ -30,7 +30,7 @@ public class NewsfeedLoader extends Thread {
     private Boolean isLoading = false; // check if app is calling api
     private int numberOfPost; // total posts in database
     private int page = 0;
-    private final int PAGE_SIZE = 3; // page size (load PAGE_SIZE post after scroll to the bottom of the ListView)
+    private final int PAGE_SIZE = 5; // page size (load PAGE_SIZE post after scroll to the bottom of the ListView)
 
     public NewsfeedLoader(Context context, RecyclerView lvPost, ArrayList<Newsfeed> newsfeedArrayList, NewsfeedAdapter newsFeedAdapter, TextView tvNothing) {
         super();

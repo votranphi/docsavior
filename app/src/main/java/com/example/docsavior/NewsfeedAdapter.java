@@ -5,8 +5,6 @@ import static com.example.docsavior.ApplicationInfo.username;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,8 +17,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 
 import org.json.JSONArray;
 
@@ -86,18 +82,14 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
 
         // Set user's avatar
         if (avatarCache.containsKey(nf.getUsername())) {
-            new Thread(() -> {
-                setImage(holder.profileImg, avatarCache.get(nf.getUsername()), false);
-            }).run();
+            setImage(holder.profileImg, avatarCache.get(nf.getUsername()), false);
         } else {
             getUserInfoAndSetAvatar(holder.profileImg, nf.getUsername());
         }
 
         // Set post's image if the file is an image type
         if (nf.getFileExtension().equals("jpg") || nf.getFileExtension().equals("png") || nf.getFileExtension().equals("jpeg")) {
-            new Thread(() -> {
-                setImage(holder.imgPost, nf.getFileData(), true);
-            }).run();
+            setImage(holder.imgPost, nf.getFileData(), true);
             holder.documentName.setVisibility(View.GONE);
             holder.documentIcon.setVisibility(View.GONE);
         } else {
@@ -540,9 +532,7 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
                 try {
                     if (response.isSuccessful()) {
                         // after getting the user's info, set the avatar
-                        new Thread(() -> {
-                            setImage(imageView, response.body().getDetail(), false);
-                        }).run();
+                        setImage(imageView, response.body().getDetail(), false);
                         avatarCache.put(username, response.body().getDetail().toString());
                     } else {
                         Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
@@ -562,21 +552,8 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
     private void setImage(ImageView imageView, String avatarData, boolean isPostImage) {
         try {
             if (!avatarData.isEmpty()) {
-                // create jsonArray to store avatarData
-                JSONArray jsonArray = new JSONArray(avatarData);
-
-                // convert jsonArray to byteArray
-                byte[] byteArray = new byte[jsonArray.length()];
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    int temp = (int)jsonArray.get(i);
-                    byteArray[i] = (byte)temp;
-                }
-
-                if (isPostImage) {
-                    Glide.with(context).load(byteArray).placeholder(R.drawable.loading).into(imageView);
-                } else {
-                    Glide.with(context).load(byteArray).placeholder(R.drawable.user_icon_black).into(imageView);
-                }
+                StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(context, avatarData, imageView, isPostImage);
+                stringToImageViewAsync.execute();
             }
         } catch (Exception ex) {
             Log.e("ERROR111: ", ex.getMessage());
