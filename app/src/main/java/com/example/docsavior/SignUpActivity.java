@@ -2,6 +2,7 @@ package com.example.docsavior;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,6 +70,30 @@ public class SignUpActivity extends AppCompatActivity {
                             Toast.makeText(SignUpActivity.this, "Confirm password is incorrect!", Toast.LENGTH_LONG).show();
                             return;
                         }
+
+                        postCheckSignUpInfo(edUsername.getText().toString(), edEmail.getText().toString(), edPhoneNumber.getText().toString());
+                    }
+                }
+        );
+    }
+
+    private void postCheckSignUpInfo(String username, String email, String phoneNumber) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.postCheckSignUpInfo(username, email, phoneNumber);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // start SignUpUserInfoActivity when the information is ok
+
                         // create intent to start SignUpUserInfoActivity
                         Intent myIntent = new Intent(SignUpActivity.this, SignUpUserInfoActivity.class);
                         // create ArrayList of user's info to put to SignUpUserInfoActivity
@@ -82,9 +107,19 @@ public class SignUpActivity extends AppCompatActivity {
                         // start activity
                         startActivity(myIntent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
+                    } else {
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        Toast.makeText(SignUpActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
                     }
+                } catch (Exception ex) {
+                    Log.e("ERROR101: ", ex.getMessage());
                 }
-        );
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(SignUpActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

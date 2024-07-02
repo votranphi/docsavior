@@ -34,6 +34,8 @@ public interface ApiService {
     Call<Detail> getUserStatus(@Query("username") String username);
     @POST("/user/login_to_true")
     Call<Detail> postLoginToTrue(@Query("username") String username);
+    @POST("/user/check")
+    Call<Detail> postCheckSignUpInfo(@Query("username") String username, @Query("email") String email, @Query("phoneNumber") String phoneNumber);
 
 
 
