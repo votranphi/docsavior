@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+
 import org.json.JSONArray;
 
 import java.io.File;
@@ -462,7 +464,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
         // load the image if the post is image
         if (newsFeed.getFileExtension().equals("jpg") || newsFeed.getFileExtension().equals("png") || newsFeed.getFileExtension().equals("jpeg")) {
-            setImage(imgPost, newsFeed.getFileData());
+            setImage(imgPost, newsFeed.getFileData(), true);
         } else {
             imgPost.setVisibility(View.GONE);
         }
@@ -574,7 +576,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 try {
                     if (response.isSuccessful()) {
                         // setting the post's admin avatar after complete loading
-                        setImage(imageView, response.body().getDetail());
+                        setImage(imageView, response.body().getDetail(), false);
                     } else {
                         Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
@@ -695,7 +697,7 @@ public class PostDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void setImage(ImageView imageView, String avatarData) {
+    private void setImage(ImageView imageView, String avatarData, Boolean isPostImage) {
         try {
             if (!avatarData.isEmpty()) {
                 // create jsonArray to store avatarData
@@ -708,10 +710,11 @@ public class PostDetailActivity extends AppCompatActivity {
                     byteArray[i] = (byte)temp;
                 }
 
-                // convert byteArray to bitmap
-                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                // set the avatar
-                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(), imageView.getHeight(), false));
+                if (isPostImage) {
+                    Glide.with(this).load(byteArray).placeholder(R.drawable.loading).into(imageView);
+                } else {
+                    Glide.with(this).load(byteArray).placeholder(R.drawable.user_icon_black).into(imageView);
+                }
             }
         } catch (Exception ex) {
             Log.e("ERROR111: ", ex.getMessage());
