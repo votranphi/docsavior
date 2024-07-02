@@ -30,7 +30,7 @@ public class NewsfeedLoader extends Thread {
     private Boolean isLoading = false; // check if app is calling api
     private int numberOfPost; // total posts in database
     private int page = 0;
-    private final int PAGE_SIZE = 5; // page size (load PAGE_SIZE post after scroll to the bottom of the ListView)
+    private final int PAGE_SIZE = 3; // page size (load PAGE_SIZE post after scroll to the bottom of the ListView)
 
     public NewsfeedLoader(Context context, RecyclerView lvPost, ArrayList<Newsfeed> newsfeedArrayList, NewsfeedAdapter newsFeedAdapter, TextView tvNothing) {
         super();
@@ -125,10 +125,10 @@ public class NewsfeedLoader extends Thread {
                         }
 
                         // set the visibility of "NOTHING TO SHOW" to GONE
-                        tvNothing.setVisibility(View.GONE);
+                        // tvNothing.setVisibility(View.GONE);
                     } else if (response.code() == 600) {
                         // set the visibility of "NOTHING TO SHOW" to VISIBLE
-                        tvNothing.setVisibility(View.VISIBLE);
+                        // tvNothing.setVisibility(View.VISIBLE);
                     } else {
                         Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }

@@ -118,7 +118,9 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
         }
         else
         {
-            checkInteract(holder, position);
+            new Thread(() -> {
+                checkInteract(holder, position);
+            }).start();
         }
     }
 

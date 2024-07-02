@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class NewsfeedPreCachingLayoutManager extends LinearLayoutManager {
-    private int defaultExtraLayoutSpace = 1000;
+    private int defaultExtraLayoutSpace = 800;
     private int extraLayoutSpace = -1;
     private Context context;
 
