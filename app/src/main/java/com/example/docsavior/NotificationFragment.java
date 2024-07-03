@@ -127,30 +127,6 @@ public class NotificationFragment extends Fragment implements NotificationInterf
                 requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-
-//        lvNotification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                int notiType = notificationArrayList.get(position).getType();
-//                if (notiType >= 0 && notiType <= 2) {
-//                    Intent myIntent = new Intent(getActivity(), PostDetailActivity.class);
-//                    // put the id array list
-//                    myIntent.putExtra(ApplicationInfo.KEY_TO_POST_DETAIL_ACTIVITY, notificationArrayList.get(position).getIdPost());
-//                    startActivity(myIntent);
-//                    requireActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
-//                } else if (notiType == 3) {
-//                    // go to friend fragment
-//                    if (fragmentNavigation != null) {
-//                        fragmentNavigation.goToFriendFragment();
-//                    }
-//                } else { // if (notiType >= 4 && notiType <= 5)
-//                    Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
-//                    myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, notificationArrayList.get(position).getInteracter());
-//                    startActivity(myIntent);
-//                    requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-//                }
-//            }
-//        });
     }
 
     private void loadNotifications()
