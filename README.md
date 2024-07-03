@@ -6,7 +6,7 @@ Docsavior is a mobile application designed to help students and learners find th
 
 Nowadays, while you can find many educational documents on the Internet, some specific documents are still very hard to locate. There is a lack of platforms dedicated to sharing these resources freely, and sometimes you find what you need, but it requires a payment. As students, we understand the importance of copyright, but we also recognize that not everyone can afford to pay for these resources.
 
-This is why we created this application to provide a place where learners can contribute and find documents for their studies without any fees. Our goal is to create a community where everyone can post their documents and find what they need for free.
+This is why we created this application — to provide a place where learners can contribute and find documents for their studies without any fees. Our goal is to create a community where everyone can post their documents and find what they need for free.
 
 ## Application description
 
