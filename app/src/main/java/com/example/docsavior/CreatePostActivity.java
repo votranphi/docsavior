@@ -154,9 +154,7 @@ public class CreatePostActivity extends AppCompatActivity {
             public void onResponse(Call<Detail> call, Response<Detail> response) {
                 try {
                     if (response.isSuccessful()) {
-                        Toast.makeText(CreatePostActivity.this, "Upload post successfully!", Toast.LENGTH_SHORT).show();
-
-                        // newsFe123ed.setId(Integer.parseInt(response.body().getDetail()));
+                        Toast.makeText(CreatePostActivity.this, "Your post is uploaded, please refresh newsfeed to see it!", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(CreatePostActivity.this, "Upload post unsuccessfully!", Toast.LENGTH_SHORT).show();
                     }
