@@ -2,6 +2,7 @@ package com.example.docsavior;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -70,6 +71,19 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         // set the notification's content
         holder.tvContent.setText(noti.getInteracter() + " " + noti.getNotificationContent());
+
+        setOnClickListeners(holder, position);
+    }
+
+    private void setOnClickListeners(ViewHolder holder, int position) {
+        holder.profileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(context, ProfileActivity.class);
+                myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, notificationList.get(position).getInteracter());
+                context.startActivity(myIntent);
+            }
+        });
     }
 
     @Override

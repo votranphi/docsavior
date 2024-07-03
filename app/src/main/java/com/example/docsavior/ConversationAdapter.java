@@ -68,11 +68,15 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
 
         holder.tvFriendUsername.setText(conversation.getUsername());
 
+        setOnClickListeners(holder, position);
+
         holder.tvLastMessage.setText(conversation.getLastMessage());
         if (!conversation.getIsSeen()) {
             holder.tvLastMessage.setTypeface(Typeface.DEFAULT_BOLD);
         }
+    }
 
+    private void setOnClickListeners(ViewHolder holder, int position) {
         holder.btnFriendProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +86,6 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return  conversationList.size();
