@@ -700,26 +700,9 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     private void setImage(ImageView imageView, String avatarData, Boolean isPostImage) {
-        try {
-            if (!avatarData.isEmpty()) {
-                // create jsonArray to store avatarData
-                JSONArray jsonArray = new JSONArray(avatarData);
-
-                // convert jsonArray to byteArray
-                byte[] byteArray = new byte[jsonArray.length()];
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    int temp = (int)jsonArray.get(i);
-                    byteArray[i] = (byte)temp;
-                }
-
-                if (isPostImage) {
-                    Glide.with(this).load(byteArray).placeholder(R.drawable.loading).into(imageView);
-                } else {
-                    Glide.with(this).load(byteArray).placeholder(R.drawable.user_icon_black).into(imageView);
-                }
-            }
-        } catch (Exception ex) {
-            Log.e("ERROR111: ", ex.getMessage());
+        if (!avatarData.isEmpty()) {
+            StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(this, avatarData, imageView, isPostImage);
+            stringToImageViewAsync.execute();
         }
     }
 

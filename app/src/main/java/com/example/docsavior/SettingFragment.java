@@ -80,7 +80,6 @@ public class SettingFragment extends Fragment {
 
     // MAIN THINGS FROM HERE
     ImageButton btnProfile;
-    RelativeLayout rltNotification;
     RelativeLayout rltChangePassword;
     RelativeLayout rltLogOut;
 
@@ -94,7 +93,6 @@ public class SettingFragment extends Fragment {
 
     private void findViewByIds() {
         btnProfile = getView().findViewById(R.id.btnProfile);
-        rltNotification = getView().findViewById(R.id.rltNotification);
         rltChangePassword = getView().findViewById(R.id.rltChangePassword);
         rltLogOut = getView().findViewById(R.id.rltLogOut);
     }
@@ -107,13 +105,6 @@ public class SettingFragment extends Fragment {
                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, ApplicationInfo.username);
                 startActivity(myIntent);
                 requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
-
-        rltNotification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO: open the Notification settings
             }
         });
 

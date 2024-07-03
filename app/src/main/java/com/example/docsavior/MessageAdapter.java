@@ -36,8 +36,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private List<Message> messageList;
     private List<Integer> isMyMessage = new ArrayList<>(); // 1 if message at position is my message, 0 if it's not
 
-    private Bitmap myAvatar = null;
-    private Bitmap friendAvatar = null;
+    private String myAvatarData = null;
+    private String friendAvatarData = null;
 
     public MessageAdapter(Context context, List<Message> messageList) {
         this.context = context;
@@ -78,7 +78,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             holder.llFriend.setVisibility(View.VISIBLE);
         }
 
-        if (myAvatar == null && friendAvatar == null) {
+        if (myAvatarData == null && friendAvatarData == null) {
             getMyAvatarBitmap(ApplicationInfo.username, holder.imgProfileMy);
             if (isMyMessage.get(position) == 1) {
                 getFriendAvatarBitmap(message.getUsername(), holder.imgProfileFriend);
@@ -87,9 +87,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             }
         } else {
             if (isMyMessage.get(position) == 1) {
-                setImage(holder.imgProfileMy, myAvatar);
+                setImage(holder.imgProfileMy, myAvatarData);
             } else { // if (isMyMessage.get(position) == 0)
-                setImage(holder.imgProfileFriend, friendAvatar);
+                setImage(holder.imgProfileFriend, friendAvatarData);
             }
         }
 
@@ -175,19 +175,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             public void onResponse(Call<Detail> call, Response<Detail> response) {
                 try {
                     if (response.isSuccessful()) {
-                        // create jsonArray to store avatarData
-                        JSONArray jsonArray = new JSONArray(response.body().getDetail());
+                        myAvatarData = response.body().getDetail();
 
-                        // convert jsonArray to byteArray
-                        byte[] byteArray = new byte[jsonArray.length()];
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            int temp = (int)jsonArray.get(i);
-                            byteArray[i] = (byte)temp;
-                        }
-
-                        // convert byteArray to bitmap
-                        myAvatar = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                        setImage(imageView, myAvatar);
+                        setImage(imageView, myAvatarData);
                     } else {
                         Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
@@ -218,19 +208,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             public void onResponse(Call<Detail> call, Response<Detail> response) {
                 try {
                     if (response.isSuccessful()) {
-                        // create jsonArray to store avatarData
-                        JSONArray jsonArray = new JSONArray(response.body().getDetail());
+                        friendAvatarData = response.body().getDetail();
 
-                        // convert jsonArray to byteArray
-                        byte[] byteArray = new byte[jsonArray.length()];
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            int temp = (int)jsonArray.get(i);
-                            byteArray[i] = (byte)temp;
-                        }
-
-                        // convert byteArray to bitmap
-                        friendAvatar = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                        setImage(imageView, friendAvatar);
+                        setImage(imageView, friendAvatarData);
                     } else {
                         Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
@@ -246,19 +226,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         });
     }
 
-    private void setImage(ImageView imageView, Bitmap bmp) {
-        try {
-            if (bmp != null) {
-                // set the avatar
-                imageView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 40, 40, false));
-                    }
-                });
-            }
-        } catch (Exception ex) {
-            Log.e("ERROR111: ", ex.getMessage());
+    private void setImage(ImageView imageView, String avatarData) {
+        if (!avatarData.isEmpty()) {
+            StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(context, avatarData, imageView, false);
+            stringToImageViewAsync.execute();
         }
     }
 }

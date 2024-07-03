@@ -278,33 +278,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void assignUserInfoToLayout() {
-        try {
-            // set username
-            tvFullname.setText(user.getFullName());
+        // set username
+        tvFullname.setText(user.getFullName());
 
-            // set avatar
-            if (!user.getAvatarData().isEmpty()) {
-                // create jsonArray to store fileData
-                JSONArray jsonArray = new JSONArray(user.getAvatarData());
-                // convert jsonArray to byteArray
-                byte[] byteArray = new byte[jsonArray.length()];
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    int temp = (int)jsonArray.get(i);
-                    byteArray[i] = (byte)temp;
-                }
-
-                // convert byteArray to bitmap
-                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                // set the avatar
-                imgUserAvatar.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        imgUserAvatar.setImageBitmap(Bitmap.createScaledBitmap(bmp, imgUserAvatar.getWidth(), imgUserAvatar.getHeight(), false));
-                    }
-                });
-            }
-        } catch (Exception ex) {
-            Log.e("ERROR230: ", ex.getMessage());
+        // set avatar
+        if (!user.getAvatarData().isEmpty()) {
+            StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(this, user.getAvatarData(), imgUserAvatar, false);
+            stringToImageViewAsync.execute();
         }
     }
 

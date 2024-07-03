@@ -54,10 +54,12 @@ public class StringToImageViewAsync extends AsyncTask<String, Long, Void> {
     protected void onProgressUpdate(Long ...values) {
         super.onProgressUpdate();
 
-        if (isPostImage) {
-            Glide.with(context).load(byteArray).placeholder(R.drawable.loading).into(imageView);
-        } else {
-            Glide.with(context).load(byteArray).placeholder(R.drawable.user_icon_black).into(imageView);
+        if (context != null) {
+            if (isPostImage) {
+                Glide.with(context).load(byteArray).placeholder(R.drawable.loading).into(imageView);
+            } else {
+                Glide.with(context).load(byteArray).placeholder(R.drawable.user_icon_black).into(imageView);
+            }
         }
     }
 

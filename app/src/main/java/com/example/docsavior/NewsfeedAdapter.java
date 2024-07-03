@@ -550,13 +550,9 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
     }
 
     private void setImage(ImageView imageView, String avatarData, boolean isPostImage) {
-        try {
-            if (!avatarData.isEmpty()) {
-                StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(context, avatarData, imageView, isPostImage);
-                stringToImageViewAsync.execute();
-            }
-        } catch (Exception ex) {
-            Log.e("ERROR111: ", ex.getMessage());
+        if (!avatarData.isEmpty()) {
+            StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(context, avatarData, imageView, isPostImage);
+            stringToImageViewAsync.execute();
         }
     }
 

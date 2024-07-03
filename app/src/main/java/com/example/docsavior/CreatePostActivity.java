@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class CreatePostActivity extends AppCompatActivity {
     private EditText edPostContent;
     private Button btnPictureVideo;
     private Button btnFile;
+    private ImageView btnUser;
     private boolean isFileChosen;
     // Request code for selecting a PDF document.
     private static final int REQUEST_CODE_OPEN_DOCUMENT = 2;
@@ -56,6 +58,8 @@ public class CreatePostActivity extends AppCompatActivity {
 
         initVariables();
 
+        getAndSetAvatar(btnUser, ApplicationInfo.username);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             registerActivityLifecycleCallbacks(ApplicationInfo.activityLifecycleManager);
         }
@@ -70,6 +74,7 @@ public class CreatePostActivity extends AppCompatActivity {
         edPostContent = findViewById(R.id.edPostContent);
         btnPictureVideo = findViewById(R.id.btnPictureVideo);
         btnFile = findViewById(R.id.btnFile);
+        btnUser = findViewById(R.id.btnUser);
     }
 
     private void setOnClickListeners() {
@@ -218,6 +223,45 @@ public class CreatePostActivity extends AppCompatActivity {
                     }
                 }
             }
+        }
+    }
+
+    private void getAndSetAvatar(ImageView imageView, String username) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApplicationInfo.apiPath)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<Detail> call = apiService.getAvatarData(username);
+
+        call.enqueue(new Callback<Detail>() {
+            @Override
+            public void onResponse(Call<Detail> call, Response<Detail> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        // after getting the user's info, set the avatar
+                        setImage(imageView, response.body().getDetail());
+                    } else {
+                        Toast.makeText(CreatePostActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR106: ", ex.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Detail> call, Throwable t) {
+                Toast.makeText(CreatePostActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setImage(ImageView imageView, String avatarData) {
+        if (!avatarData.isEmpty()) {
+            StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(this, avatarData, imageView, false);
+            stringToImageViewAsync.execute();
         }
     }
 }

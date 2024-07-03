@@ -187,30 +187,9 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
     }
 
     private void setAvatar(ImageView imageView, String avatarData) {
-        try {
-            if (!avatarData.isEmpty()) {
-                // create jsonArray to store avatarData
-                JSONArray jsonArray = new JSONArray(avatarData);
-
-                // convert jsonArray to byteArray
-                byte[] byteArray = new byte[jsonArray.length()];
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    int temp = (int)jsonArray.get(i);
-                    byteArray[i] = (byte)temp;
-                }
-
-                // convert byteArray to bitmap
-                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                imageView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        // set the avatar
-                        imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(), imageView.getHeight(), false));
-                    }
-                });
-            }
-        } catch (Exception ex) {
-            Log.e("ERROR261: ", ex.getMessage());
+        if (!avatarData.isEmpty()) {
+            StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(context, avatarData, imageView, false);
+            stringToImageViewAsync.execute();
         }
     }
 
