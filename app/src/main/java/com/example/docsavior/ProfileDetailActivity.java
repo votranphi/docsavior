@@ -108,7 +108,8 @@ public class ProfileDetailActivity extends AppCompatActivity {
                         public void onResponse(Call<Detail> call, Response<Detail> response) {
                             try {
                                 if (response.isSuccessful()) {
-                                    // do nothing
+                                    Toast.makeText(getApplicationContext(), "Edit profile successfully!", Toast.LENGTH_SHORT).show();
+
                                 } else {
                                     Toast.makeText(getApplicationContext(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                                 }
