@@ -3,9 +3,11 @@ package com.example.docsavior;
 import static com.example.docsavior.ApplicationInfo.username;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -206,7 +208,13 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
         holder.btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                holder.btnLike.setClickable(false);
+                Handler h = new Handler();
+                h.postDelayed(new Runnable() {
+                    @Override public void run() {
+                        holder.btnLike.setClickable(true);
+                    }
+                }, 2000);
                 Retrofit retrofit = new Retrofit.Builder().baseUrl(ApplicationInfo.apiPath).addConverterFactory(GsonConverterFactory.create()).build();
                 ApiService apiService = retrofit.create(ApiService.class);
                 if(isLiked.get(position)) // if already liked
@@ -316,6 +324,13 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
         holder.btnDislike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                holder.btnDislike.setClickable(false);
+                Handler h = new Handler();
+                h.postDelayed(new Runnable() {
+                    @Override public void run() {
+                        holder.btnDislike.setClickable(true);
+                    }
+                }, 2000);
                 Retrofit retrofit = new Retrofit.Builder().baseUrl(ApplicationInfo.apiPath).addConverterFactory(GsonConverterFactory.create()).build();
 
                 ApiService apiService = retrofit.create(ApiService.class);

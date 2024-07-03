@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:orientation="horizontal"
         tools:ignore="UselessParent">
 
@@ -31,30 +31,30 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_marginStart="5dp"
             android:background="@drawable/edittext"
-            android:layout_marginStart="5dp">
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/tvUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/username"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvUsername"
-                android:text="@string/write_a_comment"/>
+                android:text="@string/write_a_comment" />
 
             <TextView
                 android:id="@+id/tvDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/_12_12_2012_12_12_12"
                 android:layout_alignParentEnd="true"
+                android:text="@string/_12_12_2012_12_12_12"
                 tools:ignore="RelativeOverlap" />
         </RelativeLayout>
 
