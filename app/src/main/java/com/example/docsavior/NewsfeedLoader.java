@@ -102,9 +102,10 @@ public class NewsfeedLoader extends Thread {
                 {
                     loadingPanel.setVisibility(View.VISIBLE);
                 }
-                if(!recyclerView.canScrollVertically(1 )&& (newsfeedArrayList.size())==numberOfPost) // scroll to the end and there is no post
+                if(!recyclerView.canScrollVertically(1 )&& (newsfeedArrayList.size())==numberOfPost && newState == RecyclerView.SCROLL_STATE_IDLE) // scroll to the end and there is no post
                 {
-                    Toast.makeText(context, "There is no more post to load", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "There is no more post to load", Toast.LENGTH_SHORT).show();
+                    Log.e("HEHEHEHE", "asdasdasd");
                 }
                 if (/*!recyclerView.canScrollVertically(0) &&*/ !isLoading && page <= (numberOfPost / PAGE_SIZE) + 1 && newState == RecyclerView.SCROLL_STATE_DRAGGING) // scroll and load posts
                 {
