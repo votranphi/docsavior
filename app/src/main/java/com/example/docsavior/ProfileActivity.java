@@ -234,6 +234,11 @@ public class ProfileActivity extends AppCompatActivity {
     private void initVariables() {
         newsfeedArrayList = new ArrayList<>();
         newsFeedAdapter = new NewsfeedAdapter(this, newsfeedArrayList);
+
+        gvPosts.setHasFixedSize(true);
+        gvPosts.setItemViewCacheSize(20);
+        newsFeedAdapter.setHasStableIds(true);
+
         gvPosts.setAdapter(newsFeedAdapter);
         gvPosts.setLayoutManager(new LinearLayoutManager(this));
 

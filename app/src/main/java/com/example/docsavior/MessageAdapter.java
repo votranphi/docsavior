@@ -122,6 +122,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         return messageList.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return messageList.get(position).hashCode();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         LinearLayout llMy;
         LinearLayout llFriend;

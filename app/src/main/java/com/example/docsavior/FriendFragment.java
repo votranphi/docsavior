@@ -137,6 +137,11 @@ public class FriendFragment extends Fragment {
     private void initVariables() {
         friendArrayList = new ArrayList<>();
         friendAdapter = new FriendAdapter(getActivity(), friendArrayList, 0);
+
+        lvRequest.setHasFixedSize(true);
+        lvRequest.setItemViewCacheSize(20);
+        friendAdapter.setHasStableIds(true);
+
         lvRequest.setAdapter(friendAdapter);
         lvRequest.setLayoutManager(new LinearLayoutManager(getContext()));
     }

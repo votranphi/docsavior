@@ -66,6 +66,11 @@ public class FriendListActivity extends AppCompatActivity {
     private void initVariables() {
         friendArrayList = new ArrayList<>();
         friendAdapter = new FriendAdapter(this, friendArrayList, 0);
+
+        rcvFriendList.setHasFixedSize(true);
+        rcvFriendList.setItemViewCacheSize(20);
+        friendAdapter.setHasStableIds(true);
+
         rcvFriendList.setAdapter(friendAdapter);
         rcvFriendList.setLayoutManager(new LinearLayoutManager(this));
     }

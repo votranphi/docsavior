@@ -136,6 +136,11 @@ public class ConversationFragment extends Fragment implements ConversationInterf
     private void initVariables() {
         conversationArrayList = new ArrayList<>();
         conversationAdapter = new ConversationAdapter(getActivity(), conversationArrayList, this);
+
+        rcvConversationList.setHasFixedSize(true);
+        rcvConversationList.setItemViewCacheSize(20);
+        conversationAdapter.setHasStableIds(true);
+
         rcvConversationList.setAdapter(conversationAdapter);
         rcvConversationList.setLayoutManager(new LinearLayoutManager(getContext()));
     }

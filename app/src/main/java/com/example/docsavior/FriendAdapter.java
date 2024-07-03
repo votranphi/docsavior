@@ -75,6 +75,11 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         return friendList.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return friendList.get(position).hashCode();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView profileImg;
         TextView tvUsername;

@@ -136,9 +136,11 @@ public class NewsfeedFragment extends Fragment {
     private void initVariables() {
         newsfeedArrayList = new ArrayList<>();
         newsFeedAdapter = new NewsfeedAdapter(getActivity(), newsfeedArrayList);
+
         lvPost.setHasFixedSize(true);
         lvPost.setItemViewCacheSize(20);
         newsFeedAdapter.setHasStableIds(true);
+
         lvPost.setAdapter(newsFeedAdapter);
 
         NewsfeedPreCachingLayoutManager newsfeedPreCachingLayoutManager = new NewsfeedPreCachingLayoutManager(getContext());

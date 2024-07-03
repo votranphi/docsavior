@@ -91,6 +91,11 @@ public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapte
         return  conversationList.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return conversationList.get(position).hashCode();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView btnFriendProfile;
         TextView tvFriendUsername;

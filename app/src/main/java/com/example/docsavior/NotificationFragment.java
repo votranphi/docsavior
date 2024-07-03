@@ -113,6 +113,11 @@ public class NotificationFragment extends Fragment implements NotificationInterf
     private void initVariables() {
         notificationArrayList = new ArrayList<>();
         adapter = new NotificationAdapter(getActivity(), notificationArrayList, this);
+
+        lvNotification.setHasFixedSize(true);
+        lvNotification.setItemViewCacheSize(20);
+        adapter.setHasStableIds(true);
+
         lvNotification.setAdapter(adapter);
         lvNotification.setLayoutManager(new LinearLayoutManager(getContext()));
     }

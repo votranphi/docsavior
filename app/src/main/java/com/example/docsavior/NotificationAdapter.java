@@ -91,6 +91,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         return  notificationList.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return notificationList.get(position).hashCode();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView profileImg;
         TextView tvContent;

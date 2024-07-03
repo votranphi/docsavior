@@ -169,6 +169,11 @@ public class ChatDetailActivity extends AppCompatActivity {
     private void initVariables() {
         messageArrayList = new ArrayList<>();
         messageAdapter = new MessageAdapter(this, messageArrayList);
+
+        rcvMessage.setHasFixedSize(true);
+        rcvMessage.setItemViewCacheSize(20);
+        messageAdapter.setHasStableIds(true);
+
         rcvMessage.setAdapter(messageAdapter);
         rcvMessage.setLayoutManager(new LinearLayoutManager(this));
 

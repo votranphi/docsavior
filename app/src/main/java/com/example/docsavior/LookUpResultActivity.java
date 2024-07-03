@@ -86,17 +86,32 @@ public class LookUpResultActivity extends AppCompatActivity {
         if (itemType == 0) {
             newsfeedArrayList = new ArrayList<>();
             newsFeedAdapter = new NewsfeedAdapter(this, newsfeedArrayList);
+
+            lvResult.setHasFixedSize(true);
+            lvResult.setItemViewCacheSize(20);
+            newsFeedAdapter.setHasStableIds(true);
+
             lvResult.setAdapter(newsFeedAdapter);
         } else if (itemType == 1) {
             friendArrayList = new ArrayList<>();
             friendAdapter = new FriendAdapter(this, friendArrayList, 1);
+
+            lvResult.setHasFixedSize(true);
+            lvResult.setItemViewCacheSize(20);
+            friendAdapter.setHasStableIds(true);
+
             lvResult.setAdapter(friendAdapter);
         } else {
             friendArrayList = new ArrayList<>();
             friendAdapter = new FriendAdapter(this, friendArrayList, 0);
+
+            lvResult.setHasFixedSize(true);
+            lvResult.setItemViewCacheSize(20);
+            friendAdapter.setHasStableIds(true);
+
             lvResult.setAdapter(friendAdapter);
         }
-        lvResult.setLayoutManager(new LinearLayoutManager(LookUpResultActivity.this));
+        lvResult.setLayoutManager(new LinearLayoutManager(this));
 
         tvLookUpContent.setText(lookUpInfo);
     }
