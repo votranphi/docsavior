@@ -13,47 +13,44 @@
         android:layout_centerInParent="true">
 
         <TextView
+            android:id="@+id/tvAppname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvAppname"
-            android:text="@string/docsavior"
-            android:textSize="40sp"
-            android:textStyle="bold"
             android:layout_below="@id/logo"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:text="@string/docsavior"
+            android:textSize="40sp"
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:lines="3"
-            android:id="@+id/tvDescription"
-            android:text="@string/place_to_find_nsaviors_for_nyour_studies"
-            android:layout_centerHorizontal="true"
-            android:textAlignment="center"
             android:layout_below="@+id/tvAppname"
-            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:textSize="18sp"/>
+            android:lines="2"
+            android:text="@string/place_to_find_nsaviors_for_nyour_studies"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/logo"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:id="@+id/logo"
-            android:importantForAccessibility="no"
-            android:src="@mipmap/ic_launcher"
-            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:importantForAccessibility="no"
+            android:src="@mipmap/ic_launcher" />
 
 
         <RelativeLayout
+            android:id="@+id/relay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvDescription"
-            android:layout_alignParentBottom="true"
-
-            android:id="@+id/relay">
+            android:layout_below="@+id/tvDescription">
 
             <EditText
                 android:id="@+id/edUsername"
@@ -68,54 +65,56 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:padding="15dp" />
+
             <EditText
+                android:id="@+id/edPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edPassword"
                 android:layout_below="@id/edUsername"
+                android:layout_margin="15dp"
                 android:background="@drawable/edittext"
                 android:hint="@string/password"
-                android:layout_margin="15dp"
                 android:importantForAutofill="no"
                 android:inputType="textPassword"
-                android:padding="15dp"/>
+                android:padding="15dp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
                 android:id="@+id/tvRecoveryPassword"
-                android:text="@string/forgot_password"
-                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/edPassword"
-                android:textStyle="italic"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="15dp"/>
+                android:layout_marginEnd="15dp"
+                android:clickable="true"
+                android:text="@string/forgot_password"
+                android:textStyle="italic" />
+
             <Button
+                android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="200dp"
-                android:id="@+id/btnLogin"
-                android:layout_marginTop="10dp"
                 android:layout_below="@+id/tvRecoveryPassword"
                 android:layout_centerHorizontal="true"
-                android:text="@string/login"
-                android:textSize="20sp"
+                android:layout_marginStart="200dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@color/blue"
                 android:padding="20dp"
+                android:text="@string/login"
                 android:textColor="@color/black"
-                android:backgroundTint="@color/blue"/>
+                android:textSize="20sp" />
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
                 android:id="@+id/tvCreateAccount"
-                android:text="@string/create_new_account"
-                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/btnLogin"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:textStyle="italic"
-                android:layout_marginEnd="15dp"/>
+                android:layout_marginEnd="15dp"
+                android:clickable="true"
+                android:text="@string/create_new_account"
+                android:textStyle="italic" />
         </RelativeLayout>
-
 
 
     </RelativeLayout>

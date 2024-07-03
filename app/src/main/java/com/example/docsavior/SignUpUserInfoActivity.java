@@ -163,7 +163,7 @@ public class SignUpUserInfoActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog dialog = new DatePickerDialog(this,R.style.DialogTheme, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 edDateOfBirth.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
@@ -171,5 +171,8 @@ public class SignUpUserInfoActivity extends AppCompatActivity {
         }, year, month, day);
 
         dialog.show();
+        dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.black));
+        dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.black));
+
     }
 }

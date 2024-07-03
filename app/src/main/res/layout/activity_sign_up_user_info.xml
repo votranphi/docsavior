@@ -77,6 +77,7 @@
         android:layout_below="@+id/tvDateOfBirth"
         android:id="@+id/edDateOfBirth"
         android:background="@drawable/edittext"
+        android:textColor="@color/black"
         android:padding="15dp"
         android:layout_centerHorizontal="true"
         android:hint="@string/choose_your_date_of_birth"/>
@@ -96,6 +97,7 @@
         android:layout_height="wrap_content"
         android:text="@string/male"
         android:id="@+id/cbMale"
+        android:buttonTint="@color/black"
         android:layout_below="@+id/tvGender"
         android:layout_marginStart="20dp"
         android:textSize="15sp"/>
@@ -104,6 +106,7 @@
         android:layout_height="wrap_content"
         android:text="@string/female"
         android:id="@+id/cbFemale"
+        android:buttonTint="@color/black"
         android:layout_below="@+id/tvGender"
         android:layout_toEndOf="@id/cbMale"
         android:layout_marginStart="20dp"

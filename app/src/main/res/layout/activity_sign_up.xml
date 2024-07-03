@@ -11,7 +11,7 @@
         android:src="@mipmap/ic_launcher"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="20dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
         android:id="@+id/title"
         android:text="@string/create_new_account"
         android:layout_below="@id/logo"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginStart="15dp"/>
@@ -96,10 +96,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnSignUp"
         android:layout_below="@+id/edPhoneNumber"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:text="@string/sign_up"
-        android:layout_marginBottom="30dp"
         android:padding="20dp"
         android:textColor="@color/black"
         android:textSize="20sp"

@@ -5,5 +5,8 @@
         <item name="colorPrimary">@color/my_light_primary</item>
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/blue</item>
+    </style>
     <style name="Theme.UI" parent="Base.Theme.UI" />
 </resources>

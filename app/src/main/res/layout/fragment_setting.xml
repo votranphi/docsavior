@@ -40,36 +40,40 @@
         android:id="@+id/rltChangePassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_below="@+id/rltTitleBar"
-        android:background="@drawable/bg_message_white_blue_corner"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/edittext"
+        android:backgroundTint="@color/light_blue"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground">
+        android:foreground="?android:attr/selectableItemBackground"
+        android:padding="5dp">
 
         <ImageView
             android:id="@+id/imgChangePassword"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:contentDescription="@string/todo"
-            android:src="@drawable/change_password"
+            android:layout_centerVertical="true"
             android:background="@drawable/circlebtn"
             android:backgroundTint="@color/white"
-            android:scaleType="centerCrop"
+            android:contentDescription="@string/todo"
             android:padding="10dp"
-            android:layout_centerVertical="true"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/change_password" />
 
         <TextView
             android:id="@+id/tvChangePassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/imgChangePassword"
             android:text="@string/change_password"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_toEndOf="@id/imgChangePassword"
-            android:layout_marginStart="10dp"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="10dp" />
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
@@ -77,9 +81,13 @@
         android:id="@+id/rltLogOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:padding="5dp"
         android:layout_below="@+id/rltChangePassword"
-        android:background="@drawable/bg_message_white_blue_corner"
+        android:background="@drawable/edittext"
+        android:backgroundTint="@color/light_blue"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground">
