@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -89,6 +90,7 @@ public class NotificationFragment extends Fragment implements NotificationInterf
     private ArrayList<Notification> notificationArrayList;
 
     private NotificationAdapter adapter;
+    private View loadingPanel;
 
     private static FragmentNavigation fragmentNavigation;
 
@@ -108,9 +110,11 @@ public class NotificationFragment extends Fragment implements NotificationInterf
         btnProfile = getView().findViewById(R.id.btnProfile);
         tvNothing = getView().findViewById(R.id.tvNothing);
         lvNotification = getView().findViewById(R.id.lvNotification);
+        loadingPanel = getView().findViewById(R.id.loadingPanel);
     }
 
     private void initVariables() {
+        loadingPanel.setVisibility(View.VISIBLE);
         notificationArrayList = new ArrayList<>();
         adapter = new NotificationAdapter(getActivity(), notificationArrayList, this);
 
@@ -130,6 +134,19 @@ public class NotificationFragment extends Fragment implements NotificationInterf
                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, ApplicationInfo.username);
                 startActivity(myIntent);
                 requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+        lvNotification.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(!recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE)
+                {
+                    loadingPanel.setVisibility(View.VISIBLE);
+                    notificationArrayList.clear();
+                    adapter.notifyDataSetChanged();
+                    loadNotifications();
+                }
             }
         });
     }
@@ -162,7 +179,7 @@ public class NotificationFragment extends Fragment implements NotificationInterf
                                 // update the ListView
                                 adapter.notifyItemInserted(notificationArrayList.size() - 1);
                             }
-
+                            loadingPanel.setVisibility(View.GONE);
                             tvNothing.setVisibility(View.GONE);
                         }
                     } else {

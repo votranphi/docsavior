@@ -38,7 +38,7 @@ public class LookUpResultActivity extends AppCompatActivity {
     // use two variables below if user looks for friend or chat conversation
     private FriendAdapter friendAdapter;
     private ArrayList<Friend> friendArrayList;
-
+    private View loadingPanel;
     private int itemType = 0; // 0 is post (item_newsfeed), 1 is chat (item_chat), 2 is user (item_friend)
 
     private String lookUpInfo = "";
@@ -72,10 +72,14 @@ public class LookUpResultActivity extends AppCompatActivity {
         tvLookUpContent = findViewById(R.id.tvLookUpContent);
         tvNothing = findViewById(R.id.tvNothing);
         lvResult = findViewById(R.id.lvResult);
+        loadingPanel = findViewById(R.id.loadingPanel);
     }
 
     private void initVariables() {
         // retrieve the arrayList from LookUpPostUserActivity
+        loadingPanel.setVisibility(View.VISIBLE);
+        tvLookUpContent.setFocusable(false);
+        tvLookUpContent.setClickable(false);
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             ArrayList<String> temp = extras.getStringArrayList(LookUpPostUserActivity.KEY_TO_LOOK_UP_RESULT_ACTIVITY);
@@ -146,9 +150,10 @@ public class LookUpResultActivity extends AppCompatActivity {
 
                         if (foundNewsfeeds.size() == 0) {
                             tvNothing.setVisibility(View.VISIBLE);
+                            loadingPanel.setVisibility(View.GONE);
                         } else {
                             tvNothing.setVisibility(View.GONE);
-
+                            loadingPanel.setVisibility(View.GONE);
                             assignFoundNewsfeedsToListView(foundNewsfeeds);
                         }
                     } else {
@@ -194,9 +199,10 @@ public class LookUpResultActivity extends AppCompatActivity {
 
                         if (foundFriends.getFoundFriends().length == 0) {
                             tvNothing.setVisibility(View.VISIBLE);
+                            loadingPanel.setVisibility(View.GONE);
                         } else {
                             tvNothing.setVisibility(View.GONE);
-
+                            loadingPanel.setVisibility(View.GONE);
                             assignFoundFriendsToListView(foundFriends);
                         }
                     } else {
@@ -278,7 +284,9 @@ public class LookUpResultActivity extends AppCompatActivity {
 
                         if (foundUsers.size() == 0) {
                             tvNothing.setVisibility(View.VISIBLE);
+                            loadingPanel.setVisibility(View.GONE);
                         } else {
+                            loadingPanel.setVisibility(View.GONE);
                             tvNothing.setVisibility(View.GONE);
 
                             assignFoundUsersToListView(foundUsers);

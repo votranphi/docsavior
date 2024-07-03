@@ -31,7 +31,7 @@
                 android:padding="8dp"/>
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:id="@+id/edLookup"
                 android:background="@drawable/edittext"
                 android:layout_toEndOf="@+id/btnClose"

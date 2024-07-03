@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -93,6 +94,7 @@ public class FriendFragment extends Fragment {
     private ArrayList<Friend> friendArrayList;
     private TextView tvNothing;
 
+    private View loadingPanel;
     // this function is the same as onCreate() in Activity
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -110,6 +112,7 @@ public class FriendFragment extends Fragment {
         btnProfile = getView().findViewById(R.id.btnProfile);
         lvRequest = getView().findViewById(R.id.lvRequest);
         tvNothing = getView().findViewById(R.id.tvNothing);
+        loadingPanel = getView().findViewById(R.id.loadingPanel);
     }
 
     private void setOnClickListeners() {
@@ -130,6 +133,19 @@ public class FriendFragment extends Fragment {
                 myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, ApplicationInfo.username);
                 startActivity(myIntent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+        lvRequest.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(!recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE)
+                {
+                    loadingPanel.setVisibility(View.VISIBLE);
+                    friendArrayList.clear();
+                    friendAdapter.notifyDataSetChanged();
+                    loadFriendRequests();
+                }
             }
         });
     }
@@ -186,6 +202,7 @@ public class FriendFragment extends Fragment {
 
     private void assignRequestersToListView(Requester requesters) {
         try {
+            loadingPanel.setVisibility(View.GONE);
             for (int i = 0; i < requesters.getRequesters().length; i++) {
                 getAvatarDataThenAddToArrayList(requesters.getRequesters()[i]);
             }

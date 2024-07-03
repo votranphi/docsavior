@@ -56,6 +56,8 @@ public class ProfileActivity extends AppCompatActivity {
     private String username = "";
     private boolean isMyProfile = false;
 
+    private View loadingPanelUserInfo;
+    private View loadingPanelUserPost;
     public static String KEY_TO_PROFILE_DETAIL_ACTIVITY = "username_fullname_email_status_gender_birthdate_phone";
 
     private TextView tvNothing;
@@ -111,6 +113,8 @@ public class ProfileActivity extends AppCompatActivity {
         btnGoToDetails = findViewById(R.id.btnGoToDetails);
         tvNothing = findViewById(R.id.tvNothing);
         btnClose = findViewById(R.id.btnClose);
+        loadingPanelUserInfo = findViewById(R.id.loadingPanelUserInfo);
+        loadingPanelUserPost = findViewById(R.id.loadingPanelUserPost);
     }
 
     private void setOnClickListeners() {
@@ -232,6 +236,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initVariables() {
+        loadingPanelUserPost.setVisibility(View.VISIBLE);
+        loadingPanelUserInfo.setVisibility(View.VISIBLE);
         newsfeedArrayList = new ArrayList<>();
         newsFeedAdapter = new NewsfeedAdapter(this, newsfeedArrayList);
 
@@ -283,6 +289,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void assignUserInfoToLayout() {
+        loadingPanelUserInfo.setVisibility(View.GONE);
         // set username
         tvFullname.setText(user.getFullName());
 
@@ -397,10 +404,12 @@ public class ProfileActivity extends AppCompatActivity {
                             // update the ListView every one post
                             newsFeedAdapter.notifyItemInserted(newsfeedArrayList.size() - 1);
                         }
+                        loadingPanelUserPost.setVisibility(View.GONE);
 
                         // set the visibility of "NOTHING TO SHOW" to GONE
                         tvNothing.setVisibility(View.GONE);
                     } else if (response.code() == 600) {
+                        loadingPanelUserPost.setVisibility(View.GONE);
                         // set the visibility of "NOTHING TO SHOW" to VISIBLE
                         tvNothing.setVisibility(View.VISIBLE);
                     } else {

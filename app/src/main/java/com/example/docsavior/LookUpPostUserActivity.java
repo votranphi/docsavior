@@ -182,8 +182,6 @@ public class LookUpPostUserActivity extends AppCompatActivity {
 
     private void initVariables() {
 
-        edLookup.setFocusable(false);
-        edLookup.setClickable(false);
         lookupHistoryArrayList = new ArrayList<>();
         lookupHistoryAdapter = new LookupHistoryAdapter(this, R.layout.item_lookup_post_user, lookupHistoryArrayList);
         lvLookupHistory.setAdapter(lookupHistoryAdapter);

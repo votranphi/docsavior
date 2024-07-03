@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -92,6 +93,7 @@ public class ConversationFragment extends Fragment implements ConversationInterf
 
     private ArrayList<Conversation> conversationArrayList;
     private ConversationAdapter conversationAdapter;
+    private View loadingPanel;
     // this function is the same as onCreate() in Activity
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -109,6 +111,7 @@ public class ConversationFragment extends Fragment implements ConversationInterf
         rcvConversationList = getView().findViewById(R.id.rcvConversationList);
         tvNothing = getView().findViewById(R.id.tvNothing);
         btnLookup = getView().findViewById(R.id.btnLookup);
+        loadingPanel = getView().findViewById(R.id.loadingPanel);
     }
 
     public void setOnClickListeners() {
@@ -129,6 +132,19 @@ public class ConversationFragment extends Fragment implements ConversationInterf
                 myIntent.putExtra(ApplicationInfo.KEY_TO_LOOK_UP_POST_USER_ACTIVITY, ApplicationInfo.LOOK_UP_TYPE_CHAT);
                 startActivity(myIntent);
                 getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+            }
+        });
+        rcvConversationList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(!recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE)
+                {
+                    loadingPanel.setVisibility(View.VISIBLE);
+                    conversationArrayList.clear();
+                    conversationAdapter.notifyDataSetChanged();
+                    getAndSetConversations();
+                }
             }
         });
     }
@@ -216,7 +232,8 @@ public class ConversationFragment extends Fragment implements ConversationInterf
                             conversation = new Conversation(sender, "You: " + latestMessage.getContent(), true);
                         }
                         conversationArrayList.add(conversation);
-                        conversationAdapter.notifyItemInserted(conversationArrayList.size() - 1);
+                        conversationAdapter.notifyDataSetChanged();
+                        loadingPanel.setVisibility(View.GONE);
                     } else if (response.code() == 600) {
                         // do nothing
                     } else {
