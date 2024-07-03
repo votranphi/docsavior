@@ -395,7 +395,7 @@ public class ProfileActivity extends AppCompatActivity {
                         for (Newsfeed i : responseList) {
                             newsfeedArrayList.add(i);
                             // update the ListView every one post
-                            newsFeedAdapter.notifyDataSetChanged();
+                            newsFeedAdapter.notifyItemInserted(newsfeedArrayList.size() - 1);
                         }
 
                         // set the visibility of "NOTHING TO SHOW" to GONE

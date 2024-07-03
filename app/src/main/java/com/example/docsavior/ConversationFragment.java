@@ -216,7 +216,7 @@ public class ConversationFragment extends Fragment implements ConversationInterf
                             conversation = new Conversation(sender, "You: " + latestMessage.getContent(), true);
                         }
                         conversationArrayList.add(conversation);
-                        conversationAdapter.notifyDataSetChanged();
+                        conversationAdapter.notifyItemInserted(conversationArrayList.size() - 1);
                     } else if (response.code() == 600) {
                         // do nothing
                     } else {

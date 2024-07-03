@@ -253,7 +253,7 @@ public class ChatDetailActivity extends AppCompatActivity {
                             for (int i = 0; i < messages.size(); i++) {
                                 postSeenToTrue(messages.get(i).getId(), i == messages.size() - 1);
                                 messageArrayList.add(messages.get(i));
-                                messageAdapter.notifyDataSetChanged();
+                                messageAdapter.notifyItemInserted(messageArrayList.size() - 1);
                             }
                         }
                     } else {
@@ -305,7 +305,7 @@ public class ChatDetailActivity extends AppCompatActivity {
     private void addMessageToRecyclerView(String username, String sender, String content) {
         Message message = new Message(username, sender, content);
         messageArrayList.add(message);
-        messageAdapter.notifyDataSetChanged();
+        messageAdapter.notifyItemInserted(messageArrayList.size() - 1);
     }
 
     private void postSeenToTrue(Integer id, boolean isLastMessage) {

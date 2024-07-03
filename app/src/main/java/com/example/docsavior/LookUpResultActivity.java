@@ -170,7 +170,7 @@ public class LookUpResultActivity extends AppCompatActivity {
     private void assignFoundNewsfeedsToListView(List<Newsfeed> foundNewsfeeds) {
         for (int i = 0; i < foundNewsfeeds.size(); i++) {
             newsfeedArrayList.add(foundNewsfeeds.get(i));
-            newsFeedAdapter.notifyDataSetChanged();
+            newsFeedAdapter.notifyItemInserted(newsfeedArrayList.size() - 1);
         }
     }
 
@@ -242,7 +242,7 @@ public class LookUpResultActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         Friend friend = new Friend(response.body().getDetail(), username);
                         friendArrayList.add(friend);
-                        friendAdapter.notifyDataSetChanged();
+                        friendAdapter.notifyItemInserted(friendArrayList.size() - 1);
                     } else {
                         Toast.makeText(LookUpResultActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
@@ -303,7 +303,7 @@ public class LookUpResultActivity extends AppCompatActivity {
         for (int i = 0; i < foundUsers.size(); i++) {
             Friend friend = new Friend(foundUsers.get(i).getAvatarData(), foundUsers.get(i).getUsername());
             friendArrayList.add(friend);
-            friendAdapter.notifyDataSetChanged();
+            friendAdapter.notifyItemInserted(friendArrayList.size() - 1);
         }
     }
 }

@@ -85,7 +85,7 @@ public class MessageLoader extends Thread {
 
     private void assignMessageToListView(Message message) {
         messageArrayList.add(message);
-        messageAdapter.notifyDataSetChanged();
+        messageAdapter.notifyItemInserted(messageArrayList.size() - 1);
     }
 
     private void postSeenToTrue(Integer id) {

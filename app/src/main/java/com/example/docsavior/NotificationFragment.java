@@ -160,7 +160,7 @@ public class NotificationFragment extends Fragment implements NotificationInterf
                             for (Notification i : responseList) {
                                 notificationArrayList.add(i);
                                 // update the ListView
-                                adapter.notifyDataSetChanged();
+                                adapter.notifyItemInserted(notificationArrayList.size() - 1);
                             }
 
                             tvNothing.setVisibility(View.GONE);

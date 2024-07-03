@@ -140,7 +140,7 @@ public class FriendListActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         Friend friend = new Friend(response.body().getDetail(), username);
                         friendArrayList.add(friend);
-                        friendAdapter.notifyDataSetChanged();
+                        friendAdapter.notifyItemInserted(friendArrayList.size() - 1);
                     } else {
                         Toast.makeText(FriendListActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
