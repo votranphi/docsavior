@@ -1,11 +1,13 @@
 package com.example.docsavior;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -78,7 +80,7 @@ public class NewsfeedFragment extends Fragment {
     private NewsfeedAdapter newsFeedAdapter;
     private ArrayList<Newsfeed> newsfeedArrayList;
     private TextView tvNothing;
-
+    private View loadingPanel;
     private NewsfeedLoader newsfeedLoader;
 
     // this function is the same as onCreate() in Activity
@@ -93,12 +95,14 @@ public class NewsfeedFragment extends Fragment {
         newsfeedLoader.start();
     }
 
+    @SuppressLint("WrongViewCast")
     private void findViewByIds() {
         btnCreatePost = getView().findViewById(R.id.btnCreatePost);
         btnLookup = getView().findViewById(R.id.btnLookup);
         btnProfile = getView().findViewById(R.id.btnProfile);
         lvPost = getView().findViewById(R.id.lvPost);
         tvNothing = getView().findViewById(R.id.tvNothing);
+        loadingPanel = getView().findViewById(R.id.loadingPanel);
     }
 
     private void setOnClickListeners() {
@@ -134,6 +138,9 @@ public class NewsfeedFragment extends Fragment {
     }
 
     private void initVariables() {
+        loadingPanel.setVisibility(View.VISIBLE);
+        lvPost.setVisibility(View.GONE);
+
         newsfeedArrayList = new ArrayList<>();
         newsFeedAdapter = new NewsfeedAdapter(getActivity(), newsfeedArrayList);
 
@@ -146,6 +153,6 @@ public class NewsfeedFragment extends Fragment {
         NewsfeedPreCachingLayoutManager newsfeedPreCachingLayoutManager = new NewsfeedPreCachingLayoutManager(getContext());
         lvPost.setLayoutManager(newsfeedPreCachingLayoutManager);
 
-        newsfeedLoader = new NewsfeedLoader(getActivity(), lvPost, newsfeedArrayList, newsFeedAdapter, tvNothing);
+        newsfeedLoader = new NewsfeedLoader(getActivity(), lvPost, newsfeedArrayList, newsFeedAdapter, tvNothing, loadingPanel);
     }
 }

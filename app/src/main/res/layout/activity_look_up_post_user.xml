@@ -36,6 +36,7 @@
                 android:background="@drawable/edittext"
                 android:layout_toEndOf="@+id/btnClose"
                 android:layout_marginStart="5dp"
+                android:padding="15dp"
                 android:hint="@string/type_to_look_up"
                 android:importantForAutofill="no"
                 android:inputType="text" />

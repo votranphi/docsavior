@@ -3,6 +3,7 @@ package com.example.docsavior;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,18 +28,20 @@ public class NewsfeedLoader extends Thread {
     private ArrayList<Newsfeed> newsfeedArrayList;
     private NewsfeedAdapter newsFeedAdapter;
     private TextView tvNothing;
+    private View loadingPanel;
     private Boolean isLoading = false; // check if app is calling api
     private int numberOfPost; // total posts in database
     private int page = 0;
     private final int PAGE_SIZE = 5; // page size (load PAGE_SIZE post after scroll to the bottom of the ListView)
 
-    public NewsfeedLoader(Context context, RecyclerView lvPost, ArrayList<Newsfeed> newsfeedArrayList, NewsfeedAdapter newsFeedAdapter, TextView tvNothing) {
+    public NewsfeedLoader(Context context, RecyclerView lvPost, ArrayList<Newsfeed> newsfeedArrayList, NewsfeedAdapter newsFeedAdapter, TextView tvNothing, View loadingPanel) {
         super();
         this.context = context;
         this.lvPost = lvPost;
         this.newsfeedArrayList = newsfeedArrayList;
         this.newsFeedAdapter = newsFeedAdapter;
         this.tvNothing = tvNothing;
+        this.loadingPanel = loadingPanel;
     }
 
     @Override
@@ -71,6 +74,10 @@ public class NewsfeedLoader extends Thread {
                     if(response.isSuccessful())
                     {
                         numberOfPost = response.body().intValue();
+                        if(numberOfPost==0)
+                        {
+                            tvNothing.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
                 catch (Exception t)
@@ -91,8 +98,16 @@ public class NewsfeedLoader extends Thread {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-
-                if (/*!recyclerView.canScrollVertically(0) &&*/ !isLoading && page <= (numberOfPost / PAGE_SIZE) + 1 && newState == RecyclerView.SCROLL_STATE_DRAGGING) {
+                if(!recyclerView.canScrollVertically(1 )&& (newsfeedArrayList.size())<numberOfPost) // scroll to the end and still has posts to load
+                {
+                    loadingPanel.setVisibility(View.VISIBLE);
+                }
+                if(!recyclerView.canScrollVertically(1 )&& (newsfeedArrayList.size())==numberOfPost) // scroll to the end and there is no post
+                {
+                    Toast.makeText(context, "There is no more post to load", Toast.LENGTH_LONG).show();
+                }
+                if (/*!recyclerView.canScrollVertically(0) &&*/ !isLoading && page <= (numberOfPost / PAGE_SIZE) + 1 && newState == RecyclerView.SCROLL_STATE_DRAGGING) // scroll and load posts
+                {
                     isLoading = true; // app is calling api
                     getSequenceOfPost(page, PAGE_SIZE);
                 }
@@ -121,15 +136,15 @@ public class NewsfeedLoader extends Thread {
                         // add the elements in responseList to newsfeedArrayList
                         for (Newsfeed i : responseList) {
                             newsfeedArrayList.add(i);
+
                             // update the ListView every one post
                             newsFeedAdapter.notifyItemInserted(newsfeedArrayList.size() - 1);
                         }
 
                         // set the visibility of "NOTHING TO SHOW" to GONE
-                        // tvNothing.setVisibility(View.GONE);
-                    } else if (response.code() == 600) {
-                        // set the visibility of "NOTHING TO SHOW" to VISIBLE
-                        // tvNothing.setVisibility(View.VISIBLE);
+                        lvPost.setVisibility(View.VISIBLE);
+                        loadingPanel.setVisibility(View.GONE);
+                        tvNothing.setVisibility(View.GONE);
                     } else {
                         Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }

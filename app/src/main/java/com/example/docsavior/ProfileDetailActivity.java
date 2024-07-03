@@ -49,6 +49,8 @@ public class ProfileDetailActivity extends AppCompatActivity {
         // check if this is my profile's view
         if (username.equals(userInfo.get(0))) {
             // if it's mine
+            etUsername.setFocusable(false);
+            etUsername.setClickable(false);
         } else {
             // if it isn't mine
             rltEditProfile.setVisibility(View.GONE);
