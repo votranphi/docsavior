@@ -5,6 +5,7 @@ import static com.example.docsavior.ApplicationInfo.username;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -197,6 +198,9 @@ public class PostDetailActivity extends AppCompatActivity {
                     Toast.makeText(PostDetailActivity.this, "Please enter your comment!", Toast.LENGTH_LONG).show();
                     return;
                 }
+
+                btnPost.setClickable(false);
+                btnPost.setBackgroundTintList(getResources().getColorStateList(R.color.grey));
 
                 if (postDetailArrayList.isEmpty()) {
                     tvNothing.setVisibility(View.GONE);
@@ -631,6 +635,9 @@ public class PostDetailActivity extends AppCompatActivity {
 
                         // notify user that the comment is successfully posted
                         Toast.makeText(PostDetailActivity.this, "Comment successfully!", Toast.LENGTH_LONG).show();
+
+                        btnPost.setClickable(true);
+                        btnPost.setBackgroundTintList(getResources().getColorStateList(R.color.blue));
                     } else {
                         Toast.makeText(PostDetailActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
