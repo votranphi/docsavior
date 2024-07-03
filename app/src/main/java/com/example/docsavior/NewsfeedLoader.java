@@ -145,6 +145,8 @@ public class NewsfeedLoader extends Thread {
                         lvPost.setVisibility(View.VISIBLE);
                         loadingPanel.setVisibility(View.GONE);
                         tvNothing.setVisibility(View.GONE);
+                    } else if (response.code() == 600) {
+                        // do nothing
                     } else {
                         Toast.makeText(context, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
