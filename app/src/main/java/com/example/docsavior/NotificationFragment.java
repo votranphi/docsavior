@@ -200,7 +200,7 @@ public class NotificationFragment extends Fragment implements NotificationInterf
     }
 
     @Override
-    public void onItemClickListener(int position) {
+    public void onItemClick(int position) {
         int notiType = notificationArrayList.get(position).getType();
         if (notiType >= 0 && notiType <= 2) {
             Intent myIntent = new Intent(getActivity(), PostDetailActivity.class);

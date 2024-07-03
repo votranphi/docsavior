@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
@@ -34,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Use the {@link ConversationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ConversationFragment extends Fragment {
+public class ConversationFragment extends Fragment implements ConversationInterface {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,7 +86,7 @@ public class ConversationFragment extends Fragment {
 
     // MAIN THINGS FROM HERE
     private ImageButton btnProfile;
-    private ListView rcvConversationList;
+    private RecyclerView rcvConversationList;
     private TextView tvNothing;
     private ImageButton btnLookup;
 
@@ -121,17 +122,6 @@ public class ConversationFragment extends Fragment {
             }
         });
 
-        rcvConversationList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // start ChatDetailActivity then do things
-                Intent myIntent = new Intent(getActivity(), ChatDetailActivity.class);
-                myIntent.putExtra(ApplicationInfo.KEY_TO_CHAT_DETAIL_ACTIVITY, conversationArrayList.get(position).getUsername());
-                startActivity(myIntent);
-                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
-
         btnLookup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,8 +135,9 @@ public class ConversationFragment extends Fragment {
 
     private void initVariables() {
         conversationArrayList = new ArrayList<>();
-        conversationAdapter = new ConversationAdapter(getActivity(), R.layout.item_chat, conversationArrayList);
+        conversationAdapter = new ConversationAdapter(getActivity(), conversationArrayList, this);
         rcvConversationList.setAdapter(conversationAdapter);
+        rcvConversationList.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void getAndSetConversations() {
@@ -236,5 +227,14 @@ public class ConversationFragment extends Fragment {
                 Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        // start ChatDetailActivity then do things
+        Intent myIntent = new Intent(getActivity(), ChatDetailActivity.class);
+        myIntent.putExtra(ApplicationInfo.KEY_TO_CHAT_DETAIL_ACTIVITY, conversationArrayList.get(position).getUsername());
+        startActivity(myIntent);
+        getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }

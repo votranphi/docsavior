@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.json.JSONArray;
 
 import java.text.DateFormat;
@@ -31,37 +34,46 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ConversationAdapter extends ArrayAdapter<Conversation> {
+public class ConversationAdapter extends RecyclerView.Adapter<ConversationAdapter.ViewHolder> {
     private final Activity context;
     private List<Conversation> conversationList = new ArrayList<>();
-    public ConversationAdapter(Activity context, int layoutID, List<Conversation> objects) {
-        super(context, layoutID, objects);
+    private ConversationInterface conversationInterface;
+    public ConversationAdapter(Activity context, List<Conversation> conversationList, ConversationInterface conversationInterface) {
         this.context = context;
+        this.conversationList = conversationList;
+        this.conversationInterface = conversationInterface;
     }
+
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent)
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View notificationView = inflater.inflate(R.layout.item_chat, parent, false);
+        ViewHolder viewHolder = new ViewHolder(notificationView);
+        return viewHolder;
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_chat, null, false);
-        }
         // Get item
-        Conversation conversation = getItem(position);
-        conversationList.add(conversation);
-        // Get view
-        ImageView btnFriendProfile = convertView.findViewById(R.id.btnFriendProfile);
-        TextView tvFriendUsername = convertView.findViewById(R.id.tvFriendUsername);
-        TextView tvLastMessage = convertView.findViewById(R.id.tvLastMessage);
+        Conversation conversation = conversationList.get(position);
 
-        getUserInfoAndSetAvatar(btnFriendProfile, conversation.getUsername());
-
-        tvFriendUsername.setText(conversation.getUsername());
-
-        tvLastMessage.setText(conversation.getLastMessage());
-        if (!conversation.getIsSeen()) {
-            tvLastMessage.setTypeface(Typeface.DEFAULT_BOLD);
+        if (conversation == null) {
+            return;
         }
 
-        btnFriendProfile.setOnClickListener(new View.OnClickListener() {
+        getUserInfoAndSetAvatar(holder.btnFriendProfile, conversation.getUsername());
+
+        holder.tvFriendUsername.setText(conversation.getUsername());
+
+        holder.tvLastMessage.setText(conversation.getLastMessage());
+        if (!conversation.getIsSeen()) {
+            holder.tvLastMessage.setTypeface(Typeface.DEFAULT_BOLD);
+        }
+
+        holder.btnFriendProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(context, ProfileActivity.class);
@@ -69,8 +81,31 @@ public class ConversationAdapter extends ArrayAdapter<Conversation> {
                 context.startActivity(myIntent);
             }
         });
+    }
 
-        return convertView;
+    @Override
+    public int getItemCount() {
+        return  conversationList.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView btnFriendProfile;
+        TextView tvFriendUsername;
+        TextView tvLastMessage;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            btnFriendProfile = itemView.findViewById(R.id.btnFriendProfile);
+            tvFriendUsername = itemView.findViewById(R.id.tvFriendUsername);
+            tvLastMessage = itemView.findViewById(R.id.tvLastMessage);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    conversationInterface.onItemClick(getLayoutPosition());
+                }
+            });
+        }
     }
 
     private void getUserInfoAndSetAvatar(ImageView imageView, String username) {

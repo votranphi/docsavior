@@ -53,7 +53,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull NotificationAdapter.ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         // Get item
         Notification noti = notificationList.get(position);
@@ -91,7 +91,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    notificationInterface.onItemClickListener(getLayoutPosition());
+                    notificationInterface.onItemClick(getLayoutPosition());
                 }
             });
         }

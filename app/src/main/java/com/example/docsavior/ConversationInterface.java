@@ -1,5 +1,5 @@
 package com.example.docsavior;
 
-public interface NotificationInterface {
+public interface ConversationInterface {
     public void onItemClick(int position);
 }
