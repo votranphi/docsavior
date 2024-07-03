@@ -15,13 +15,19 @@ public class Newsfeed {
 
     public Newsfeed(String username, String postDescription, String postContent, String fileData, String fileName, String fileExtension)
     {
+        this.id = -1;
         this.username = username;
         this.postDescription = postDescription;
         this.postContent = postContent;
+        this.likeNumber = 0;
+        this.dislikeNumber = 0;
+        this.commentNumber = 0;
         this.fileData = fileData;
         this.fileName = fileName;
         this.fileExtension = fileExtension;
+        this.time = System.currentTimeMillis() / 1000L;
     }
+
     public Newsfeed()
     {
         id = 0;

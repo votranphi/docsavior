@@ -102,8 +102,13 @@ public class CreatePostActivity extends AppCompatActivity {
                     return;
                 }
 
-                // call API to post the post to database
-                postNewsfeed(ApplicationInfo.username, edPostDesciption.getSelectedItem().toString(), edPostContent.getText().toString(), fileData, fileName, fileExtension);
+                new Thread(() -> {
+                    // call API to post the post to database
+                    postNewsfeed(ApplicationInfo.username, edPostDesciption.getSelectedItem().toString(), edPostContent.getText().toString(), fileData, fileName, fileExtension);
+                }).start();
+
+                Toast.makeText(CreatePostActivity.this, "Uploading...", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 
@@ -149,10 +154,11 @@ public class CreatePostActivity extends AppCompatActivity {
             public void onResponse(Call<Detail> call, Response<Detail> response) {
                 try {
                     if (response.isSuccessful()) {
-                        Toast.makeText(CreatePostActivity.this, "Post successfully!", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Toast.makeText(CreatePostActivity.this, "Upload post successfully!", Toast.LENGTH_SHORT).show();
+
+                        // newsFe123ed.setId(Integer.parseInt(response.body().getDetail()));
                     } else {
-                        Toast.makeText(CreatePostActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreatePostActivity.this, "Upload post unsuccessfully!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception ex) {
                     Log.e("ERROR1: ", ex.getMessage());
