@@ -5,7 +5,7 @@ public class Notification {
 
     private String username; //username of this account
 
-    private Integer type; // like = 0, dislike = 1, comment = 2, friend request = 3
+    private Integer type; // like = 0, dislike = 1, comment = 2, friend request = 3, accept friend request = 4, reject friend request = 5
 
     private Integer idPost; // post's id. This can be -1 if type is 2
 

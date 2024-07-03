@@ -54,12 +54,18 @@ public class StringToImageViewAsync extends AsyncTask<String, Long, Void> {
     protected void onProgressUpdate(Long ...values) {
         super.onProgressUpdate();
 
-        if (context != null) {
+        // try catch is to prevent application from stopping due to
+        // cannot run Glide...load... because of the stopping of an Activity (context)
+        // in other words, there is a bug, but it's not important,
+        // because the Activity is already destroyed when the bug appears
+        try {
             if (isPostImage) {
                 Glide.with(context).load(byteArray).placeholder(R.drawable.loading).into(imageView);
             } else {
                 Glide.with(context).load(byteArray).placeholder(R.drawable.user_icon_black).into(imageView);
             }
+        } catch (Exception ex) {
+            // do nothing
         }
     }
 

@@ -249,8 +249,11 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
                         return;
                     }
 
-                    // call api to post the like notification
-                    postNotification(newsfeedList.get(position).getUsername(), 0, newsfeedList.get(position).getId(), username);
+                    // post notification if user doesn't like their own post
+                    if (!newsfeedList.get(position).getUsername().equals(username)) {
+                        // call api to post the like notification
+                        postNotification(newsfeedList.get(position).getUsername(), 0, newsfeedList.get(position).getId(), username);
+                    }
 
                     holder.btnLike.setImageResource(R.drawable.like_icon_red);
                     isLiked.set(position, true);
@@ -353,8 +356,11 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
                         return;
                     }
 
-                    // call api to post the dislike notification
-                    postNotification(newsfeedList.get(position).getUsername(), 1, newsfeedList.get(position).getId(), username);
+                    // post notification if user doesn't dislike their own post
+                    if (!newsfeedList.get(position).getUsername().equals(username)) {
+                        // call api to post the dislike notification
+                        postNotification(newsfeedList.get(position).getUsername(), 1, newsfeedList.get(position).getId(), username);
+                    }
 
                     isDisliked.set(position, true);
                     holder.btnDislike.setImageResource(R.drawable.dislike_icon_red);

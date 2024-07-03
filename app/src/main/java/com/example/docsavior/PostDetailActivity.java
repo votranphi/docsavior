@@ -205,8 +205,11 @@ public class PostDetailActivity extends AppCompatActivity {
                 // call API to upload comment to database
                 postComment(edComment.getText().toString());
 
-                // call api to post the comment notification
-                postNotification(newsFeed.getUsername(), 2, newsFeed.getId(), username);
+                // post notification if user doesn't comment on their own post
+                if (!newsFeed.getUsername().equals(username)) {
+                    // call api to post the comment notification
+                    postNotification(newsFeed.getUsername(), 2, newsFeed.getId(), username);
+                }
 
                 // call API to increase comment number
                 postIncreaseCommentNumber(newsFeed.getId());
@@ -258,8 +261,11 @@ public class PostDetailActivity extends AppCompatActivity {
                         return;
                     }
 
-                    // call api to post the like notification
-                    postNotification(newsFeed.getUsername(), 0, newsFeed.getId(), username);
+                    // post notification if user doesn't like their own post
+                    if (!newsFeed.getUsername().equals(username)) {
+                        // call api to post the like notification
+                        postNotification(newsFeed.getUsername(), 0, newsFeed.getId(), username);
+                    }
 
                     btnLike.setImageResource(R.drawable.like_icon_red);
                     isLiked = true;
@@ -362,8 +368,11 @@ public class PostDetailActivity extends AppCompatActivity {
                         return;
                     }
 
-                    // call api to post the dislike notification
-                    postNotification(newsFeed.getUsername(), 1, newsFeed.getId(), username);
+                    // post notification if user doesn't dislike their own post
+                    if (newsFeed.getUsername().equals(username)) {
+                        // call api to post the dislike notification
+                        postNotification(newsFeed.getUsername(), 1, newsFeed.getId(), username);
+                    }
 
                     isDisliked=true;
                     btnDislike.setImageResource(R.drawable.dislike_icon_red);

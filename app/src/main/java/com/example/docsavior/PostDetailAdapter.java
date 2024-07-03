@@ -101,25 +101,9 @@ public class PostDetailAdapter extends ArrayAdapter<PostDetail> {
         });
     }
     private void setImage(ImageView imageView, String avatarData) {
-        try {
-            if (!avatarData.isEmpty()) {
-                // create jsonArray to store avatarData
-                JSONArray jsonArray = new JSONArray(avatarData);
-
-                // convert jsonArray to byteArray
-                byte[] byteArray = new byte[jsonArray.length()];
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    int temp = (int)jsonArray.get(i);
-                    byteArray[i] = (byte)temp;
-                }
-
-                // convert byteArray to bitmap
-                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                // set the avatar
-                imageView.setImageBitmap(Bitmap.createScaledBitmap(bmp, imageView.getWidth(), imageView.getHeight(), false));
-            }
-        } catch (Exception ex) {
-            Log.e("ERROR111: ", ex.getMessage());
+        if (!avatarData.isEmpty()) {
+            StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(context, avatarData, imageView, false);
+            stringToImageViewAsync.execute();
         }
     }
 
