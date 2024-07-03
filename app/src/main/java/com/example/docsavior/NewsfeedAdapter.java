@@ -326,7 +326,7 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
                     deleteNotification(newsfeedList.get(position).getUsername(), 1, newsfeedList.get(position).getId(), username);
 
                     isDisliked.set(position, false);
-                    holder.dislikeNumber.setText(String.valueOf(Integer.parseInt(holder.likeNumber.getText().toString()) - 1));
+                    holder.dislikeNumber.setText(String.valueOf(Integer.parseInt(holder.dislikeNumber.getText().toString()) - 1));
                     holder.btnDislike.setImageResource(R.drawable.dislike_icon);
                     Call<Detail> callNewsfeed = apiService.postUndislike(newsfeedList.get(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
@@ -367,7 +367,7 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
                     }
 
                     isDisliked.set(position, true);
-                    holder.dislikeNumber.setText(String.valueOf(Integer.parseInt(holder.likeNumber.getText().toString()) + 1));
+                    holder.dislikeNumber.setText(String.valueOf(Integer.parseInt(holder.dislikeNumber.getText().toString()) + 1));
                     holder.btnDislike.setImageResource(R.drawable.dislike_icon_red);
                     Call<Detail> callNewsfeed = apiService.postDislike(newsfeedList.get(position).getId());
                     callNewsfeed.enqueue(new Callback<Detail>() {
