@@ -127,7 +127,7 @@ public class CreatePostActivity extends AppCompatActivity {
         tvUsername.setText(ApplicationInfo.username);
         isFileChosen = false;
 
-        String[] items = new String[]{"Select your topic", "Maths", "Physic", "MobileDev", "Picture", "Video"};
+        String[] items = new String[]{"Select your topic", "Maths", "Literature", "Physic", "English", "Chemistry", "Geography", "History", "Calculus", "Programming", "Network", "AI", "System", "Picture" };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         edPostDesciption.setAdapter(adapter);
     }
