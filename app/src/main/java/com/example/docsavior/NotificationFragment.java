@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Use the {@link NotificationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NotificationFragment extends Fragment {
+public class NotificationFragment extends Fragment implements NotificationInterface {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,7 +84,7 @@ public class NotificationFragment extends Fragment {
 
     private ImageButton btnProfile;
     private TextView tvNothing;
-    private ListView lvNotification;
+    private RecyclerView lvNotification;
 
     private ArrayList<Notification> notificationArrayList;
 
@@ -110,8 +112,9 @@ public class NotificationFragment extends Fragment {
 
     private void initVariables() {
         notificationArrayList = new ArrayList<>();
-        adapter = new NotificationAdapter(getActivity(), R.layout.item_notification, notificationArrayList);
+        adapter = new NotificationAdapter(getActivity(), notificationArrayList, this);
         lvNotification.setAdapter(adapter);
+        lvNotification.setLayoutManager(new LinearLayoutManager(getContext()));
     }
     private void setOnClickListeners()
     {
@@ -125,36 +128,29 @@ public class NotificationFragment extends Fragment {
             }
         });
 
-        lvNotification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: jump to the Activity base on the type of the notification
-            }
-        });
-
-        lvNotification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int notiType = notificationArrayList.get(position).getType();
-                if (notiType >= 0 && notiType <= 2) {
-                    Intent myIntent = new Intent(getActivity(), PostDetailActivity.class);
-                    // put the id array list
-                    myIntent.putExtra(ApplicationInfo.KEY_TO_POST_DETAIL_ACTIVITY, notificationArrayList.get(position).getIdPost());
-                    startActivity(myIntent);
-                    requireActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
-                } else if (notiType == 3) {
-                    // go to friend fragment
-                    if (fragmentNavigation != null) {
-                        fragmentNavigation.goToFriendFragment();
-                    }
-                } else { // if (notiType >= 4 && notiType <= 5)
-                    Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
-                    myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, notificationArrayList.get(position).getInteracter());
-                    startActivity(myIntent);
-                    requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                }
-            }
-        });
+//        lvNotification.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                int notiType = notificationArrayList.get(position).getType();
+//                if (notiType >= 0 && notiType <= 2) {
+//                    Intent myIntent = new Intent(getActivity(), PostDetailActivity.class);
+//                    // put the id array list
+//                    myIntent.putExtra(ApplicationInfo.KEY_TO_POST_DETAIL_ACTIVITY, notificationArrayList.get(position).getIdPost());
+//                    startActivity(myIntent);
+//                    requireActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+//                } else if (notiType == 3) {
+//                    // go to friend fragment
+//                    if (fragmentNavigation != null) {
+//                        fragmentNavigation.goToFriendFragment();
+//                    }
+//                } else { // if (notiType >= 4 && notiType <= 5)
+//                    Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
+//                    myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, notificationArrayList.get(position).getInteracter());
+//                    startActivity(myIntent);
+//                    requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+//                }
+//            }
+//        });
     }
 
     private void loadNotifications()
@@ -201,5 +197,27 @@ public class NotificationFragment extends Fragment {
                 Toast.makeText(getActivity(), "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onItemClickListener(int position) {
+        int notiType = notificationArrayList.get(position).getType();
+        if (notiType >= 0 && notiType <= 2) {
+            Intent myIntent = new Intent(getActivity(), PostDetailActivity.class);
+            // put the id array list
+            myIntent.putExtra(ApplicationInfo.KEY_TO_POST_DETAIL_ACTIVITY, notificationArrayList.get(position).getIdPost());
+            startActivity(myIntent);
+            requireActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+        } else if (notiType == 3) {
+            // go to friend fragment
+            if (fragmentNavigation != null) {
+                fragmentNavigation.goToFriendFragment();
+            }
+        } else { // if (notiType >= 4 && notiType <= 5)
+            Intent myIntent = new Intent(getActivity(), ProfileActivity.class);
+            myIntent.putExtra(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY, notificationArrayList.get(position).getInteracter());
+            startActivity(myIntent);
+            requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
     }
 }

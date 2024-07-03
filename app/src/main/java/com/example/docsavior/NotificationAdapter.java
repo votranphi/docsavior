@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.json.JSONArray;
 
 import java.text.DateFormat;
@@ -27,36 +30,71 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NotificationAdapter extends ArrayAdapter<Notification> {
+public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
     private final Activity context;
-    public NotificationAdapter(Activity context, int layoutID, List<Notification> objects) {
-        super(context, layoutID, objects);
+    private List<Notification> notificationList;
+
+    private NotificationInterface notificationInterface;
+
+    public NotificationAdapter(Activity context, List<Notification> notificationList, NotificationInterface notificationInterface) {
         this.context = context;
+        this.notificationList = notificationList;
+        this.notificationInterface = notificationInterface;
     }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View notificationView = inflater.inflate(R.layout.item_notification, parent, false);
+        ViewHolder viewHolder = new ViewHolder(notificationView);
+        return viewHolder;
+    }
+
     @SuppressLint("SetTextI18n")
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent)
+    public void onBindViewHolder(@NonNull NotificationAdapter.ViewHolder holder, int position)
     {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_notification, null, false);
-        }
         // Get item
-        Notification noti = getItem(position);
-        // Get view
-        ImageView profileImg = (ImageView) convertView.findViewById(R.id.profileImg);
-        TextView tvContent = (TextView) convertView.findViewById(R.id.tvContent);
-        TextView tvDateTime = convertView.findViewById(R.id.tvDateTime);
+        Notification noti = notificationList.get(position);
+
+        if (noti == null) {
+            return;
+        }
 
         // get user's avatar and set
-        getUserInfoAndSetAvatar(profileImg, noti.getInteracter());
+        getUserInfoAndSetAvatar(holder.profileImg, noti.getInteracter());
 
         // set notification datetime
-        setNotificationDateTime(tvDateTime, noti.getTime());
+        setNotificationDateTime(holder.tvDateTime, noti.getTime());
 
         // set the notification's content
-        tvContent.setText(noti.getInteracter() + " " + noti.getNotificationContent());
+        holder.tvContent.setText(noti.getInteracter() + " " + noti.getNotificationContent());
+    }
 
-        return convertView;
+    @Override
+    public int getItemCount() {
+        return  notificationList.size();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView profileImg;
+        TextView tvContent;
+        TextView tvDateTime;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            profileImg = itemView.findViewById(R.id.profileImg);
+            tvContent = itemView.findViewById(R.id.tvContent);
+            tvDateTime = itemView.findViewById(R.id.tvDateTime);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    notificationInterface.onItemClickListener(getLayoutPosition());
+                }
+            });
+        }
     }
 
     private void getUserInfoAndSetAvatar(ImageView imageView, String username) {
