@@ -174,26 +174,7 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
         holder.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(() -> {
-                    try {
-                        // get the post first
-                        Newsfeed post = newsfeedList.get(position);
-
-                        // create jsonArray to store fileData
-                        JSONArray jsonArray = new JSONArray(post.getFileData());
-                        // convert jsonArray to byteArray
-                        byte[] byteArray = new byte[jsonArray.length()];
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            int temp = (int)jsonArray.get(i);
-                            byteArray[i] = (byte)temp;
-                        }
-
-                        // save file to Download
-                        writeFileToDownloads(byteArray, post.getFileName(), post.getFileExtension());
-                    } catch (Exception ex) {
-                        Log.e("ERROR987: ", ex.getMessage());
-                    }
-                }).start();
+                new FileDownloader(context, newsfeedList.get(position)).execute();
             }
         });
 
@@ -508,40 +489,6 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
     private void getUserInteract()
     {
         //
-    }
-    private void writeFileToDownloads(byte[] array, String fileName, String fileExtension)
-    {
-        try
-        {
-            // get the path to Downloads folder plus file's name
-            String pathToDownloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath();
-            String pathToFile = pathToDownloads + "/" + fileName + "." + fileExtension;
-            File file = new File(pathToFile);
-
-            // create the file if it is not existed
-            String fileFullName = fileName + "." + fileExtension;
-            if (file.exists()) {
-                int i = 1;
-                // Loop until the file is not exist
-                do {
-                    fileFullName = fileName + " (" + i + ")." + fileExtension;
-                    pathToFile = pathToDownloads + "/" + fileName + " (" + i + ")." + fileExtension;
-                    file = new File(pathToFile);
-                    i++;
-                } while (file.exists());
-            }
-            file.createNewFile();
-
-            // write the file from byte array
-            FileOutputStream stream = new FileOutputStream(pathToFile);
-            stream.write(array);
-            stream.close();
-
-            // notify user that the file is successfully downloaded
-            Toast.makeText(context, fileFullName + " successfully downloaded to Downloads!", Toast.LENGTH_SHORT).show();
-        } catch (Exception ex) {
-            Log.e("ERROR1: ", ex.getMessage());
-        }
     }
 
     private void getUserInfoAndSetAvatar(ImageView imageView, String username) {
