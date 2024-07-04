@@ -66,11 +66,13 @@ public class ProfileDetailActivity extends AppCompatActivity {
             tvEmail.setVisibility(View.GONE);
             tvGender.setVisibility(View.GONE);
             tvBirthday.setVisibility(View.GONE);
+            etUsername.setFocusable(false);
+            etUsername.setClickable(false);
+            etFullname.setFocusable(false);
+            etFullname.setClickable(false);
+            etUsername.setBackgroundTintList(getResources().getColorStateList(R.color.grey));
+            etFullname.setBackgroundTintList(getResources().getColorStateList(R.color.grey));
 
-//            etUsername.setFocusable(false);
-//            etUsername.setClickable(false);
-//            etFullname.setFocusable(false);
-//            etFullname.setClickable(false);
 //            etEmail.setFocusable(false);
 //            etEmail.setClickable(false);
 //            spGender.setEnabled(false);
