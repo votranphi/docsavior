@@ -94,7 +94,7 @@ public class OTPVerificationActivity extends AppCompatActivity {
             public void onResponse(Call<Detail> call, Response<Detail> response) {
                 try {
                     if (response.isSuccessful()) {
-                        boolean gender = userInfo.get(6).equals("1");
+                        boolean gender = userInfo.get(6).equals("true");
                         postSignUpInfo(userInfo.get(0), userInfo.get(1), userInfo.get(2), userInfo.get(3), userInfo.get(4), userInfo.get(5), gender);
 
                         Toast.makeText(OTPVerificationActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
