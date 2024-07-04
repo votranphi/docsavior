@@ -50,6 +50,7 @@
             android:id="@+id/relay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:layout_below="@+id/tvDescription">
 
             <EditText
@@ -81,7 +82,7 @@
             <TextView
                 android:id="@+id/tvRecoveryPassword"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_below="@+id/edPassword"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="15dp"
@@ -106,7 +107,7 @@
             <TextView
                 android:id="@+id/tvCreateAccount"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_below="@+id/btnLogin"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"

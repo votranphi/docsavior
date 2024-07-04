@@ -130,9 +130,10 @@ public class MainActivity extends AppCompatActivity {
 
                     // start NewsfeedActivity after logging in successfully
                     Intent myIntent = new Intent(MainActivity.this, NewsfeedActivity.class);
-                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     Toast.makeText(MainActivity.this, response.body().getDetail(), Toast.LENGTH_SHORT).show();
-                    MainActivity.this.startActivity(myIntent);
+                    finish();
+                    startActivity(myIntent);
                     overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
                 } else {
                     try {

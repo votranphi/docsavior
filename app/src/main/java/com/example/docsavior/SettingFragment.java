@@ -127,6 +127,7 @@ public class SettingFragment extends Fragment {
                 // start MainActivity and clear all other activities
                 myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(myIntent);
+                getActivity().finish();
                 requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
