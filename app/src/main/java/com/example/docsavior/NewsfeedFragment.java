@@ -147,7 +147,7 @@ public class NewsfeedFragment extends Fragment {
                     newsfeedArrayList.clear();
                     newsFeedAdapter.notifyDataSetChanged();
                     newsfeedLoader.interrupt();
-                    newsfeedLoader = new NewsfeedLoader(getActivity(), lvPost, newsfeedArrayList, newsFeedAdapter, tvNothing, loadingPanel);
+                    newsfeedLoader = new NewsfeedLoader(getActivity(), lvPost, newsfeedArrayList, newsFeedAdapter, tvNothing, loadingPanel, 0, "");
                     newsfeedLoader.start();
                 }
             }
@@ -170,6 +170,6 @@ public class NewsfeedFragment extends Fragment {
         NewsfeedPreCachingLayoutManager newsfeedPreCachingLayoutManager = new NewsfeedPreCachingLayoutManager(getContext());
         lvPost.setLayoutManager(newsfeedPreCachingLayoutManager);
 
-        newsfeedLoader = new NewsfeedLoader(getActivity(), lvPost, newsfeedArrayList, newsFeedAdapter, tvNothing, loadingPanel);
+        newsfeedLoader = new NewsfeedLoader(getActivity(), lvPost, newsfeedArrayList, newsFeedAdapter, tvNothing, loadingPanel, 0, "");
     }
 }

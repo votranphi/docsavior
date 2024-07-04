@@ -43,6 +43,8 @@ public class LookUpResultActivity extends AppCompatActivity {
 
     private String lookUpInfo = "";
 
+    private NewsfeedLoader newsfeedLoader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +57,7 @@ public class LookUpResultActivity extends AppCompatActivity {
         setOnClickListeners();
 
         if (itemType == 0) {
-            loadPostLookUpResult();
+            newsfeedLoader.start();
         } else if (itemType == 1) {
             loadChatLookUpResult();
         } else {
@@ -118,6 +120,8 @@ public class LookUpResultActivity extends AppCompatActivity {
         lvResult.setLayoutManager(new LinearLayoutManager(this));
 
         tvLookUpContent.setText(lookUpInfo);
+
+        newsfeedLoader = new NewsfeedLoader(this, lvResult, newsfeedArrayList, newsFeedAdapter, tvNothing, loadingPanel, 1, lookUpInfo);
     }
 
     private void setOnClickListeners() {
@@ -128,55 +132,6 @@ public class LookUpResultActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
-    }
-
-    /* POST LOOK UP FROM HERE */
-    private void loadPostLookUpResult() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationInfo.apiPath)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiService apiService = retrofit.create(ApiService.class);
-
-        Call<List<Newsfeed>> call = apiService.postPostLookUp(lookUpInfo);
-
-        call.enqueue(new Callback<List<Newsfeed>>() {
-            @Override
-            public void onResponse(Call<List<Newsfeed>> call, Response<List<Newsfeed>> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        List<Newsfeed> foundNewsfeeds = response.body();
-
-                        if (foundNewsfeeds.size() == 0) {
-                            tvNothing.setVisibility(View.VISIBLE);
-                            loadingPanel.setVisibility(View.GONE);
-                        } else {
-                            tvNothing.setVisibility(View.GONE);
-                            loadingPanel.setVisibility(View.GONE);
-                            assignFoundNewsfeedsToListView(foundNewsfeeds);
-                        }
-                    } else {
-                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        Toast.makeText(LookUpResultActivity.this, jsonObject.get("detail").toString(), Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception ex) {
-                    Log.e("ERROR601: ", ex.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Newsfeed>> call, Throwable t) {
-                Toast.makeText(LookUpResultActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void assignFoundNewsfeedsToListView(List<Newsfeed> foundNewsfeeds) {
-        for (int i = 0; i < foundNewsfeeds.size(); i++) {
-            newsfeedArrayList.add(foundNewsfeeds.get(i));
-            newsFeedAdapter.notifyItemInserted(newsfeedArrayList.size() - 1);
-        }
     }
 
     /* CHAT LOOK UP FROM HERE */

@@ -62,6 +62,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     private TextView tvNothing;
 
+    private NewsfeedLoader newsfeedLoader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
         getUserInfo();
 
         // get the user's posts then display it on the ListView
-        getMyPost(username);
+        newsfeedLoader.start();
 
         // init isMyProfile variable
         isMyProfile = ApplicationInfo.username.equals(username);
@@ -253,6 +255,8 @@ public class ProfileActivity extends AppCompatActivity {
         if(extras != null) {
             username = extras.getString(ApplicationInfo.KEY_TO_PROFILE_ACTIVITY);
         }
+
+        newsfeedLoader = new NewsfeedLoader(this, gvPosts, newsfeedArrayList, newsFeedAdapter, tvNothing, loadingPanelUserPost, 2, username);
     }
 
     private void getUserInfo() {
@@ -376,52 +380,6 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Detail> call, Throwable t) {
-                Toast.makeText(ProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void getMyPost(String username) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApplicationInfo.apiPath)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        ApiService apiService = retrofit.create(ApiService.class);
-
-        Call<List<Newsfeed>> call = apiService.getMyPost(username);
-
-        call.enqueue(new Callback<List<Newsfeed>>() {
-            @Override
-            public void onResponse(Call<List<Newsfeed>> call, Response<List<Newsfeed>> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        List<Newsfeed> responseList = response.body();
-
-                        // add the elements in responseList to newsfeedArrayList
-                        for (Newsfeed i : responseList) {
-                            newsfeedArrayList.add(i);
-                            // update the ListView every one post
-                            newsFeedAdapter.notifyItemInserted(newsfeedArrayList.size() - 1);
-                        }
-                        loadingPanelUserPost.setVisibility(View.GONE);
-
-                        // set the visibility of "NOTHING TO SHOW" to GONE
-                        tvNothing.setVisibility(View.GONE);
-                    } else if (response.code() == 600) {
-                        loadingPanelUserPost.setVisibility(View.GONE);
-                        // set the visibility of "NOTHING TO SHOW" to VISIBLE
-                        tvNothing.setVisibility(View.VISIBLE);
-                    } else {
-                        Toast.makeText(ProfileActivity.this, response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
-                    }
-                } catch (Exception ex) {
-                    Log.e("ERROR100: ", ex.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Newsfeed>> call, Throwable t) {
                 Toast.makeText(ProfileActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

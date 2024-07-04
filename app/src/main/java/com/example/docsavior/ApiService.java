@@ -61,9 +61,9 @@ public interface ApiService {
     @POST("/newsfeed/undislike")
     Call<Detail> postUndislike(@Query("id") Integer id);
     @GET("/newsfeed/me")
-    Call<List<Newsfeed>> getMyPost(@Query("username") String username);
+    Call<List<Newsfeed>> getMyPost(@Query("username") String username, @Query("page") Integer page, @Query("pageSize") Integer pageSize);
     @POST("/newsfeed/look_up")
-    Call<List<Newsfeed>> postPostLookUp(@Query("lookUpInfo") String lookUpInfo);
+    Call<List<Newsfeed>> postPostLookUp(@Query("lookUpInfo") String lookUpInfo, @Query("page") Integer page, @Query("pageSize") Integer pageSize);
     @GET("/newsfeed/id")
     Call<Newsfeed> getNewsfeedById(@Query("id") Integer id);
     @POST("/newsfeed/comment")
@@ -72,6 +72,11 @@ public interface ApiService {
     Call<Detail> postUncomment(@Query("id") Integer id);
     @GET("/newsfeed/size")
     Call<Integer> getNumberOfPosts();
+    @GET("/newsfeed/me_size")
+    Call<Integer> getNumberOfMyPosts(@Query("username") String username);
+    @GET("/newsfeed/found_size")
+    Call<Integer> getNumberOfFoundPosts(@Query("lookUpInfo") String lookUpInfo);
+
 
 
     @POST("/user_interact/interact")
