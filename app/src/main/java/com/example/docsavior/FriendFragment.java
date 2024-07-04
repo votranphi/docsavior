@@ -183,6 +183,7 @@ public class FriendFragment extends Fragment {
                         Requester requesters = response.body();
                         if (requesters.getRequesters().length == 0) {
                             tvNothing.setVisibility(View.VISIBLE);
+                            loadingPanel.setVisibility(View.GONE);
                         } else {
                             tvNothing.setVisibility(View.GONE);
 

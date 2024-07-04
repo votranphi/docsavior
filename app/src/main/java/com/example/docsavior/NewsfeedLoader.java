@@ -98,6 +98,7 @@ public class NewsfeedLoader extends Thread {
                         if(numberOfPost==0)
                         {
                             tvNothing.setVisibility(View.VISIBLE);
+                            loadingPanel.setVisibility(View.GONE);
                         }
                     }
                 }

@@ -176,6 +176,7 @@ public class NotificationFragment extends Fragment implements NotificationInterf
                         if (responseList.size() == 0) {
                             // set the visibility of "NOTHING TO SHOW" to GONE
                             tvNothing.setVisibility(View.VISIBLE);
+                            loadingPanel.setVisibility(View.GONE);
                         } else {
                             // add the elements in responseList to newsFeedArrayList
                             for (Notification i : responseList) {

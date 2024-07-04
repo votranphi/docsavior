@@ -187,6 +187,7 @@ public class ConversationFragment extends Fragment implements ConversationInterf
                     } else if (response.code() == 600) {
                         // set the visibility of "NOTHING TO SHOW" to VISIBLE
                         tvNothing.setVisibility(View.VISIBLE);
+                        loadingPanel.setVisibility(View.GONE);
                     } else {
                         Toast.makeText(getActivity(), response.code() + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     }
