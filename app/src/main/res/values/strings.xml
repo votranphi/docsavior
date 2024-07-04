@@ -47,7 +47,7 @@
     <string name="there_is_nothing_to_show">There is nothing to show</string>
     <string name="otp_verification">OTP Verification</string>
     <string name="one_time_password_sent">One Time Password (OTP)\nhas been sent to your Email</string>
-    <string name="reset_password_in">Resent OTP in</string>
+    <string name="reset_password_in">Resend OTP</string>
     <string name="verify">Verify</string>
     <string name="password_confirm">Confirm your password</string>
     <string name="send_request">Send request</string>
