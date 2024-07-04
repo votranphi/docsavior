@@ -31,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProfileDetailActivity extends AppCompatActivity {
 
     private EditText etUsername, etEmail, etBirthday, etPhone, etFullname;
+    private TextView tvEmail, tvBirthday, tvPhone, tvGender;
     private RelativeLayout rltEditProfile;
     private ImageButton btnClose;
     private Spinner spGender;
@@ -61,6 +62,11 @@ public class ProfileDetailActivity extends AppCompatActivity {
             spGender.setVisibility(View.GONE);
             etBirthday.setVisibility(View.GONE);
             etPhone.setVisibility(View.GONE);
+            tvPhone.setVisibility(View.GONE);
+            tvEmail.setVisibility(View.GONE);
+            tvGender.setVisibility(View.GONE);
+            tvBirthday.setVisibility(View.GONE);
+
 //            etUsername.setFocusable(false);
 //            etUsername.setClickable(false);
 //            etFullname.setFocusable(false);
@@ -92,6 +98,10 @@ public class ProfileDetailActivity extends AppCompatActivity {
 
         //Relative layout (clickable)
         rltEditProfile = findViewById(R.id.rltEditProfile);
+        tvBirthday = findViewById(R.id.tvBirthday);
+        tvEmail = findViewById(R.id.tvEmail);
+        tvPhone = findViewById(R.id.tvPhone);
+        tvGender = findViewById(R.id.tvGender);
     }
 
     private void setOnClickListeners() {

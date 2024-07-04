@@ -94,7 +94,8 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             // if it isn't mine
             btnListFriend.setVisibility(View.GONE);
-
+            imgUserAvatar.setClickable(false);
+            imgUserAvatar.setFocusable(false);
             // check and set the function of the btnAddFriend
             checkAndSetTheBtnAddFriend();
         }
