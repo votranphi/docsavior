@@ -27,7 +27,7 @@ Download: [Docsavior]()
 
 ### As a developer
 
-If you want to continually work on this project, you will need to have Android Studio (Android Studio Hedgehog (Nov 2023) or later). Then follow these steps:  
+If you want to make further work on this project, you will need Android Studio (Android Studio Hedgehog (Nov 2023) or later). Then follow these steps:  
 1. Clone this repository to your device
 2. Open Android Studio and open the folder
 3. Run the application on your virtual device or a real phone (Remember this application only works on android)
