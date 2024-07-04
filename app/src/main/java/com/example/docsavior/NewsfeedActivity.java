@@ -96,8 +96,6 @@ public class NewsfeedActivity extends AppCompatActivity implements FragmentNavig
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        ZegoUIKitPrebuiltCallService.unInit();
     }
 
     private void startService(String userID) {
