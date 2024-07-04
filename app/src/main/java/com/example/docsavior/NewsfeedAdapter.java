@@ -174,24 +174,26 @@ public class NewsfeedAdapter extends RecyclerView.Adapter<NewsfeedAdapter.ViewHo
         holder.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    // get the post first
-                    Newsfeed post = newsfeedList.get(position);
+                new Thread(() -> {
+                    try {
+                        // get the post first
+                        Newsfeed post = newsfeedList.get(position);
 
-                    // create jsonArray to store fileData
-                    JSONArray jsonArray = new JSONArray(post.getFileData());
-                    // convert jsonArray to byteArray
-                    byte[] byteArray = new byte[jsonArray.length()];
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        int temp = (int)jsonArray.get(i);
-                        byteArray[i] = (byte)temp;
+                        // create jsonArray to store fileData
+                        JSONArray jsonArray = new JSONArray(post.getFileData());
+                        // convert jsonArray to byteArray
+                        byte[] byteArray = new byte[jsonArray.length()];
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            int temp = (int)jsonArray.get(i);
+                            byteArray[i] = (byte)temp;
+                        }
+
+                        // save file to Download
+                        writeFileToDownloads(byteArray, post.getFileName(), post.getFileExtension());
+                    } catch (Exception ex) {
+                        Log.e("ERROR987: ", ex.getMessage());
                     }
-
-                    // save file to Download
-                    writeFileToDownloads(byteArray, post.getFileName(), post.getFileExtension());
-                } catch (Exception ex) {
-                    Log.e("ERROR987: ", ex.getMessage());
-                }
+                }).start();
             }
         });
 

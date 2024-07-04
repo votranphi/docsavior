@@ -436,21 +436,23 @@ public class PostDetailActivity extends AppCompatActivity {
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    // create jsonArray to store fileData
-                    JSONArray jsonArray = new JSONArray(newsFeed.getFileData());
-                    // convert jsonArray to byteArray
-                    byte[] byteArray = new byte[jsonArray.length()];
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        int temp = (int)jsonArray.get(i);
-                        byteArray[i] = (byte)temp;
-                    }
+                new Thread(() -> {
+                    try {
+                        // create jsonArray to store fileData
+                        JSONArray jsonArray = new JSONArray(newsFeed.getFileData());
+                        // convert jsonArray to byteArray
+                        byte[] byteArray = new byte[jsonArray.length()];
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            int temp = (int)jsonArray.get(i);
+                            byteArray[i] = (byte)temp;
+                        }
 
-                    // save file to Download
-                    writeFileToDownloads(byteArray, newsFeed.getFileName(), newsFeed.getFileExtension());
-                } catch (Exception ex) {
-                    Log.e("ERROR009: ", ex.getMessage());
-                }
+                        // save file to Download
+                        writeFileToDownloads(byteArray, newsFeed.getFileName(), newsFeed.getFileExtension());
+                    } catch (Exception ex) {
+                        Log.e("ERROR009: ", ex.getMessage());
+                    }
+                }).start();
             }
         });
     }
