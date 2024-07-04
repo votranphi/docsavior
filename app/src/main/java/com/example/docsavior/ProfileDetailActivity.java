@@ -2,6 +2,7 @@ package com.example.docsavior;
 
 import static com.example.docsavior.ApplicationInfo.username;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -30,11 +31,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProfileDetailActivity extends AppCompatActivity {
 
     private EditText etUsername, etEmail, etBirthday, etPhone, etFullname;
+    private TextView tvEmail, tvBirthday, tvPhone, tvGender;
     private RelativeLayout rltEditProfile;
     private ImageButton btnClose;
     private Spinner spGender;
     private ArrayList<String> userInfo = null;
 
+    @SuppressLint("UseCompatLoadingForColorStateLists")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,21 +54,30 @@ public class ProfileDetailActivity extends AppCompatActivity {
             // if it's mine
             etUsername.setFocusable(false);
             etUsername.setClickable(false);
+            etUsername.setBackgroundTintList(getResources().getColorStateList(R.color.grey));
         } else {
             // if it isn't mine
             rltEditProfile.setVisibility(View.GONE);
-            etUsername.setFocusable(false);
-            etUsername.setClickable(false);
-            etFullname.setFocusable(false);
-            etFullname.setClickable(false);
-            etEmail.setFocusable(false);
-            etEmail.setClickable(false);
-            spGender.setClickable(false);
-            spGender.setFocusable(false);
-            etBirthday.setFocusable(false);
-            etBirthday.setClickable(false);
-            etPhone.setFocusable(false);
-            etPhone.setClickable(false);
+            etEmail.setVisibility(View.GONE);
+            spGender.setVisibility(View.GONE);
+            etBirthday.setVisibility(View.GONE);
+            etPhone.setVisibility(View.GONE);
+            tvPhone.setVisibility(View.GONE);
+            tvEmail.setVisibility(View.GONE);
+            tvGender.setVisibility(View.GONE);
+            tvBirthday.setVisibility(View.GONE);
+
+//            etUsername.setFocusable(false);
+//            etUsername.setClickable(false);
+//            etFullname.setFocusable(false);
+//            etFullname.setClickable(false);
+//            etEmail.setFocusable(false);
+//            etEmail.setClickable(false);
+//            spGender.setEnabled(false);
+//            etBirthday.setFocusable(false);
+//            etBirthday.setClickable(false);
+//            etPhone.setFocusable(false);
+//            etPhone.setClickable(false);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -86,6 +98,10 @@ public class ProfileDetailActivity extends AppCompatActivity {
 
         //Relative layout (clickable)
         rltEditProfile = findViewById(R.id.rltEditProfile);
+        tvBirthday = findViewById(R.id.tvBirthday);
+        tvEmail = findViewById(R.id.tvEmail);
+        tvPhone = findViewById(R.id.tvPhone);
+        tvGender = findViewById(R.id.tvGender);
     }
 
     private void setOnClickListeners() {

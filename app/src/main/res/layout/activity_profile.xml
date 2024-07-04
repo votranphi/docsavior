@@ -127,11 +127,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/rltUserInfo">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/srlMyPost">
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:numColumns="2"
             android:id="@+id/gvPosts"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         <TextView
             android:id="@+id/tvNothing"
             android:layout_width="wrap_content"

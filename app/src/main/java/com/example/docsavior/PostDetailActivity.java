@@ -66,6 +66,7 @@ public class PostDetailActivity extends AppCompatActivity {
     private Newsfeed newsFeed = null;
 
     private TextView tvDateTime;
+    private View loadingPanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +102,7 @@ public class PostDetailActivity extends AppCompatActivity {
         imgPost = findViewById(R.id.imgPost);
         tvDocumentName = findViewById(R.id.tvDocumentName);
         tvDateTime = findViewById(R.id.tvDateTime);
+        loadingPanel = findViewById(R.id.loadingPanel);
     }
 
     private void checkInteract()
@@ -552,9 +554,10 @@ public class PostDetailActivity extends AppCompatActivity {
 
                         if (comments.size() == 0) {
                             tvNothing.setVisibility(View.VISIBLE);
+                            loadingPanel.setVisibility(View.GONE);
                         } else {
                             tvNothing.setVisibility(View.GONE);
-
+                            loadingPanel.setVisibility(View.GONE);
                             for (Comment i : comments) {
                                 // call API to get avatarData
                                 PostDetail postDetail = new PostDetail(i.getIdComment(), i.getUsername(), i.getCommentContent(), i.getTime());
