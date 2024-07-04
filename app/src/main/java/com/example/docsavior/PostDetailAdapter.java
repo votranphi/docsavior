@@ -101,7 +101,7 @@ public class PostDetailAdapter extends ArrayAdapter<PostDetail> {
         });
     }
     private void setImage(ImageView imageView, String avatarData) {
-        if (!avatarData.isEmpty()) {
+        if (avatarData != null && !avatarData.isEmpty()) {
             StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(context, avatarData, imageView, false);
             stringToImageViewAsync.execute();
         }

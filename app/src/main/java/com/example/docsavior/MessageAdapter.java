@@ -232,7 +232,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     private void setImage(ImageView imageView, String avatarData) {
-        if (!avatarData.isEmpty()) {
+        if (avatarData != null && !avatarData.isEmpty()) {
             StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(context, avatarData, imageView, false);
             stringToImageViewAsync.execute();
         }

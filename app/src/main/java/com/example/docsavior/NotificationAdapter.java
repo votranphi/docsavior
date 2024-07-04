@@ -149,7 +149,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
     private void setImage(ImageView imageView, String avatarData) {
-        if (!avatarData.isEmpty()) {
+        if (avatarData != null && !avatarData.isEmpty()) {
             StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(context, avatarData, imageView, false);
             stringToImageViewAsync.execute();
         }

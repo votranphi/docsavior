@@ -705,7 +705,7 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     private void setImage(ImageView imageView, String avatarData, Boolean isPostImage) {
-        if (!avatarData.isEmpty()) {
+        if (avatarData != null && !avatarData.isEmpty()) {
             StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(this, avatarData, imageView, isPostImage);
             stringToImageViewAsync.execute();
         }

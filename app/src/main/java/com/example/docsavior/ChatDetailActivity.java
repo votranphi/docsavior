@@ -222,7 +222,7 @@ public class ChatDetailActivity extends AppCompatActivity {
     }
 
     private void setImage(ImageView imageView, String avatarData) {
-        if (!avatarData.isEmpty()) {
+        if (avatarData != null && !avatarData.isEmpty()) {
             StringToImageViewAsync stringToImageViewAsync = new StringToImageViewAsync(this, avatarData, imageView, false);
             stringToImageViewAsync.execute();
         }
