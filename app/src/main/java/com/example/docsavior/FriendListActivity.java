@@ -15,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,8 @@ public class FriendListActivity extends AppCompatActivity {
 
     private FriendAdapter friendAdapter;
     private ArrayList<Friend> friendArrayList;
+    private View loadingPanel;
+    private SwipeRefreshLayout srlFriendList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,8 @@ public class FriendListActivity extends AppCompatActivity {
         btnClose = findViewById(R.id.btnClose);
         rcvFriendList = findViewById(R.id.rcvFriendList);
         tvNothing = findViewById(R.id.tvNothing);
+        loadingPanel = findViewById(R.id.loadingPanel);
+        srlFriendList  = findViewById(R.id.srlFriendList);
     }
 
     private void setOnClickListeners() {
@@ -59,6 +64,16 @@ public class FriendListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 finish();
                 overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
+            }
+        });
+        srlFriendList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadingPanel.setVisibility(View.VISIBLE);
+                friendArrayList.clear();
+                friendAdapter.notifyDataSetChanged();
+                getAllMyFriends();
+                srlFriendList.setRefreshing(false);
             }
         });
     }
@@ -93,9 +108,10 @@ public class FriendListActivity extends AppCompatActivity {
                         Friends friends = response.body();
                         if (friends.getFriends().length == 0) {
                             tvNothing.setVisibility(View.VISIBLE);
+                            loadingPanel.setVisibility(View.GONE);
                         } else {
                             tvNothing.setVisibility(View.GONE);
-
+                            loadingPanel.setVisibility(View.GONE);
                             assignFriendsToListView(friends);
                         }
                     } else {

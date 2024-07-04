@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.json.JSONArray;
 
@@ -63,6 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView tvNothing;
 
     private NewsfeedLoader newsfeedLoader;
+    private SwipeRefreshLayout srlMyPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnClose = findViewById(R.id.btnClose);
         loadingPanelUserInfo = findViewById(R.id.loadingPanelUserInfo);
         loadingPanelUserPost = findViewById(R.id.loadingPanelUserPost);
+        srlMyPost = findViewById(R.id.srlMyPost);
     }
 
     private void setOnClickListeners() {
@@ -172,6 +175,16 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        srlMyPost.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                newsfeedArrayList.clear();
+                newsfeedLoader.interrupt();
+                initVariables();
+                newsfeedLoader.start();
+                srlMyPost.setRefreshing(false);
+            }
+        });
         btnListFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
