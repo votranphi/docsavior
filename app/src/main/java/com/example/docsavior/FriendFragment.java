@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -94,6 +95,8 @@ public class FriendFragment extends Fragment {
     private ArrayList<Friend> friendArrayList;
     private TextView tvNothing;
 
+    private SwipeRefreshLayout srlFriend;
+
     private View loadingPanel;
     // this function is the same as onCreate() in Activity
     @Override
@@ -113,6 +116,7 @@ public class FriendFragment extends Fragment {
         lvRequest = getView().findViewById(R.id.lvRequest);
         tvNothing = getView().findViewById(R.id.tvNothing);
         loadingPanel = getView().findViewById(R.id.loadingPanel);
+        srlFriend = getView().findViewById(R.id.srlFriend);
     }
 
     private void setOnClickListeners() {
@@ -135,17 +139,16 @@ public class FriendFragment extends Fragment {
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-        lvRequest.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+        srlFriend.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(!recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE)
-                {
-                    loadingPanel.setVisibility(View.VISIBLE);
-                    friendArrayList.clear();
-                    friendAdapter.notifyDataSetChanged();
-                    loadFriendRequests();
-                }
+            public void onRefresh() {
+                loadingPanel.setVisibility(View.VISIBLE);
+                friendArrayList.clear();
+                friendAdapter.notifyDataSetChanged();
+                loadFriendRequests();
+
+                srlFriend.setRefreshing(false);
             }
         });
     }

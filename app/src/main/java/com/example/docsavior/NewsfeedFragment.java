@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -84,6 +85,8 @@ public class NewsfeedFragment extends Fragment {
     private View loadingPanel;
     private NewsfeedLoader newsfeedLoader;
 
+    private SwipeRefreshLayout srlPost;
+
     // this function is the same as onCreate() in Activity
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -104,6 +107,7 @@ public class NewsfeedFragment extends Fragment {
         lvPost = getView().findViewById(R.id.lvPost);
         tvNothing = getView().findViewById(R.id.tvNothing);
         loadingPanel = getView().findViewById(R.id.loadingPanel);
+        srlPost = getView().findViewById(R.id.srlPost);
     }
 
     private void setOnClickListeners() {
@@ -137,19 +141,17 @@ public class NewsfeedFragment extends Fragment {
             }
         });
 
-        lvPost.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        srlPost.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (!recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE) // when user scrolls up, reload posts
-                {
-                    loadingPanel.setVisibility(View.VISIBLE);
-                    newsfeedArrayList.clear();
-                    newsFeedAdapter.notifyDataSetChanged();
-                    newsfeedLoader.interrupt();
-                    newsfeedLoader = new NewsfeedLoader(getActivity(), lvPost, newsfeedArrayList, newsFeedAdapter, tvNothing, loadingPanel, 0, "");
-                    newsfeedLoader.start();
-                }
+            public void onRefresh() {
+                loadingPanel.setVisibility(View.VISIBLE);
+                newsfeedArrayList.clear();
+                newsFeedAdapter.notifyDataSetChanged();
+                newsfeedLoader.interrupt();
+                newsfeedLoader = new NewsfeedLoader(getActivity(), lvPost, newsfeedArrayList, newsFeedAdapter, tvNothing, loadingPanel, 0, "");
+                newsfeedLoader.start();
+
+                srlPost.setRefreshing(false);
             }
         });
     }

@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +93,8 @@ public class NotificationFragment extends Fragment implements NotificationInterf
     private NotificationAdapter adapter;
     private View loadingPanel;
 
+    private SwipeRefreshLayout srlNotification;
+
     private static FragmentNavigation fragmentNavigation;
 
     @Override
@@ -124,6 +127,8 @@ public class NotificationFragment extends Fragment implements NotificationInterf
 
         lvNotification.setAdapter(adapter);
         lvNotification.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        srlNotification = getView().findViewById(R.id.srlNotification);
     }
     private void setOnClickListeners()
     {
@@ -136,17 +141,16 @@ public class NotificationFragment extends Fragment implements NotificationInterf
                 requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-        lvNotification.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+        srlNotification.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(!recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE)
-                {
-                    loadingPanel.setVisibility(View.VISIBLE);
-                    notificationArrayList.clear();
-                    adapter.notifyDataSetChanged();
-                    loadNotifications();
-                }
+            public void onRefresh() {
+                loadingPanel.setVisibility(View.VISIBLE);
+                notificationArrayList.clear();
+                adapter.notifyDataSetChanged();
+                loadNotifications();
+
+                srlNotification.setRefreshing(false);
             }
         });
     }

@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.w3c.dom.Text;
 
@@ -94,6 +95,9 @@ public class ConversationFragment extends Fragment implements ConversationInterf
     private ArrayList<Conversation> conversationArrayList;
     private ConversationAdapter conversationAdapter;
     private View loadingPanel;
+
+    private SwipeRefreshLayout srlConversation;
+
     // this function is the same as onCreate() in Activity
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -112,6 +116,7 @@ public class ConversationFragment extends Fragment implements ConversationInterf
         tvNothing = getView().findViewById(R.id.tvNothing);
         btnLookup = getView().findViewById(R.id.btnLookup);
         loadingPanel = getView().findViewById(R.id.loadingPanel);
+        srlConversation = getView().findViewById(R.id.srlConversation);
     }
 
     public void setOnClickListeners() {
@@ -134,17 +139,16 @@ public class ConversationFragment extends Fragment implements ConversationInterf
                 getActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
             }
         });
-        rcvConversationList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+        srlConversation.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if(!recyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE)
-                {
-                    loadingPanel.setVisibility(View.VISIBLE);
-                    conversationArrayList.clear();
-                    conversationAdapter.notifyDataSetChanged();
-                    getAndSetConversations();
-                }
+            public void onRefresh() {
+                loadingPanel.setVisibility(View.VISIBLE);
+                conversationArrayList.clear();
+                conversationAdapter.notifyDataSetChanged();
+                getAndSetConversations();
+
+                srlConversation.setRefreshing(false);
             }
         });
     }
