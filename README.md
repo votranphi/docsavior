@@ -23,7 +23,7 @@ API repository: [NT118.O22_Group10_RestApi](https://github.com/votranphi/NT118.O
 ### As a user
 
 You can download this application in the link below and use it normally.  
-Download: [Docsavior]()
+Download: [Docsavior](https://drive.google.com/file/d/1u6PNSgmPog-Z1sqOU8PAgfU5vGr16JFx/view?usp=sharing)
 
 ### As a developer
 
