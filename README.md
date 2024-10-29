@@ -16,7 +16,7 @@ We hope that in the future, this application will grow into a thriving learning 
 
 ## API reference
 For detailed information about our API, please visit our API repository. Your feedback and contributions are appreciated.
-API repository: [NT118.O22_Group10_RestApi](https://github.com/votranphi/NT118.O22_Group10_RestApi)
+API repository: [docsavior-api](https://github.com/votranphi/docsavior-api)
 
 ## How to use
 
