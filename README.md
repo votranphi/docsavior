@@ -1,5 +1,16 @@
 # Docsavior - Place to find saviors for your study
 
+![Repo Size](https://img.shields.io/github/repo-size/votranphi/docsavior)
+![Last Commit](https://img.shields.io/github/last-commit/votranphi/docsavior)
+![Open Issues](https://img.shields.io/github/issues/votranphi/docsavior)
+![License](https://img.shields.io/github/license/votranphi/docsavior)
+
+![Android](https://img.shields.io/badge/Android-3DDC84?style=flat-square&logo=android&logoColor=white)
+![Android Studio](https://img.shields.io/badge/Android%20Studio-3DDC84?style=flat-square&logo=android-studio&logoColor=white)
+![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?style=flat-square&logo=openjdk&logoColor=white)
+![Retrofit2](https://img.shields.io/badge/Retrofit2-%23007396.svg?style=flat-square)
+![Gradle](https://img.shields.io/badge/Gradle-02303A.svg?style=flat-square&logo=gradle&logoColor=white)
+
 Docsavior is a mobile application designed to help students and learners find the documents they need for their studies. Whether you're searching for study materials or sharing your own documents with others, Docsavior is the place for you. 
 
 ## Motivation
@@ -46,6 +57,9 @@ If you want to make further work on this project, you will need Android Studio (
 - Notifications: Receive notifications about your activities.
 - App Settings: Turn off notifications, change your password, and log out.
 - Password Recovery: Recover your password with OTP verification.
+
+## License
+This project is licensed under the [Apache License 2.0](LICENSE). See the `LICENSE` file for details.
 
 ## Credits
 
